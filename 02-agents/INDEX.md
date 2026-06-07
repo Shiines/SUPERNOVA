@@ -8,7 +8,7 @@
 
 | Task | Agent |
 |------|-------|
-| Client briefing, vision, business strategy | `atlas.md` |
+| Client briefing, vision, business strategy | `supernova.md` |
 | Project timeline, phases, coordination | `chef-de-projet.md` |
 | Session log, decisions, notes | `journal-de-bord.md` |
 | Market analysis, positioning | `strategie.md` |

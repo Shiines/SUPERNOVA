@@ -1,4 +1,4 @@
-# Agent: atlas
+# Agent: supernova
 
 ## Role
 [Define this agent's core responsibility — 1 sentence]

@@ -38,7 +38,7 @@
 
 ## Agents (18)
 
-**Piloting:** atlas · chef-de-projet · journal-de-bord
+**Piloting:** supernova · chef-de-projet · journal-de-bord
 **Site creation (core):** strategie · copywriting · ux-conversion · direction-artistique · seo-local · dev-html-css-js · audit-qualite · maintenance
 **Business/money:** commercial · business-developer · media-buyer · finance · marco
 **Content/watch:** community-manager · veille
@@ -73,7 +73,7 @@ Agents by phase → see `00-system/workflow/`
 ## Session Loop
 
 ```
-Morning   → /atlas        (read primer → briefing)
+Morning   → /supernova    (read primer → briefing)
 Creation  → /nouveau-client → workflow phase by phase
             each validated phase → decisions.md → /clear
 During    → /status

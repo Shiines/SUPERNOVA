@@ -1,7 +1,7 @@
 # Brief — [Client Name]
 
 **Date:** [date]
-**Agent:** atlas
+**Agent:** supernova
 
 ---
 

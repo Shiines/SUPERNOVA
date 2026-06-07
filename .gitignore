@@ -1,0 +1,6 @@
+# macOS noise
+.DS_Store
+**/.DS_Store
+
+# Local dev server config (machine-specific)
+.claude/launch.json

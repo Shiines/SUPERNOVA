@@ -1,4 +1,4 @@
-# /atlas — Morning Briefing
+# /supernova — Morning Briefing
 
 ## What It Does
 Starts the session. Reads primer.md, surfaces priorities, sets the day's agenda.
