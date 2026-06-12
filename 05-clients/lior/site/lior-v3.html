@@ -400,7 +400,7 @@ nav.sc{padding:16px 56px;background:rgba(14,14,16,.94);backdrop-filter:blur(22px
 
 /* ── STATS BAR — no hard edges ── */
 .stats-bar{
-  display:grid;grid-template-columns:repeat(3,1fr);
+  display:grid;grid-template-columns:repeat(4,1fr);
   position:relative;
 }
 .stats-bar::before,.stats-bar::after{
@@ -428,7 +428,8 @@ nav.sc{padding:16px 56px;background:rgba(14,14,16,.94);backdrop-filter:blur(22px
 }
 .stat-item:hover .stat-n{transform:perspective(300px) rotateX(-5deg) translateZ(4px)}
 .stat-l{font-size:10px;letter-spacing:.18em;color:var(--st-d);font-weight:400;text-transform:uppercase}
-@media(max-width:900px){.stats-bar{grid-template-columns:repeat(3,1fr)}.stat-item{padding:22px 12px}.stat-l{font-size:9px;letter-spacing:.09em}}
+@media(max-width:900px){.stats-bar{grid-template-columns:repeat(2,1fr)}.stat-item{padding:28px 16px}.stat-l{font-size:9px;letter-spacing:.09em}}
+@media(max-width:480px){.stats-bar{grid-template-columns:1fr 1fr}.stat-item{padding:22px 12px}}
 
 /* ── SECTOR GRID — 3 practice columns ── */
 .sv-head{max-width:560px;margin-bottom:64px}
@@ -842,15 +843,19 @@ footer::before{
 <div class="stats-bar">
   <div class="stat-item rf">
     <div class="stat-n" data-count="72" data-suf="h">—</div>
-    <div class="stat-l">Guaranteed delivery</div>
+    <div class="stat-l">From empty to live listing</div>
   </div>
   <div class="stat-item rf d1">
     <div class="stat-n">+40%</div>
-    <div class="stat-l">More listing views, on average</div>
+    <div class="stat-l">More buyers stop scrolling</div>
   </div>
   <div class="stat-item rf d2">
-    <div class="stat-n">100%</div>
-    <div class="stat-l">Revisions always included</div>
+    <div class="stat-n" data-count="3" data-suf="×">—</div>
+    <div class="stat-l">More offers. Staged vs empty.</div>
+  </div>
+  <div class="stat-item rf d3">
+    <div class="stat-n">Zero</div>
+    <div class="stat-l">Revision fees. Ever.</div>
   </div>
 </div>
 
