@@ -3,16 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Walk through the space before you visit. See it designed before you decide. Build it exactly as imagined. LIOR creates cinematic property experiences that captivate buyers and turn visions into reality.">
-<meta property="og:title" content="LIOR · Real Estate Visualization Studio">
-<meta property="og:description" content="Walk through the space before you visit. See it designed before you decide. Build it exactly as imagined.">
-<meta property="og:type" content="website">
-<meta name="theme-color" content="#0E0E10">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230E0E10'/><text x='50%' y='56%' dominant-baseline='middle' text-anchor='middle' font-family='Georgia,serif' font-size='11' font-weight='300' fill='%23E8B873' letter-spacing='2'>LIOR</text></svg>">
-<title>LIOR · Real Estate Visualization Studio · Dubai</title>
-<!-- Google Analytics — replace G-XXXXXXXXXX with real ID -->
-<!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script> -->
+<title>LIOR — Real Estate Visualization Studio · Dubai</title>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;0,9..144,400;1,9..144,200;1,9..144,300&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
@@ -87,14 +78,6 @@ nav{
 }
 nav.vis{opacity:1}
 nav.sc{padding:16px 56px;background:rgba(14,14,16,.94);backdrop-filter:blur(22px)}
-@media(max-width:900px){
-  nav{padding:18px 24px;}
-  nav.sc{padding:14px 24px;}
-  .nav-links li:not(:last-child){display:none}
-}
-@media(max-width:480px){
-  nav{padding:16px 20px;}
-}
 .nav-logo{
   font-family:'Fraunces',serif;font-size:19px;font-weight:300;
   letter-spacing:.22em;color:var(--daylight);text-decoration:none;
@@ -350,10 +333,6 @@ nav.sc{padding:16px 56px;background:rgba(14,14,16,.94);backdrop-filter:blur(22px
 .section{padding:80px 56px;max-width:1240px;margin:0 auto}
 .sec-full{padding:60px 0 90px}
 .sec-full .sec-in{max-width:1240px;margin:0 auto;padding:0 56px}
-@media(max-width:900px){
-  .section{padding:60px 24px}
-  .sec-full .sec-in{padding:0 24px}
-}
 
 /* dark-band: gradient bleed — no hard borders */
 .dark-band{
@@ -430,64 +409,49 @@ nav.sc{padding:16px 56px;background:rgba(14,14,16,.94);backdrop-filter:blur(22px
 .stat-l{font-size:10px;letter-spacing:.18em;color:var(--st-d);font-weight:400;text-transform:uppercase}
 @media(max-width:900px){.stats-bar{grid-template-columns:repeat(3,1fr)}.stat-item{padding:22px 12px}.stat-l{font-size:9px;letter-spacing:.09em}}
 
-/* ── SECTOR GRID — 3 practice columns ── */
-.sv-head{max-width:560px;margin-bottom:64px}
-.sv-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);
-  position:relative;
-}
-.sv-grid::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,rgba(58,54,48,.35) 0%,rgba(58,54,48,.25) 50%,transparent 100%);
-}
-.sv-col{
-  padding:40px 48px 40px 0;
-  position:relative;
-}
-.sv-col:not(:last-child)::after{
-  content:'';position:absolute;top:10%;right:0;bottom:10%;width:1px;
-  background:linear-gradient(to bottom,transparent,rgba(58,54,48,.3) 25%,rgba(58,54,48,.3) 75%,transparent);
-}
-.sv-col:not(:first-child){padding-left:48px;padding-right:0}
-.sv-col:last-child{padding-right:0}
-.sv-cat{
-  font-size:9px;letter-spacing:.26em;text-transform:uppercase;
-  color:var(--gold);margin-bottom:14px;
-}
-.sv-line{width:22px;height:1px;background:var(--gold);opacity:.38;margin-bottom:22px}
-.sv-list{list-style:none}
-.sv-list li{
-  font-family:'Fraunces',serif;font-size:15px;font-weight:300;font-style:italic;
-  color:var(--stone);padding:7px 0;
-  border-bottom:1px solid rgba(255,255,255,.04);
-  transition:color .22s cubic-bezier(.16,1,.3,1),transform .3s cubic-bezier(.16,1,.3,1);
-  cursor:default;
-}
-.sv-list li:last-child{border-bottom:none}
-.sv-list li:hover{color:var(--daylight);transform:translateX(6px)}
-@media(max-width:900px){
-  .sv-grid{grid-template-columns:1fr}
-  .sv-col{padding:30px 0!important}
-  .sv-col:not(:last-child)::after{display:none}
-  .sv-col:not(:last-child){border-bottom:1px solid rgba(58,54,48,.2)}
-}
+/* ── EDITORIAL VERTICALS ── */
+.ev-layout{display:grid;grid-template-columns:1fr 1.15fr;gap:90px;align-items:start}
+.ev-list{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid rgba(255,255,255,.06);margin-top:52px}
+.ev-type{display:flex;align-items:baseline;gap:18px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.04);cursor:default}
+.ev-type-n{font-size:9px;letter-spacing:.14em;color:var(--st-dp);font-family:'Inter',sans-serif;min-width:22px;flex-shrink:0}
+.ev-type-name{font-size:13.5px;color:var(--stone);font-weight:300;transition:color .22s,transform .32s cubic-bezier(.16,1,.3,1)}
+.ev-type:hover .ev-type-name{color:var(--daylight);transform:translateX(5px)}
+@media(max-width:900px){.ev-layout{grid-template-columns:1fr;gap:48px}.ev-list{grid-template-columns:1fr}}
 
-
-/* ── PORTFOLIO ── */
-.port-track-outer{overflow:hidden;margin-top:56px}
+/* ── PORTFOLIO horizontal ── */
+.port-track-outer{overflow:hidden}
 .port-track{display:flex;gap:3px;transition:transform .65s cubic-bezier(.16,1,.3,1)}
-.port-card{flex:0 0 400px;position:relative;overflow:hidden;height:270px;background:var(--ob3);cursor:pointer}
-.port-card-bg{position:absolute;inset:0;transition:transform .5s ease}
-.port-card-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(232,184,115,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(232,184,115,.025) 1px,transparent 1px);background-size:44px 44px}
+.port-card{
+  flex:0 0 400px;position:relative;overflow:hidden;
+  height:270px;background:var(--ob3);cursor:pointer;
+}
+.port-card-bg{
+  position:absolute;inset:0;transition:transform .5s ease;
+}
 .port-card:hover .port-card-bg{transform:scale(1.04)}
-.port-card::before{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(14,14,16,.88) 0%,transparent 60%);z-index:1}
-.port-info{position:absolute;bottom:0;left:0;right:0;z-index:2;padding:20px 22px;transform:translateY(6px);opacity:.85;transition:transform .35s,opacity .35s}
+.port-card::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(0deg,rgba(14,14,16,.85) 0%,transparent 55%);z-index:1;
+}
+/* port-type defined below with white-space:nowrap */
+.port-info{
+  position:absolute;bottom:0;left:0;right:0;z-index:2;padding:18px 20px;
+  transform:translateY(8px);opacity:.85;transition:transform .35s,opacity .35s;
+}
 .port-card:hover .port-info{transform:translateY(0);opacity:1}
-.port-tag{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:5px;opacity:.8}
+.port-tag{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:4px;opacity:.8}
 .port-title{font-size:13px;color:var(--daylight);font-weight:400}
 .port-nav{display:flex;gap:10px;justify-content:flex-end;margin-top:18px}
-.port-btn{width:44px;height:44px;border:1px solid var(--st-dp);background:transparent;color:var(--stone);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;font-size:16px;border-radius:100px}
-.port-btn:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
+.port-btn{
+  width:44px;height:44px;border:1px solid var(--st-dp);background:transparent;
+  color:var(--stone);cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:all .2s;font-size:16px;border-radius:100px;
+  box-shadow:0 2px 0 rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.05);
+}
+.port-btn:hover{
+  border-color:var(--gold);color:var(--gold);transform:translateY(-2px);
+  box-shadow:0 4px 0 rgba(0,0,0,.3),0 6px 16px rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.05);
+}
 
 /* ── FPV ── */
 .fpv-grid{display:grid;grid-template-columns:1fr 1fr;min-height:500px}
@@ -552,7 +516,7 @@ nav.sc{padding:16px 56px;background:rgba(14,14,16,.94);backdrop-filter:blur(22px
 .sp-desc{font-size:13.5px;color:var(--stone);line-height:1.7;margin-top:11px}
 .sp-inc{list-style:none}
 .sp-inc li{font-size:12.5px;color:var(--stone);padding:6px 0;border-bottom:1px solid rgba(255,255,255,.04);display:flex;align-items:center;gap:10px}
-.sp-inc li::before{content:'·';color:var(--gold);opacity:.6;font-size:14px}
+.sp-inc li::before{content:'—';color:var(--gold);opacity:.45;font-size:10px}
 .sp-pr{text-align:right}
 .sp-pr-n{font-family:'Fraunces',serif;font-size:48px;font-weight:200;color:var(--daylight);line-height:1}
 .sp-pr-n sup{font-size:.34em;color:var(--stone);font-family:'Inter';font-weight:300;vertical-align:super}
@@ -632,130 +596,20 @@ nav.sc{padding:16px 56px;background:rgba(14,14,16,.94);backdrop-filter:blur(22px
   animation:ambf 12s ease-in-out infinite reverse;
 }
 
-
-/* ── TOURNIQUET — 3D rotating carousel ── */
-.trn{
-  position:relative;height:440px;perspective:1400px;margin-top:58px;
-  cursor:grab;-webkit-user-select:none;user-select:none;
-}
-.trn:active{cursor:grabbing}
-.trn__stage{position:absolute;inset:0;transform-style:preserve-3d}
-.trn__card{
-  position:absolute;top:50%;left:50%;
-  width:258px;height:340px;margin:-170px 0 0 -129px;
-  border-radius:4px;overflow:hidden;
-  padding:32px 26px;display:flex;flex-direction:column;
-  background:linear-gradient(155deg,rgba(232,184,115,.06) 0%,rgba(14,14,16,.96) 100%);
-  border:1px solid rgba(232,184,115,.16);
-  box-shadow:0 24px 60px rgba(0,0,0,.55),0 0 40px rgba(232,184,115,.05);
-  backface-visibility:visible;will-change:transform,opacity,filter;
-}
-.trn__card::before{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(75% 50% at 65% 12%,rgba(232,184,115,.18),transparent 65%);
-  opacity:.55;pointer-events:none;
-}
-.trn-nav{
-  position:absolute;top:50%;transform:translateY(-50%);z-index:200;
-  width:44px;height:44px;border-radius:50%;
-  border:1px solid rgba(255,255,255,.13);
-  background:rgba(14,14,16,.8);
-  color:var(--stone);display:grid;place-items:center;
-  cursor:pointer;font-size:22px;line-height:0;transition:.2s;
-}
-.trn-nav:hover{background:var(--gold);border-color:var(--gold);color:var(--obsidian)}
-#trnPrev{left:8px}#trnNext{right:8px}
-.trn__n{
-  font-family:'Fraunces',serif;font-size:52px;font-weight:200;
-  color:var(--st-dp);line-height:1;margin-bottom:auto;position:relative;
-}
-.trn__t{
-  font-size:15.5px;color:var(--daylight);font-weight:400;
-  margin-bottom:9px;position:relative;line-height:1.25;
-}
-.trn__d{font-size:12.5px;color:var(--stone);line-height:1.65;position:relative}
-.trn__tag{
-  position:relative;display:inline-block;margin-top:16px;
-  font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);
-}
-@media(max-width:560px){
-  .trn{height:400px}
-  .trn__card{width:220px;height:300px;margin:-150px 0 0 -110px;padding:22px}
-  .trn-nav{display:none}
-}
-
-/* ── BEFORE / AFTER SHOWCASE ── */
-.ba-showcase{display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-top:64px}
-.ba-panel{
-  position:relative;height:420px;overflow:hidden;
-  display:flex;flex-direction:column;justify-content:flex-end;padding:36px 32px;
-}
-.ba-before{background:linear-gradient(155deg,#141210 0%,#0c0b09 100%)}
-.ba-before::before{
+/* portfolio card texture */
+.port-card-bg::after{
   content:'';position:absolute;inset:0;
   background:
-    linear-gradient(to top,rgba(0,0,0,.65) 0%,transparent 55%),
-    repeating-linear-gradient(90deg,transparent,transparent 58px,rgba(255,255,255,.012) 58px,rgba(255,255,255,.012) 59px),
-    repeating-linear-gradient(0deg,transparent,transparent 58px,rgba(255,255,255,.012) 58px,rgba(255,255,255,.012) 59px);
+    linear-gradient(0deg,rgba(232,184,115,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(232,184,115,.025) 1px,transparent 1px);
+  background-size:44px 44px;
 }
-.ba-after{background:linear-gradient(155deg,#2c1f12 0%,#1a1208 100%)}
-.ba-after::before{
-  content:'';position:absolute;inset:0;
-  background:
-    linear-gradient(to top,rgba(14,10,4,.75) 0%,transparent 55%),
-    radial-gradient(ellipse 70% 55% at 55% 28%,rgba(232,184,115,.28) 0%,transparent 60%),
-    radial-gradient(ellipse 40% 35% at 20% 70%,rgba(200,154,88,.1) 0%,transparent 50%);
+.port-type{
+  position:absolute;top:14px;right:14px;z-index:2;
+  font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--stone);background:rgba(14,14,16,.7);
+  padding:4px 10px;white-space:nowrap;
 }
-.ba-label{
-  position:absolute;top:20px;left:20px;
-  font-size:9px;letter-spacing:.2em;text-transform:uppercase;
-  padding:4px 12px;z-index:2;
-}
-.ba-before .ba-label{background:rgba(0,0,0,.55);color:var(--stone)}
-.ba-after .ba-label{background:rgba(232,184,115,.1);color:var(--gold);border:1px solid rgba(232,184,115,.28)}
-.ba-title{
-  position:relative;z-index:2;
-  font-family:'Fraunces',serif;font-size:clamp(20px,2.2vw,30px);
-  font-weight:300;line-height:1.2;
-}
-.ba-before .ba-title{color:rgba(191,179,164,.45)}
-.ba-after .ba-title{color:var(--daylight)}
-.ba-after .ba-title em{color:var(--gold);font-style:italic}
-.ba-body{position:relative;z-index:2;font-size:12.5px;margin-top:8px;line-height:1.65}
-.ba-before .ba-body{color:var(--st-d)}
-.ba-after .ba-body{color:var(--stone)}
-@media(max-width:900px){.ba-showcase{grid-template-columns:1fr}.ba-panel{height:280px}}
-
-/* ── WALKTHROUGH ROOM NAV ── */
-.fpv-rooms{
-  position:absolute;top:50%;right:22px;transform:translateY(-50%);
-  z-index:3;display:flex;flex-direction:column;gap:8px;
-}
-.fpv-room{
-  font-size:9px;letter-spacing:.12em;text-transform:uppercase;
-  padding:4px 10px;color:var(--st-d);cursor:default;
-  border-right:2px solid rgba(255,255,255,.06);
-  transition:color .2s,border-color .2s;text-align:right;
-}
-.fpv-room.on{color:var(--gold);border-color:var(--gold)}
-
-/* fix sp-inc bullet */
-.sp-inc li::before{content:'·';color:var(--gold);opacity:.7;font-size:16px}
-
-/* ── B2C SUB LABEL ── */
-.b2c-sub-label{font-size:clamp(20px,2.2vw,30px);font-family:'Fraunces',serif;font-weight:300;color:var(--daylight);margin-top:64px;margin-bottom:4px}
-
-/* ── FAQ ── */
-.faq-cols{display:grid;grid-template-columns:1fr 1fr;gap:0 72px;margin-top:56px}
-.faq-group-lbl{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);padding-bottom:20px;border-bottom:1px solid rgba(58,54,48,.28)}
-.faq-item{border-bottom:1px solid rgba(58,54,48,.18)}
-.faq-q{width:100%;text-align:left;padding:20px 0;display:flex;justify-content:space-between;align-items:center;background:none;border:none;cursor:none;color:var(--daylight);font-size:14px;font-weight:300;font-family:'Inter',sans-serif;gap:20px;line-height:1.4}
-.faq-q::after{content:'+';color:var(--gold);font-size:22px;font-weight:200;flex-shrink:0;transition:transform .3s cubic-bezier(.16,1,.3,1)}
-.faq-item.open .faq-q::after{transform:rotate(45deg)}
-.faq-a{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.16,1,.3,1)}
-.faq-a p{color:var(--stone);font-size:13px;line-height:1.75;padding-bottom:20px;max-width:520px}
-.faq-item.open .faq-a{max-height:220px}
-@media(max-width:900px){.faq-cols{grid-template-columns:1fr;gap:40px 0}}
 
 /* ── FOOTER ── */
 footer{
@@ -797,11 +651,11 @@ footer::before{
 <nav id="nav">
   <a href="#" class="nav-logo">L I <span class="o">O</span> R</a>
   <ul class="nav-links">
-    <li><a href="#services">For Agencies</a></li>
-    <li><a href="#b2c">For Owners</a></li>
-    <li><a href="#portfolio">Work</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#verticals">Portfolio</a></li>
+    <li><a href="#partnership">Partnership</a></li>
     <li><a href="#process">Process</a></li>
-    <li><a href="#contact" class="pill-nav">Start a project →</a></li>
+    <li><a href="#contact" class="pill-nav">WhatsApp →</a></li>
   </ul>
 </nav>
 
@@ -826,8 +680,8 @@ footer::before{
       </svg>
     </div>
   </div>
-  <div id="h-txt-base">We don't show properties.<br><em>We make them impossible to ignore.</em></div>
-  <div id="h-txt-over">We don't show properties.<br><em>We make them impossible to ignore.</em></div>
+  <div id="h-txt-base">Your listing<br><em>brought to light.</em></div>
+  <div id="h-txt-over">Your listing<br><em>brought to light.</em></div>
   <div class="h-lbl" id="h-lbl-b">Before</div>
   <div class="h-lbl" id="h-lbl-a">After · LIOR</div>
   <div id="h-hint">← Move to reveal →</div>
@@ -853,250 +707,125 @@ footer::before{
   </div>
 </div>
 
-<!-- B2B — FOR REAL ESTATE PROFESSIONALS -->
+<!-- VERTICALS + PORTFOLIO -->
+<div class="dark-band" id="verticals">
+  <div class="section">
+    <div class="ev-layout">
+      <div>
+        <div class="eyebrow rf">Our mandates</div>
+        <h2 class="h2 wstag">
+          <div class="ww"><span>Every space.</span></div>
+          <div class="ww"><span><em>Without exception.</em></span></div>
+        </h2>
+        <p class="sec-sub rf d2" style="margin-bottom:0;max-width:390px">From the single apartment to the five-star resort — LIOR brings the same rigour and precision to every mandate, without hierarchy.</p>
+      </div>
+      <div class="ev-list rf d1">
+        <div class="ev-type"><span class="ev-type-n">01</span><span class="ev-type-name">Residential</span></div>
+        <div class="ev-type"><span class="ev-type-n">02</span><span class="ev-type-name">Off-Plan Development</span></div>
+        <div class="ev-type"><span class="ev-type-n">03</span><span class="ev-type-name">Luxury Villa</span></div>
+        <div class="ev-type"><span class="ev-type-n">04</span><span class="ev-type-name">Hotel & Hospitality</span></div>
+        <div class="ev-type"><span class="ev-type-n">05</span><span class="ev-type-name">Commercial</span></div>
+        <div class="ev-type"><span class="ev-type-n">06</span><span class="ev-type-name">Office Space</span></div>
+        <div class="ev-type"><span class="ev-type-n">07</span><span class="ev-type-name">Short-Term Rental</span></div>
+        <div class="ev-type"><span class="ev-type-n">08</span><span class="ev-type-name">Renovation</span></div>
+        <div class="ev-type"><span class="ev-type-n">09</span><span class="ev-type-name">Sports & Leisure</span></div>
+        <div class="ev-type"><span class="ev-type-n">10</span><span class="ev-type-name">Education</span></div>
+        <div class="ev-type"><span class="ev-type-n">11</span><span class="ev-type-name">Industrial</span></div>
+        <div class="ev-type"><span class="ev-type-n">12</span><span class="ev-type-name">Brand & Institutional</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="section" style="padding-top:72px" id="portfolio">
+      <div class="port-track-outer">
+        <div class="port-track" id="pt">
+          <div class="port-card tilt"><div class="port-card-bg" style="background:linear-gradient(145deg,#2c1f12 0%,#181208 100%)"><div style="position:absolute;inset:0;background:radial-gradient(ellipse at 38% 38%,rgba(232,184,115,.38) 0%,transparent 55%)"></div></div><div class="port-type">Before · After</div><div class="port-info"><div class="port-tag">Dubai Marina · Residential</div><div class="port-title">2BR Apartment — Space Transformation</div></div></div>
+          <div class="port-card tilt"><div class="port-card-bg" style="background:linear-gradient(145deg,#1c1810 0%,#0e0e10 100%)"><div style="position:absolute;inset:0;background:radial-gradient(ellipse at 65% 28%,rgba(232,184,115,.32) 0%,transparent 50%),radial-gradient(ellipse at 20% 70%,rgba(200,154,88,.12) 0%,transparent 45%)"></div></div><div class="port-type">Immersive Walkthrough</div><div class="port-info"><div class="port-tag">Palm Jumeirah · Luxury Villa</div><div class="port-title">5BR Villa — Signature Walkthrough</div></div></div>
+          <div class="port-card tilt"><div class="port-card-bg" style="background:linear-gradient(145deg,#1e1a14 0%,#111008 100%)"><div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 55%,rgba(232,184,115,.28) 0%,transparent 55%)"></div></div><div class="port-type">3D Visualization</div><div class="port-info"><div class="port-tag">Downtown Dubai · Off-Plan</div><div class="port-title">Unit 3204 — Pre-construction 3D</div></div></div>
+          <div class="port-card tilt"><div class="port-card-bg" style="background:linear-gradient(145deg,#16141a 0%,#0e0e10 100%)"><div style="position:absolute;inset:0;background:radial-gradient(ellipse at 30% 45%,rgba(200,180,232,.12) 0%,transparent 50%),radial-gradient(ellipse at 70% 60%,rgba(232,184,115,.18) 0%,transparent 45%)"></div></div><div class="port-type">Social Content</div><div class="port-info"><div class="port-tag">Business Bay · Commercial</div><div class="port-title">Office Floor — Listing Pack</div></div></div>
+          <div class="port-card tilt"><div class="port-card-bg" style="background:linear-gradient(145deg,#141a18 0%,#0c1010 100%)"><div style="position:absolute;inset:0;background:radial-gradient(ellipse at 72% 38%,rgba(232,184,115,.3) 0%,transparent 50%),radial-gradient(ellipse at 25% 65%,rgba(115,184,165,.1) 0%,transparent 45%)"></div></div><div class="port-type">Before · After</div><div class="port-info"><div class="port-tag">Koh Samui · Short-Term Rental</div><div class="port-title">Pool Villa — Space Refresh</div></div></div>
+          <div class="port-card tilt"><div class="port-card-bg" style="background:linear-gradient(145deg,#1a1415 0%,#100c0e 100%)"><div style="position:absolute;inset:0;background:radial-gradient(ellipse at 45% 50%,rgba(232,184,115,.34) 0%,transparent 55%),radial-gradient(ellipse at 75% 25%,rgba(200,154,88,.15) 0%,transparent 40%)"></div></div><div class="port-type">Walkthrough · 3D</div><div class="port-info"><div class="port-tag">JBR · Hotel & Hospitality</div><div class="port-title">Boutique Hotel — Full Signature</div></div></div>
+        </div>
+      </div>
+      <div class="port-nav">
+        <button class="port-btn" id="pp">←</button>
+        <button class="port-btn" id="pn">→</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FPV -->
+<div class="fpv-grid" id="fpv">
+  <div class="fpv-l">
+    <div class="eyebrow rf">Immersive Walkthrough</div>
+    <div class="dg rf d1"></div>
+    <h2 class="h2 wstag" style="font-size:clamp(30px,3.2vw,50px)">
+      <div class="ww"><span>Walk through</span></div>
+      <div class="ww"><span><em>before you buy.</em></span></div>
+    </h2>
+    <p class="sec-sub rf d2" style="margin-bottom:34px">Buyers experience the space — every room, every angle — before setting foot inside. Off-plan units presented as if already built. The decision is made before the visit.</p>
+    <a href="#contact" class="btn-pill pill-ghost rf d3" style="width:fit-content">Request a walkthrough <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  </div>
+  <div class="fpv-r">
+    <div class="fpv-c tl"></div><div class="fpv-c br"></div>
+    <div class="fpv-play">
+      <svg width="19" height="19" viewBox="0 0 20 20" fill="none"><path d="M6 4l12 6-12 6V4z" fill="currentColor"/></svg>
+    </div>
+    <div class="fpv-lbl">Available for all property types · Off-plan included</div>
+  </div>
+</div>
+
+<!-- SERVICES B2B -->
 <div id="services">
   <div class="section">
-    <div class="eyebrow rf">For Agencies &amp; Developers</div>
+    <div class="eyebrow rf">For Agencies & Promoters</div>
     <h2 class="h2 wstag">
-      <div class="ww"><span>Your listings compete</span></div>
-      <div class="ww"><span><em>for seconds of attention.</em></span></div>
+      <div class="ww"><span>Every listing deserves</span></div>
+      <div class="ww"><span>to be <em>seen at its best.</em></span></div>
     </h2>
-    <p class="sec-sub rf d1">In a market where every buyer scrolls past hundreds of listings, the ones that stop the thumb win. LIOR creates visual experiences that captivate, build desire, and convert.</p>
+    <p class="sec-sub rf d1">Three entry points. One studio. Every mandate delivered within 72 hours — with unlimited revisions, always.</p>
     <div class="services-grid">
       <div class="svc tilt rf d1">
         <div class="svc-n">01</div>
-        <h3>Virtual Staging</h3>
-        <p>An empty property becomes a warm, desirable space. Buyers picture their life there before setting foot inside.</p>
-        <ul class="svc-list"><li>5 styled rooms, ready to publish</li><li>Social-ready formats included</li><li>48h delivery</li></ul>
-        <a href="https://wa.me/?text=Hi+LIOR,+I'd+like+to+request+virtual+staging+for+a+listing." class="svc-cta">Request virtual staging →</a>
+        <h3>LIOR Refresh</h3>
+        <p>Five visual transformations. Turn any empty or dated listing into a space people want to inhabit — delivered in 48 hours.</p>
+        <div class="svc-price"><sup>$</sup>200 <span>/ listing</span></div>
+        <ul class="svc-list"><li>Visual audit</li><li>5 before · after transformations</li><li>Ready to post on social</li><li>48h delivery</li></ul>
+        <a href="#contact" class="svc-cta">Start with Refresh →</a>
       </div>
       <div class="svc ft tilt rf d2">
         <div class="svc-badge">Most popular</div>
         <div class="svc-n">02</div>
-        <h3>Full Listing Pack</h3>
-        <p>Everything your listing needs to stop the scroll. Styled rooms, a cinematic tour, and social content. Delivered in 72 hours.</p>
-        <ul class="svc-list"><li>8 styled rooms</li><li>1 cinematic property tour</li><li>3 social films ready to post</li><li>72h delivery · unlimited revisions</li></ul>
-        <a href="https://wa.me/?text=Hi+LIOR,+I'd+like+to+request+the+Full+Listing+Pack." class="svc-cta">Get the full pack →</a>
+        <h3>Listing Accelerator</h3>
+        <p>The full visual package — every asset you need to make your listing the one buyers remember and visit.</p>
+        <div class="svc-price"><sup>$</sup>700 <span>/ listing</span></div>
+        <ul class="svc-list"><li>8 before · after transformations</li><li>1 immersive walkthrough</li><li>3 social films ready to post</li><li>72h · unlimited revisions</li><li>Satisfaction guaranteed</li></ul>
+        <a href="#contact" class="svc-cta">Get the Accelerator →</a>
       </div>
       <div class="svc tilt rf d3">
         <div class="svc-n">03</div>
-        <h3>Space Preview</h3>
-        <p>Show a space that doesn't exist yet. Off-plan developments, future interiors, presented as if already built. Sell the vision.</p>
-        <ul class="svc-list"><li>Full space visualization</li><li>Cinematic property tour</li><li>6–8 social assets</li><li>2 design directions</li></ul>
-        <a href="https://wa.me/?text=Hi+LIOR,+I'd+like+to+request+a+space+preview." class="svc-cta">Request a space preview →</a>
+        <h3>LIOR Signature</h3>
+        <p>Off-plan or luxury properties. Full 3D visualization with a cinematic walkthrough — promoter-grade, delivered with precision.</p>
+        <div class="svc-price"><sup>$</sup>1 800 <span>/ project</span></div>
+        <ul class="svc-list"><li>Full 3D unit visualization</li><li>Cinematic walkthrough (90s)</li><li>6–8 social assets</li><li>2 design directions</li><li>5–7 day delivery</li></ul>
+        <a href="#contact" class="svc-cta">Book Signature →</a>
       </div>
     </div>
   </div>
-
-  <!-- Sub: Cinematic Tour -->
-  <div class="fpv-grid">
-    <div class="fpv-l">
-      <div class="eyebrow rf">Cinematic Tour</div>
-      <div class="dg rf d1"></div>
-      <h2 class="h2 wstag" style="font-size:clamp(30px,3.2vw,50px)">
-        <div class="ww"><span>The buyer is already inside.</span></div>
-        <div class="ww"><span><em>Before they ever visit.</em></span></div>
-      </h2>
-      <p class="sec-sub rf d2" style="margin-bottom:34px">Our tours move through each room with the pace and mood of cinema, from a first-person perspective. Buyers don't just see the property. They feel it. Off-plan units shown as if already built.</p>
-      <a href="https://wa.me/?text=Hi+LIOR,+I'd+like+to+book+a+cinematic+tour." class="btn-pill pill-ghost rf d3" style="width:fit-content">Book a tour <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-    </div>
-    <div class="fpv-r">
-      <div class="fpv-c tl"></div><div class="fpv-c br"></div>
-      <div class="fpv-play">
-        <svg width="19" height="19" viewBox="0 0 20 20" fill="none"><path d="M6 4l12 6-12 6V4z" fill="currentColor"/></svg>
-      </div>
-      <div class="fpv-rooms">
-        <div class="fpv-room on">Living Room</div>
-        <div class="fpv-room">Kitchen</div>
-        <div class="fpv-room">Master Bedroom</div>
-        <div class="fpv-room">Bathroom</div>
-        <div class="fpv-room">Terrace</div>
-      </div>
-      <div class="fpv-lbl">All property types · Off-plan included</div>
-    </div>
-  </div>
-
-  <!-- Sub: Studio Partner -->
   <div class="sec-full">
     <div class="sec-in">
       <div class="sp rf">
         <div>
-          <div class="sp-lbl">Monthly Subscription</div>
+          <div class="sp-lbl">Recurring · MRR</div>
           <div class="sp-title">LIOR<br><em>Studio Partner</em></div>
-          <p class="sp-desc">Your dedicated visual studio on a monthly retainer. All your listings covered, priority delivery, and a 10% commission on every design project you refer to LIOR.</p>
+          <p class="sp-desc">Your dedicated visual studio — a fixed monthly retainer covering all your listings, with priority delivery, co-branding, and a passive commission on every design mandate you refer.</p>
         </div>
-        <ul class="sp-inc"><li>5 listings per month at Full Pack level</li><li>Priority 48h turnaround</li><li>1 cinematic tour per month</li><li>Co-branded visuals</li><li>10% commission on every design referral</li><li>Monthly performance report</li><li>Unused listings roll over one month</li><li>Cancel anytime</li></ul>
+        <ul class="sp-inc"><li>5 listings/month at Accelerator level</li><li>Priority 48h turnaround</li><li>1 immersive walkthrough/month</li><li>Co-branded visuals (your agency + LIOR)</li><li>10% commission on every design referral</li><li>Monthly performance report</li><li>Roll-over unused listings (1 month)</li><li>Cancel anytime</li></ul>
         <div class="sp-pr">
-          <div class="sp-pr-l" style="font-size:13px;color:var(--stone);margin-bottom:6px">Pricing on request</div>
+          <div class="sp-pr-n"><sup>$</sup>1 800</div>
+          <div class="sp-pr-l">per month</div>
           <div class="sp-pr-note">No commitment · Cancel anytime</div>
-          <a href="https://wa.me/?text=Hi+LIOR,+I'd+like+to+learn+about+the+Studio+Partner+programme." class="btn-pill pill-gold" style="margin-top:26px;display:inline-flex">Become a Studio Partner →</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- BEFORE / AFTER SHOWCASE -->
-<div id="showcase">
-  <div class="section" style="padding-bottom:0">
-    <div class="eyebrow rf">The Difference</div>
-    <h2 class="h2 wstag">
-      <div class="ww"><span>Before LIOR.</span></div>
-      <div class="ww"><span><em>After LIOR.</em></span></div>
-    </h2>
-  </div>
-  <div class="ba-showcase rf d1">
-    <div class="ba-panel ba-before">
-      <div class="ba-label">Before</div>
-      <div class="ba-title">An empty shell.<br>Hard to imagine.</div>
-      <p class="ba-body">Bare walls, no furniture, no context. Buyers see a space, not a home. Listings stay on the market longer.</p>
-    </div>
-    <div class="ba-panel ba-after">
-      <div class="ba-label">After · LIOR</div>
-      <div class="ba-title">Warm, designed,<br><em>ready to sell.</em></div>
-      <p class="ba-body">Fully styled and staged. Buyers picture their life there. More enquiries, faster decisions, higher perceived value.</p>
-    </div>
-  </div>
-</div>
-
-<!-- B2C — FOR BUYERS & OWNERS -->
-<div id="b2c">
-  <div class="section">
-    <div class="eyebrow rf">For Buyers &amp; Property Owners</div>
-    <h2 class="h2 wstag">
-      <div class="ww"><span>You found the space.</span></div>
-      <div class="ww"><span><em>Now see what it could become.</em></span></div>
-    </h2>
-    <p class="sec-sub rf d1">Most people buy a property, then figure it out. LIOR reverses that. We show you the fully designed version first, so every decision is made with certainty, not hope.</p>
-    <div class="b2c-sub-label rf d2">Then we build what you saw.</div>
-    <p class="sec-sub rf d2" style="margin-top:8px;margin-bottom:42px">Once the design is set, LIOR coordinates the full transformation: architecture, materials, renovation. One point of contact.</p>
-    <div class="b2c-grid rf d3">
-      <div class="b2c tilt">
-        <div class="svc-n">01</div>
-        <h3>Interior Design Brief</h3>
-        <p>See your space fully designed before a single decision is made. Style direction, room planning, furnishings and materials, all visualized in advance.</p>
-        <ul class="svc-list" style="margin-top:18px"><li>Style brief session</li><li>Moodboard and direction</li><li>Key room visualization</li><li>Space planning</li><li>Material and furnishing selection</li></ul>
-        <a href="https://wa.me/?text=Hi+LIOR,+I'd+like+to+start+with+an+interior+design+brief." class="svc-cta" style="margin-top:22px">Design a room →</a>
-      </div>
-      <div class="b2c pr tilt">
-        <div class="svc-badge">Full project</div>
-        <div class="svc-n">02</div>
-        <h3>Full Interior Design</h3>
-        <p>The complete service, from first concept to finished space. Every room designed, every material selected, full project coordination included.</p>
-        <ul class="svc-list" style="margin-top:18px"><li>Complete multi-room design</li><li>Interior architecture plans</li><li>Full space visualization</li><li>Material and furniture selection</li><li>Project coordination, single point of contact</li></ul>
-        <a href="https://wa.me/?text=Hi+LIOR,+I'd+like+to+discuss+a+full+interior+design+project." class="svc-cta" style="margin-top:22px">Start the conversation →</a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- SECTORS -->
-<div class="dark-band" id="verticals">
-  <div class="section">
-    <div class="sv-head">
-      <div class="eyebrow rf">Sector Coverage</div>
-      <h2 class="h2 wstag">
-        <div class="ww"><span>Every space.</span></div>
-        <div class="ww"><span><em>Without exception.</em></span></div>
-      </h2>
-      <p class="sec-sub rf d2" style="margin-bottom:0">The same standard, regardless of sector, scale, or brief.</p>
-    </div>
-    <div class="sv-grid rf d1">
-      <div class="sv-col">
-        <div class="sv-cat">Real Estate</div>
-        <div class="sv-line"></div>
-        <ul class="sv-list">
-          <li>Residential</li>
-          <li>Luxury Villa</li>
-          <li>Off-Plan Development</li>
-          <li>Hotel &amp; Hospitality</li>
-          <li>Apartment Leasing</li>
-        </ul>
-      </div>
-      <div class="sv-col">
-        <div class="sv-cat">Commercial</div>
-        <div class="sv-line"></div>
-        <ul class="sv-list">
-          <li>Office Space</li>
-          <li>Commercial</li>
-          <li>Short-Term Rental</li>
-          <li>Renovation</li>
-          <li>Brand &amp; Institutional</li>
-        </ul>
-      </div>
-      <div class="sv-col">
-        <div class="sv-cat">Specialist</div>
-        <div class="sv-line"></div>
-        <ul class="sv-list">
-          <li>Sports &amp; Leisure</li>
-          <li>Education</li>
-          <li>Industrial</li>
-          <li>Life Sciences</li>
-          <li>Manufacturing</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- PORTFOLIO -->
-<div class="section" id="portfolio">
-  <div class="eyebrow rf">Selected Work</div>
-  <h2 class="h2 wstag" style="margin-bottom:0">
-    <div class="ww"><span>Recent</span></div>
-    <div class="ww"><span><em>projects.</em></span></div>
-  </h2>
-  <div class="port-track-outer">
-    <div class="port-track" id="pt">
-      <div class="port-card tilt"><div class="port-card-bg" style="background:linear-gradient(145deg,#2c1f12 0%,#181208 100%)"><div style="position:absolute;inset:0;background:radial-gradient(ellipse at 38% 38%,rgba(232,184,115,.38) 0%,transparent 55%)"></div></div><div class="port-info"><div class="port-tag">Dubai Marina · Residential</div><div class="port-title">2BR Apartment · Space Transformation</div></div></div>
-      <div class="port-card tilt"><div class="port-card-bg" style="background:linear-gradient(145deg,#1c1810 0%,#0e0e10 100%)"><div style="position:absolute;inset:0;background:radial-gradient(ellipse at 65% 28%,rgba(232,184,115,.32) 0%,transparent 50%),radial-gradient(ellipse at 20% 70%,rgba(200,154,88,.12) 0%,transparent 45%)"></div></div><div class="port-info"><div class="port-tag">Palm Jumeirah · Luxury Villa</div><div class="port-title">5BR Villa · Signature Walkthrough</div></div></div>
-      <div class="port-card tilt"><div class="port-card-bg" style="background:linear-gradient(145deg,#1e1a14 0%,#111008 100%)"><div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 55%,rgba(232,184,115,.28) 0%,transparent 55%)"></div></div><div class="port-info"><div class="port-tag">Downtown Dubai · Off-Plan</div><div class="port-title">Unit 3204 · Space Preview</div></div></div>
-      <div class="port-card tilt"><div class="port-card-bg" style="background:linear-gradient(145deg,#16141a 0%,#0e0e10 100%)"><div style="position:absolute;inset:0;background:radial-gradient(ellipse at 30% 45%,rgba(200,180,232,.12) 0%,transparent 50%),radial-gradient(ellipse at 70% 60%,rgba(232,184,115,.18) 0%,transparent 45%)"></div></div><div class="port-info"><div class="port-tag">Business Bay · Commercial</div><div class="port-title">Office Floor · Listing Pack</div></div></div>
-      <div class="port-card tilt"><div class="port-card-bg" style="background:linear-gradient(145deg,#141a18 0%,#0c1010 100%)"><div style="position:absolute;inset:0;background:radial-gradient(ellipse at 72% 38%,rgba(232,184,115,.3) 0%,transparent 50%),radial-gradient(ellipse at 25% 65%,rgba(115,184,165,.1) 0%,transparent 45%)"></div></div><div class="port-info"><div class="port-tag">Koh Samui · Short-Term Rental</div><div class="port-title">Pool Villa · Space Refresh</div></div></div>
-      <div class="port-card tilt"><div class="port-card-bg" style="background:linear-gradient(145deg,#1a1415 0%,#100c0e 100%)"><div style="position:absolute;inset:0;background:radial-gradient(ellipse at 45% 50%,rgba(232,184,115,.34) 0%,transparent 55%),radial-gradient(ellipse at 75% 25%,rgba(200,154,88,.15) 0%,transparent 40%)"></div></div><div class="port-info"><div class="port-tag">JBR · Hotel &amp; Hospitality</div><div class="port-title">Boutique Hotel · Full Signature</div></div></div>
-    </div>
-  </div>
-  <div class="port-nav">
-    <button class="port-btn" id="pp">←</button>
-    <button class="port-btn" id="pn">→</button>
-  </div>
-</div>
-
-<!-- HOW IT WORKS — tourniquet -->
-<div class="dark-band" id="process">
-  <div class="section">
-    <div class="eyebrow rf">How it works</div>
-    <h2 class="h2 wstag">
-      <div class="ww"><span>Simple process.</span></div>
-      <div class="ww"><span><em>72-hour delivery.</em></span></div>
-    </h2>
-    <div class="trn" id="trn">
-      <button class="trn-nav" id="trnPrev">&#8249;</button>
-      <button class="trn-nav" id="trnNext">&#8250;</button>
-      <div class="trn__stage" id="trnStage">
-        <div class="trn__card">
-          <div class="trn__n">01</div>
-          <div class="trn__t">You brief us</div>
-          <p class="trn__d">Send your property photos and a 5-minute brief using our standard template. We handle everything from there.</p>
-          <div class="trn__tag">5 minutes · standard template</div>
-        </div>
-        <div class="trn__card">
-          <div class="trn__n">02</div>
-          <div class="trn__t">We craft the experience</div>
-          <p class="trn__d">Every room, shown at its full potential. Your property, transformed. First direction in your inbox in 24 to 48 hours.</p>
-          <div class="trn__tag">24–48h production</div>
-        </div>
-        <div class="trn__card">
-          <div class="trn__n">03</div>
-          <div class="trn__t">You review and approve</div>
-          <p class="trn__d">We present the first direction for your review. Revisions included until you are fully satisfied.</p>
-          <div class="trn__tag">Unlimited revisions</div>
-        </div>
-        <div class="trn__card">
-          <div class="trn__n">04</div>
-          <div class="trn__t">You publish and sell</div>
-          <p class="trn__d">Ready-to-use files delivered to your inbox. List today. Your property, impossible to ignore.</p>
-          <div class="trn__tag">72h total delivery</div>
+          <a href="#contact" class="btn-pill pill-gold" style="margin-top:26px;display:inline-flex">Become a Studio Partner →</a>
         </div>
       </div>
     </div>
@@ -1114,12 +843,12 @@ footer::before{
           <div class="ww"><span><em>Our visuals.</em></span></div>
           <div class="ww"><span>Your commission.</span></div>
         </h2>
-        <p class="sec-sub rf d2" style="margin-bottom:0">LIOR partners with real estate agencies in Dubai. Every time a buyer becomes a LIOR design client through your referral, you earn a 10% commission, tracked automatically for 12 months.</p>
+        <p class="sec-sub rf d2" style="margin-bottom:0">LIOR partners with agencies to win more mandates — and pays you a commission every time your buyers become our design clients.</p>
         <div class="psteps rf d3">
-          <div class="pstep"><div class="ps-n">01</div><div><div class="ps-h">Better visuals for every listing</div><p class="ps-p">Your listings stand out. You win more mandates. Every property shown at its full potential.</p></div></div>
-          <div class="pstep"><div class="ps-n">02</div><div><div class="ps-h">Buyers fall in love with the space</div><p class="ps-p">When a buyer falls in love with the designed version, LIOR offers to make it real. You make the introduction. We handle the rest.</p></div></div>
-          <div class="pstep"><div class="ps-n">03</div><div><div class="ps-h">You earn a commission</div><p class="ps-p">10% of LIOR's design fees on every confirmed project you refer. No effort. No cost. Just the introduction.</p></div></div>
-          <div class="pstep"><div class="ps-n">04</div><div><div class="ps-h">Tracked for 12 months</div><p class="ps-p">Every referral registered on first contact and tracked for a full year. Monthly report included.</p></div></div>
+          <div class="pstep"><div class="ps-n">01</div><div><div class="ps-h">We make your listings irresistible</div><p class="ps-p">Visual transformations, immersive walkthroughs, social-ready content. Win mandates on visual quality alone.</p></div></div>
+          <div class="pstep"><div class="ps-n">02</div><div><div class="ps-h">Your buyers get shown the vision</div><p class="ps-p">When a buyer falls in love with the rendered space, LIOR offers to make it real. You introduce us — they do the rest.</p></div></div>
+          <div class="pstep"><div class="ps-n">03</div><div><div class="ps-h">You earn passive revenue</div><p class="ps-p">10% of LIOR's design fees, paid on every confirmed project you refer. No effort, no cost — just the introduction.</p></div></div>
+          <div class="pstep"><div class="ps-n">04</div><div><div class="ps-h">Attribution is yours for 12 months</div><p class="ps-p">Leads are registered on first contact and tracked for a full year. Monthly transparent reporting.</p></div></div>
         </div>
       </div>
       <div>
@@ -1128,94 +857,76 @@ footer::before{
           <div class="comm-l">Commission on every design referral</div>
           <div class="comm-div"></div>
           <div class="comm-ex">
-            <p>For every design project confirmed through your referral, you earn a commission, tracked automatically. No admin. No effort.</p>
-            <div class="comm-res">The more listings you transform with LIOR,<br>the more design referrals you generate.</div>
+            <p>Project: Full Interior Transformation<br>LIOR design fees (excl. VAT, materials): <strong>$4,000</strong><br>Your commission: <strong>$400 — zero effort</strong></p>
+            <div class="comm-res">10 buyers/year referred<br>→ <strong>$4,000 passive income</strong><br>on top of your mandate commissions</div>
           </div>
-          <a href="https://wa.me/?text=Hi+LIOR,+I'd+like+to+discuss+the+agency+partnership+programme." class="btn-pill pill-gold" style="margin-top:30px">Become a LIOR Partner →</a>
+          <a href="#contact" class="btn-pill pill-gold" style="margin-top:30px">Become a LIOR Partner →</a>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- FAQ -->
-<div class="dark-band" id="faq">
+<!-- B2C -->
+<div id="b2c">
   <div class="section">
-    <div class="eyebrow rf">FAQ</div>
+    <div class="eyebrow rf">For Property Owners</div>
     <h2 class="h2 wstag">
-      <div class="ww"><span>Questions.</span></div>
-      <div class="ww"><span><em>Answered.</em></span></div>
+      <div class="ww"><span>From first image</span></div>
+      <div class="ww"><span><em>to final room.</em></span></div>
     </h2>
-    <div class="faq-cols">
-      <div>
-        <div class="faq-group-lbl rf">For Real Estate Professionals</div>
-        <div class="faq-list">
-          <div class="faq-item">
-            <button class="faq-q">How fast is delivery?</button>
-            <div class="faq-a"><p>Standard turnaround is 72 hours from brief confirmation. Rush delivery is available on request.</p></div>
-          </div>
-          <div class="faq-item">
-            <button class="faq-q">Do you work with empty properties?</button>
-            <div class="faq-a"><p>Empty properties are where LIOR is most powerful. We specialize in showing the full potential of unfurnished spaces. Buyers see the home, not the walls.</p></div>
-          </div>
-          <div class="faq-item">
-            <button class="faq-q">Can you handle multiple listings per month?</button>
-            <div class="faq-a"><p>Yes. Our Studio Partner programme is built for agencies with volume, with priority turnaround and consistent quality across every listing. Contact us to discuss.</p></div>
-          </div>
-          <div class="faq-item">
-            <button class="faq-q">What do you need to get started?</button>
-            <div class="faq-a"><p>Photos of the property and a brief using our standard template. We take it from there. No lengthy calls required.</p></div>
-          </div>
-          <div class="faq-item">
-            <button class="faq-q">Do you work with off-plan developments?</button>
-            <div class="faq-a"><p>Yes. Our Space Preview service is designed for off-plan and pre-construction projects, showing completed, furnished units before a single floor is laid.</p></div>
-          </div>
-        </div>
+    <p class="sec-sub rf d1">You've seen the space as it could be. Now LIOR makes it real — handling design concept, architecture, and material selection from start to finish.</p>
+    <div class="b2c-grid rf d2">
+      <div class="b2c tilt">
+        <div class="svc-n">B2C · 01</div>
+        <h3>Move-In Vision</h3>
+        <p>You just bought. Before touching a wall, see your future space in 3D — at scale, with materials, with a shopping list.</p>
+        <div class="b2c-pr">$700 <span>— $1,500 / room</span></div>
+        <ul class="svc-list" style="margin-top:18px"><li>Style brief session</li><li>Moodboard + direction</li><li>3D of 1 key room</li><li>Space planning</li><li>Material & furnishing selection</li><li>Shopping list</li></ul>
+        <a href="#contact" class="svc-cta" style="margin-top:22px">Start with a room →</a>
       </div>
-      <div>
-        <div class="faq-group-lbl rf">For Buyers &amp; Property Owners</div>
-        <div class="faq-list">
-          <div class="faq-item">
-            <button class="faq-q">I just bought a property. When should I contact LIOR?</button>
-            <div class="faq-a"><p>Before you start any work. We produce the design concepts first, so every decision is based on what you'll actually get, not guesswork.</p></div>
-          </div>
-          <div class="faq-item">
-            <button class="faq-q">Do you manage the renovation yourself?</button>
-            <div class="faq-a"><p>Yes. LIOR coordinates the full project: design, architecture, contractors, materials, timeline. One point of contact throughout.</p></div>
-          </div>
-          <div class="faq-item">
-            <button class="faq-q">Do you work internationally?</button>
-            <div class="faq-a"><p>Yes. LIOR operates on-site and remotely. Current active markets include Dubai, Southeast Asia and Europe.</p></div>
-          </div>
-          <div class="faq-item">
-            <button class="faq-q">How long does a full design project take?</button>
-            <div class="faq-a"><p>It depends on scope. We give a detailed timeline at brief stage. Initial design concepts are typically delivered within two weeks.</p></div>
-          </div>
-          <div class="faq-item">
-            <button class="faq-q">Can I see a concept before committing?</button>
-            <div class="faq-a"><p>Yes. Our Interior Design Brief starts with a single room, a low-commitment way to experience what LIOR can do for your space.</p></div>
-          </div>
-        </div>
+      <div class="b2c pr tilt">
+        <div class="svc-badge">Full project</div>
+        <div class="svc-n">B2C · 02</div>
+        <h3>Full Transformation</h3>
+        <p>The complete journey — from concept to keys. Multi-room design, interior architecture, plans, materials, and project coordination.</p>
+        <div class="b2c-pr">$3,000 <span>— $8,000 design</span></div>
+        <ul class="svc-list" style="margin-top:18px"><li>Complete multi-room design</li><li>Interior architecture + plans</li><li>Full 3D visualization</li><li>Material & furniture selection</li><li>Project coordination (partner network)</li><li>Single point of contact</li></ul>
+        <a href="#contact" class="svc-cta" style="margin-top:22px">Get a free audit →</a>
       </div>
     </div>
   </div>
 </div>
 
-<!-- CONTACT -->
+<!-- PROCESS -->
+<div class="dark-band" id="process">
+  <div class="section">
+    <div class="eyebrow rf">How it works</div>
+    <h2 class="h2 wstag">
+      <div class="ww"><span>Simple process.</span></div>
+      <div class="ww"><span><em>72-hour results.</em></span></div>
+    </h2>
+    <div class="proc-grid rf d1">
+      <div class="proc-step"><div class="p-n">01</div><div class="p-t">You brief us</div><p class="p-d">Send photos + floor plan via our standard brief template. Takes 5 minutes. We handle everything else.</p><div class="p-tag">→ Brief template</div></div>
+      <div class="proc-step"><div class="p-n">02</div><div class="p-t">We create the vision</div><p class="p-d">Visual transformation, 3D, immersive walkthrough — all produced by LIOR. We propose 1–2 directions for validation.</p><div class="p-tag">→ 24–48h production</div></div>
+      <div class="proc-step"><div class="p-n">03</div><div class="p-t">You review & publish</div><p class="p-d">Unlimited revisions until you're 100% satisfied. Delivered as ready-to-post files — nothing to edit.</p><div class="p-tag">→ 72h total delivery</div></div>
+      <div class="proc-step"><div class="p-n">04</div><div class="p-t">Buyers become clients</div><p class="p-d">When a buyer loves the vision, LIOR offers to make it real. You refer, we design, you earn 10%.</p><div class="p-tag">→ Passive revenue</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
 <div class="ctac" id="contact">
   <div class="ctac-glow"></div><div class="ctac-glow2"></div>
-  <div class="eyebrow rf" style="justify-content:center">Start a project</div>
-  <h2 class="h2 rf d1">What does your<br><em>space deserve?</em></h2>
-  <p class="rf d2">Whether you're a real estate professional or a property owner. LIOR is ready.</p>
+  <div class="eyebrow rf" style="justify-content:center">Ready to transform your listings?</div>
+  <h2 class="h2 rf d1">Let's bring your<br><em>space to light.</em></h2>
+  <p class="rf d2">Send us one listing. We'll show you what LIOR does to it — in 72 hours. No commitment.</p>
   <div class="ctac-btns rf d3">
-    <a href="https://wa.me/?text=Hi+LIOR,+I'm+a+real+estate+professional+and+I'd+like+to+discuss+a+listing." class="btn-pill pill-gold">
+    <a href="https://wa.me/" class="btn-pill pill-wa">
       <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      I'm a real estate professional
+      WhatsApp LIOR
     </a>
-    <a href="https://wa.me/?text=Hi+LIOR,+I'm+a+property+owner+and+I'd+like+to+discuss+a+project." class="btn-pill pill-wa">
-      <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      I own a property
-    </a>
+    <a href="#verticals" class="btn-pill pill-ghost">See the portfolio</a>
   </div>
 </div>
 
@@ -1223,11 +934,10 @@ footer::before{
 <footer>
   <div class="fl">L I <span class="o">O</span> R</div>
   <div class="flinks">
-    <a href="#services">For Agencies</a><a href="#b2c">For Owners</a>
-    <a href="#portfolio">Work</a><a href="#process">Process</a>
-    <a href="#partnership">Partnership</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
+    <a href="#services">Services</a><a href="#verticals">Portfolio</a>
+    <a href="#partnership">Partnership</a><a href="#process">Process</a><a href="#contact">Contact</a>
   </div>
-  <div class="fr">© 2026 LIOR Studio<br>Dubai · Southeast Asia · Remote-first</div>
+  <div class="fr">© 2025 LIOR Studio<br>Dubai · Koh Samui · Remote-first</div>
 </footer>
 
 <script>
@@ -1250,7 +960,7 @@ const dot=document.getElementById('cur-dot'),ring=document.getElementById('cur-r
 let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px'});
 (function lp(){rx+=(mx-rx)*.11;ry+=(my-ry)*.11;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(lp)})();
-document.querySelectorAll('a,button,.v-card,.port-card,.fpv-play,.svc,.b2c,.pv,.trn__card,.ba-panel').forEach(el=>{
+document.querySelectorAll('a,button,.v-card,.port-card,.fpv-play,.svc,.b2c,.pv').forEach(el=>{
   el.addEventListener('mouseenter',()=>document.body.classList.add('ch'));
   el.addEventListener('mouseleave',()=>document.body.classList.remove('ch'));
 });
@@ -1506,64 +1216,6 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
   a.addEventListener('click',e=>{
     const t=document.querySelector(a.getAttribute('href'));
     if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'})}
-  });
-});
-
-// ════════════════════════════════════════
-// TOURNIQUET — 3D rotating process carousel
-// ════════════════════════════════════════
-(function(){
-  var stage=document.getElementById('trnStage');
-  if(!stage)return;
-  var cards=[].slice.call(stage.querySelectorAll('.trn__card'));
-  var wrap=document.getElementById('trn');
-  var N=cards.length,STEP=360/N;
-  var R=window.innerWidth<640?260:480;
-  var angle=0,speed=0.14,paused=false,dragging=false,sx=0,sa=0,moved=false;
-  function place(){
-    cards.forEach(function(c,i){
-      c.style.transform='rotateY('+(i*STEP)+'deg) translateZ('+R+'px)';
-      c.style.transition='none';
-    });
-  }
-  function spin(){
-    stage.style.transform='translateZ(-'+R+'px) rotateY('+angle+'deg)';
-    cards.forEach(function(c,i){
-      var d=((angle+i*STEP)%360+360)%360;
-      var t=(Math.cos(d*Math.PI/180)+1)/2;
-      c.style.opacity=0.08+t*0.92;
-      c.style.filter='brightness('+(0.18+t*0.82)+')';
-      c.style.zIndex=Math.round(t*100);
-    });
-  }
-  function frame(){if(!dragging&&!paused)angle+=speed;spin();requestAnimationFrame(frame);}
-  var p=document.getElementById('trnPrev'),n=document.getElementById('trnNext');
-  if(p)p.addEventListener('click',function(){angle-=STEP;});
-  if(n)n.addEventListener('click',function(){angle+=STEP;});
-  function dn(x){dragging=true;sx=x;sa=angle;moved=false;}
-  function mv(x){if(!dragging)return;if(Math.abs(x-sx)>4)moved=true;angle=sa+(x-sx)*0.35;spin();}
-  function up(){dragging=false;}
-  wrap.addEventListener('mousedown',function(e){dn(e.clientX);});
-  window.addEventListener('mousemove',function(e){mv(e.clientX);});
-  window.addEventListener('mouseup',up);
-  // No pause on hover — rotation continues unless dragging
-  wrap.addEventListener('touchstart',function(e){dn(e.touches[0].clientX);},{passive:true});
-  wrap.addEventListener('touchmove',function(e){mv(e.touches[0].clientX);},{passive:true});
-  wrap.addEventListener('touchend',up,{passive:true});
-  cards.forEach(function(c){c.addEventListener('click',function(e){if(moved)e.preventDefault();});});
-  window.addEventListener('resize',function(){R=window.innerWidth<640?260:480;place();});
-  place();requestAnimationFrame(frame);
-})();
-
-// ════════════════════════════════════════
-// FAQ ACCORDION
-// ════════════════════════════════════════
-document.querySelectorAll('.faq-q').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    const item=btn.parentElement;
-    const isOpen=item.classList.contains('open');
-    document.querySelectorAll('.faq-item.open').forEach(i=>i.classList.remove('open'));
-    if(!isOpen)item.classList.add('open');
   });
 });
 
