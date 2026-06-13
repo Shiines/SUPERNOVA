@@ -87,6 +87,21 @@ off-plan, and luxury villa segments.
 
 ---
 
+## Performance Fee
+
+When a property listed with LIOR staging closes at the Dubai Land Department,
+a flat **AED 500 per transaction** is due to Studio.
+
+Cap: **AED 3,000/month** — no matter how many deals close.
+
+Verifiable via DLD public records. No disputes. No percentages. No surprises.
+
+> *A partner closing 10 LIOR-staged deals/month pays AED 3,000 max.
+> The same partner receives AED 85,000+ in monthly service value.
+> Net position: AED 82,000 in their favour — every month.*
+
+---
+
 ## Frequently Asked Questions
 
 **Is the free period really free?**

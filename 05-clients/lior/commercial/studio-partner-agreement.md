@@ -68,6 +68,17 @@ Projects exceeding the monthly tier allocation are available at the following ra
 ### 3.3 Rush Delivery
 Same-day delivery (available on Growth and Scale tiers): +AED 1,500 per project.
 
+### 3.4 Performance Fee
+For each property listed using LIOR staging or cinematic tour materials that records a completed transfer at the **Dubai Land Department (DLD)**, Partner pays Studio a flat performance fee of **AED 500 per closed transaction**.
+
+- Maximum: **AED 3,000 per calendar month** per Partner account
+- Invoiced monthly alongside any other fees, payable within 7 days
+- Verification basis: DLD public transaction records (title deed transfer date)
+- Partner agrees to notify Studio of any closed transaction involving LIOR assets within 14 days of DLD registration
+- Studio may independently verify via DLD public portal; discrepancies resolved by DLD record
+
+This fee applies during both the Free Period and from July 1, 2027 onward.
+
 ---
 
 ## 4. DELIVERY STANDARDS

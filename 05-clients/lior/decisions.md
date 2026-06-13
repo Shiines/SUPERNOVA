@@ -35,6 +35,23 @@
 Dubai (now) → Marbella (mois 6–9) → Singapore (an 2) → Sydney (an 2–3)
 Déclencheur Marbella : 10 projets livrés + 1 partenaire local
 
+### Performance Fee (ajout Juin 2026)
+- AED 500 par transaction DLD fermée avec assets LIOR
+- Cap : AED 3 000/mois/agence
+- Vérification : portail public DLD (incontestable)
+- Applicable dès la signature (y compris pendant la free period)
+- Projection Année 1 : 50 agences × AED 3 000 × 12 mois = AED 1 800 000 (~$490K)
+
+### Plan $1M révisé — 15 mois
+| Stream | Année 1 | Mois 13–15 | Total |
+|--------|---------|-----------|-------|
+| Commitment fees (50 × $1K) | $50K | — | $50K |
+| Clients payants one-shot | $180K | $90K | $270K |
+| Performance fees (DLD) | $490K | $150K | $640K |
+| MRR partenaires Year 2 | — | $432K | $432K |
+| Annual prepay (10 agences) | — | $500K | $500K |
+| **TOTAL** | **$720K** | **$1.17M** | **$1.89M** |
+
 ### Alerte technique
 - Runway Gen-3 Alpha Turbo sunset : 30 juillet 2026
 - Mis à jour → gen4_turbo dans tous les SOPs (fait le 13/06/2026)
