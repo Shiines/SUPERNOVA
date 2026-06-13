@@ -9,7 +9,7 @@ Pipeline : photos vides + vidéo walkthrough → 3 tracks parallèles → gate h
 
 ```
 Track A: 8 pièces staged (SOP-01 × 8)
-Track B: Tour cinématique (sop-eggsfield.md complet)  ← dépend Track A
+Track B: Tour cinématique (sop-higgfield.md complet)  ← dépend Track A
 Track C: Extraction raw footage (dès réception vidéo)
                     ↓
               Gate humain
@@ -30,8 +30,8 @@ Track C: Extraction raw footage (dès réception vidéo)
 | 3 | Brief propriété | Adresse, pièces, acheteur cible | OUI |
 | 4 | Style | Keyword | Non |
 
-**Si photos manquantes → envoyer le brief photo (Annex B de sop-eggsfield.md).**
-**Si vidéo manquante → envoyer le brief filmage (Annex A de sop-eggsfield.md).**
+**Si photos manquantes → envoyer le brief photo (Annex B de sop-higgfield.md).**
+**Si vidéo manquante → envoyer le brief filmage (Annex A de sop-higgfield.md).**
 Les deux doivent être reçus avant de démarrer quelque production que ce soit.
 
 ---
@@ -160,7 +160,7 @@ done
 
 **Démarre uniquement après Track A et Track C complètes.**
 
-Exécuter **`sop-eggsfield.md` Phases 0 → 7** en intégralité.
+Exécuter **`sop-higgfield.md` Phases 0 → 7** en intégralité.
 
 Paramètres spécifiques Full Listing Pack :
 - Staging stills input : `02-staging/*.jpg` (8 pièces)
@@ -255,7 +255,7 @@ while IFS='=' read -r ROOM TASK_ID; do
 done < .tmp/${PROJECT_ID}-pack/runway-jobs.txt
 ```
 
-**Assemblage, color grade, audio, export : suivre sop-eggsfield.md Phases 4→7 exactement.**
+**Assemblage, color grade, audio, export : suivre sop-higgfield.md Phases 4→7 exactement.**
 Output final dans `08-exports/` :
 - `${PROJECT_ID}-cinematic-v1.mp4` (16:9, 60–70s)
 - `${PROJECT_ID}-cinematic-reels-v1.mp4` (9:16, 30–45s)

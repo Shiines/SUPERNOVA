@@ -1,7 +1,7 @@
-# SOP EGGSFIELD — Cinematic Property Tour
+# SOP HIGGFIELD — Cinematic Property Tour
 ## Version 2.0 — Ground truth from video analysis
 
-> **Codename:** Eggsfield  
+> **Codename:** Higgfield  
 > **Updated:** June 2026 — v2 based on frame-by-frame analysis of the actual `cinematic-tour.mp4`  
 > **Purpose:** Exact reproduction protocol for the LIOR cinematic tour. Built for human operators AND for an AI agent that executes it autonomously.
 
@@ -990,7 +990,7 @@ END
 
 **Agent output at end of each phase:**
 ```
-[EGGSFIELD] Phase X complete: [what was done, duration, any issues]
+[HIGGFIELD] Phase X complete: [what was done, duration, any issues]
 ```
 
 **Agent must STOP and ask human if:**

@@ -161,7 +161,7 @@ Même pattern de polling que Virtual Staging AI (job_id → poll → download).
 
 ## 4. RUNWAY GEN-3 ALPHA TURBO (animation)
 
-**Déjà documenté en détail dans** `sop-eggsfield.md` Phase 3.
+**Déjà documenté en détail dans** `sop-higgfield.md` Phase 3.
 **Référencer directement ce fichier pour l'animation.**
 
 **Setup rapide:**
@@ -183,7 +183,7 @@ curl -X POST "https://api.dev.runwayml.com/v1/image_to_video" \
   }'
 ```
 
-**Polling et download:** voir sop-eggsfield.md Phase 3 section complète.
+**Polling et download:** voir sop-higgfield.md Phase 3 section complète.
 
 ---
 
@@ -419,7 +419,7 @@ done
 
 ## 9. FFMPEG (traitement vidéo)
 
-**Déjà documenté dans sop-eggsfield.md** (Phases 2, 4, 5, 6, 7).
+**Déjà documenté dans sop-higgfield.md** (Phases 2, 4, 5, 6, 7).
 
 **Commandes complémentaires pour les social films:**
 

@@ -341,7 +341,7 @@ Nous relançons dès réception.
 ```
 1. Changer le seed (seed: 42 → seed: 123)
 2. Raccourcir le prompt de motion (versions trop longues peuvent dégrader le résultat)
-3. Si toujours échoué après 3 tentatives → Ken Burns FFmpeg (voir sop-eggsfield Phase 3)
+3. Si toujours échoué après 3 tentatives → Ken Burns FFmpeg (voir sop-higgfield Phase 3)
    ffmpeg -loop 1 -i [still.jpg] \
      -vf "scale=3840:2160,zoompan=z='min(zoom+0.0006,1.12)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=192:s=1920x1080,fps=24" \
      -t 8 -pix_fmt yuv420p \

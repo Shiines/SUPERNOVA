@@ -32,7 +32,7 @@ All production SOPs for LIOR services. Each file = one service = one autonomous 
 | 10 | Pre-Renovation Brief | Space & Architecture | 4 days | `sop-10-pre-renovation-brief.md` |
 | — | Studio Partner | Agency Retainer | Monthly | `sop-studio-partner.md` |
 
-**Cinematic Tour production** → see `../../00-system/SOP/sop-eggsfield.md` (v2.1)
+**Cinematic Tour production** → see `../../00-system/SOP/sop-higgfield.md` (v2.1)
 
 ---
 
