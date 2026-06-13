@@ -199,7 +199,7 @@ for STILL in .tmp/${PROJECT_ID}-pack/02-staging/*.jpg; do
     -H "X-Runway-Version: 2024-11-06" \
     -H "Content-Type: application/json" \
     -d "{
-      \"model\": \"gen3a_turbo\",
+      \"model\": \"gen4_turbo\",
       \"promptImage\": \"${IMG_URL}\",
       \"promptText\": \"${PROMPT}\",
       \"duration\": 8,

@@ -174,7 +174,7 @@ curl -X POST "https://api.dev.runwayml.com/v1/image_to_video" \
   -H "Authorization: Bearer ${RUNWAY_KEY}" \
   -H "Content-Type: application/json" \
   -d '{
-    "model": "gen3a_turbo",
+    "model": "gen4_turbo",
     "promptImage": "'"${STAGED_IMAGE_URL}"'",
     "promptText": "Extremely slow cinematic push forward, warm light, luxury interior, smooth steady camera, no shake, 24fps",
     "duration": 8,

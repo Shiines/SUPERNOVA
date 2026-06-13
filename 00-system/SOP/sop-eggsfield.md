@@ -460,7 +460,7 @@ API endpoint: `POST https://api.runwayml.com/v1/image_to_video`
 **Standard request body:**
 ```json
 {
-  "model": "gen3a_turbo",
+  "model": "gen4_turbo",
   "promptImage": "[public URL of staging still — use ImgBB]",
   "promptText": "[motion prompt — see library below]",
   "duration": 8,
@@ -540,7 +540,7 @@ for STILL in 03-staging-stills/[0-9]*.jpg; do
     -H "Authorization: Bearer ${RUNWAY_KEY}" \
     -H "X-Runway-Version: 2024-11-06" \
     -H "Content-Type: application/json" \
-    -d "{\"model\":\"gen3a_turbo\",\"promptImage\":\"${IMG_URL}\",\"promptText\":\"${PROMPT}\",\"duration\":8,\"ratio\":\"1280:768\",\"seed\":42}")
+    -d "{\"model\":\"gen4_turbo\",\"promptImage\":\"${IMG_URL}\",\"promptText\":\"${PROMPT}\",\"duration\":8,\"ratio\":\"1280:768\",\"seed\":42}")
 
   TASK_ID=$(echo $RESPONSE | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('id','ERROR'))" 2>/dev/null)
 

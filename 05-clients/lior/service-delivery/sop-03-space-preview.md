@@ -265,7 +265,7 @@ JOB=$(curl -s -X POST "https://api.runwayml.com/v1/image_to_video" \
   -H "Authorization: Bearer ${RUNWAY_KEY}" \
   -H "Content-Type: application/json" \
   -d "{
-    \"model\": \"gen3a_turbo\",
+    \"model\": \"gen4_turbo\",
     \"promptImage\": \"${STAGED_IMAGE_URL}\",
     \"promptText\": \"Extremely slow cinematic push forward, warm interior light, smooth steady camera, no shake, 24fps, photorealistic\",
     \"duration\": 8,
