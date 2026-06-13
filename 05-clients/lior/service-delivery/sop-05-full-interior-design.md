@@ -778,7 +778,7 @@ Rules: no "AI", no "luxury", no prices, no "drone".
 |---|---|---|
 | Virtual Staging AI | API down or quota exhausted | Wait 30 min. Try REimagineHome: `POST https://api.reimaginehome.ai/v1/generate`. If both down → Firefly render. |
 | Adobe Firefly | Token expired | Re-run token script (Phase 2 Step 1). Valid 24h. |
-| Firefly | API down | Midjourney Discord. If Discord unavailable → Replicate SDXL. |
+| Firefly | API down | Replicate SDXL (fallback direct) |
 | Pandoc PDF | xelatex font error | `cp [font.ttf] ~/Library/Fonts/ && fc-cache -fv`. Retry. Or switch to `--pdf-engine=wkhtmltopdf`. |
 | WeTransfer API | Upload fails | Manual upload at wetransfer.com |
 | WeTransfer API | File >2GB | Split: Design Book ZIP + Materials/Plans ZIP separately |

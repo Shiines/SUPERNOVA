@@ -304,10 +304,31 @@ curl -L "${CHOSEN_URL}" -o "${WORKDIR}/02-renders/interior/${PROJECT_ID}-int-${R
 echo "Interior render saved: ${ROOM}"
 ```
 
-**Firefly fallback: Midjourney Discord**
-```
-/imagine prompt: [room type], contemporary architectural interior, [materials from brief], wide angle architectural photography, shot on Phase One, 8k, photorealistic, Dubai luxury residential, warm light --ar 16:9 --style raw --v 6 --q 2
-Click U1/U2/U3/U4 → Save Image As → save to 02-renders/interior/
+**Firefly fallback: Replicate SDXL**
+```bash
+REPLICATE_KEY=$(grep REPLICATE_KEY /Users/cashville/.env | cut -d= -f2)
+PRED=$(curl -s -X POST "https://api.replicate.com/v1/predictions" \
+  -H "Authorization: Token ${REPLICATE_KEY}" \
+  -H "Content-Type: application/json" \
+  -d "{
+    \"version\":\"06d6fae3b75ab68a28cd2900afa6033166910dd09fd9751047043592f8f7cc60\",
+    \"input\":{
+      \"prompt\":\"${ROOM} room, contemporary architectural interior, ${MATERIALS}, wide angle architectural photography, shot on Phase One, 8k, photorealistic, Dubai residential, warm light\",
+      \"negative_prompt\":\"cheap, IKEA, cartoon, watermark, cold grey\",
+      \"width\":1920,\"height\":1080,\"num_outputs\":3
+    }
+  }")
+PRED_ID=$(echo $PRED | python3 -c "import sys,json; print(json.load(sys.stdin)['id'])")
+while true; do
+  R=$(curl -s "https://api.replicate.com/v1/predictions/${PRED_ID}" \
+    -H "Authorization: Token ${REPLICATE_KEY}")
+  STATUS=$(echo $R | python3 -c "import sys,json; print(json.load(sys.stdin)['status'])")
+  [ "$STATUS" = "succeeded" ] && echo $R | python3 -c "import sys,json; [print(u) for u in json.load(sys.stdin)['output']]" && break
+  [ "$STATUS" = "failed" ] && echo "Replicate failed" && break
+  sleep 8
+done
+CHOSEN_URL="[selected URL]"
+curl -L "${CHOSEN_URL}" -o "${WORKDIR}/02-renders/interior/${PROJECT_ID}-int-${ROOM}-v1.jpg"
 ```
 
 **Interior render QA per view:**
@@ -579,8 +600,7 @@ Rules: no "AI", no "luxury", no prices, no "drone".
 | Replicate | API rate limit | Wait 60s and retry |
 | Virtual Staging AI | API down | Wait 30 min. Try REimagineHome: `POST https://api.reimaginehome.ai/v1/generate`. If both down → use Firefly (Option B). |
 | Adobe Firefly | Token expired | Re-run token script in Step 3. Valid 24h. |
-| Firefly | API down | Midjourney Discord `/imagine` — same prompt, add `--ar 16:9 --style raw --v 6 --q 2` |
-| Midjourney | Unavailable | Replicate SDXL without ControlNet (no reference image, pure text-to-image) |
+| Firefly | API down | Replicate SDXL without ControlNet (pure text-to-image) |
 | Pandoc PDF | xelatex font error | `cp [font.ttf] ~/Library/Fonts/ && fc-cache -fv`. Or use `--pdf-engine=wkhtmltopdf`. |
 | WeTransfer API | Upload fails | Manual upload at wetransfer.com |
 | WeTransfer | File >2GB | Split: renders ZIP + presentation PDF ZIP separately |

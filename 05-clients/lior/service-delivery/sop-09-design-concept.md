@@ -145,11 +145,31 @@ curl -L "${CHOSEN_URL}" -o "${WORKDIR}/02-moodboard/${PROJECT_ID}-moodboard-v1.j
 echo "Moodboard saved."
 ```
 
-**Fallback: Midjourney Discord**
-```
-In Discord #general-X channel:
-/imagine prompt: interior design concept board, [style direction], palette [colors], [key materials], lifestyle editorial, flat lay collage with swatches and furniture references, Dubai residential, warm light --ar 16:9 --v 6
-Click U1/U2/U3/U4 to upscale → Save Image As → save to 02-moodboard/
+**Fallback: Replicate SDXL**
+```bash
+REPLICATE_KEY=$(grep REPLICATE_KEY /Users/cashville/.env | cut -d= -f2)
+PRED=$(curl -s -X POST "https://api.replicate.com/v1/predictions" \
+  -H "Authorization: Token ${REPLICATE_KEY}" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "version":"06d6fae3b75ab68a28cd2900afa6033166910dd09fd9751047043592f8f7cc60",
+    "input":{
+      "prompt":"interior design concept board, [style direction], palette [colors], [key materials], lifestyle editorial, flat lay collage with swatches and furniture references, Dubai residential, warm light",
+      "negative_prompt":"cheap, IKEA, cartoon, watermark, cold grey, generic",
+      "width":1920,"height":1080,"num_outputs":3
+    }
+  }')
+PRED_ID=$(echo $PRED | python3 -c "import sys,json; print(json.load(sys.stdin)['id'])")
+while true; do
+  R=$(curl -s "https://api.replicate.com/v1/predictions/${PRED_ID}" \
+    -H "Authorization: Token ${REPLICATE_KEY}")
+  STATUS=$(echo $R | python3 -c "import sys,json; print(json.load(sys.stdin)['status'])")
+  [ "$STATUS" = "succeeded" ] && echo $R | python3 -c "import sys,json; [print(u) for u in json.load(sys.stdin)['output']]" && break
+  [ "$STATUS" = "failed" ] && echo "Replicate failed" && break
+  sleep 8
+done
+CHOSEN_URL="[selected URL]"
+curl -L "${CHOSEN_URL}" -o "${WORKDIR}/02-moodboard/${PROJECT_ID}-moodboard-v1.jpg"
 ```
 
 **Moodboard QA:**
@@ -636,8 +656,7 @@ Rules: no "AI", no "luxury", no prices, no "drone".
 | Tool | Failure | Fix |
 |---|---|---|
 | Adobe Firefly | Token expired | Re-run token script (Step 2A). Valid 24h. |
-| Firefly | API down | Midjourney Discord `/imagine` (same prompt, add `--ar 16:9 --v 6`) |
-| Midjourney | Unavailable | Replicate SDXL `POST https://api.replicate.com/v1/predictions` — model hash `06d6fae3b75ab68a28cd2900afa6033166910dd09fd9751047043592f8f7cc60` |
+| Firefly | API down | Replicate SDXL `POST https://api.replicate.com/v1/predictions` — model hash `06d6fae3b75ab68a28cd2900afa6033166910dd09fd9751047043592f8f7cc60` |
 | Virtual Staging AI | API down or quota exhausted | Wait 30 min. Try REimagineHome: `POST https://api.reimaginehome.ai/v1/generate`. Both down → Firefly. |
 | REimagineHome | Also down | Use Firefly render (Step 4, fallback section) |
 | Pandoc PDF | xelatex font error | `cp [font.ttf] ~/Library/Fonts/ && fc-cache -fv`. Or `--pdf-engine=wkhtmltopdf` |
@@ -655,7 +674,7 @@ Rules: no "AI", no "luxury", no prices, no "drone".
 [YYYY-MM-DD HH:MM] STARTED: [PROJECT_ID] | rooms=[N] | budget=[tier] | outcome=[sell/rent/live]
 [YYYY-MM-DD HH:MM] BRIEF: parsed — style=[direction], avoidances=[top 3]
 [YYYY-MM-DD HH:MM] MOODBOARD: generated — selected variant [1/2/3]
-[YYYY-MM-DD HH:MM] VISUALIZATION: [room] — completed via [vstaging / Firefly / Midjourney]
+[YYYY-MM-DD HH:MM] VISUALIZATION: [room] — completed via [vstaging / Firefly / Replicate]
 [YYYY-MM-DD HH:MM] MATERIALS: specification written — [N] rooms
 [YYYY-MM-DD HH:MM] PDF: generated — [filename]
 [YYYY-MM-DD HH:MM] FALLBACK: [tool] → [alternative] — [room] — [reason]

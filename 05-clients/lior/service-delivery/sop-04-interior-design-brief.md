@@ -193,11 +193,32 @@ curl -L "${CHOSEN_URL}" -o "${WORKDIR}/02-moodboard/${PROJECT_ID}-moodboard-v1.j
 echo "Moodboard saved."
 ```
 
-**Fallback: Midjourney Discord**
-```
-In Discord #general-X channel:
-/imagine prompt: interior design moodboard, [style direction], palette [colors], [key materials], flat lay composition, material swatches and furniture samples, editorial lifestyle photography, Dubai apartment, warm light --ar 16:9 --v 6
-Click U1/U2/U3/U4 to upscale best result → Save Image As → save to 02-moodboard/
+**Fallback: Replicate SDXL**
+```bash
+REPLICATE_KEY=$(grep REPLICATE_KEY /Users/cashville/.env | cut -d= -f2)
+PRED=$(curl -s -X POST "https://api.replicate.com/v1/predictions" \
+  -H "Authorization: Token ${REPLICATE_KEY}" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "version":"06d6fae3b75ab68a28cd2900afa6033166910dd09fd9751047043592f8f7cc60",
+    "input":{
+      "prompt":"interior design moodboard, [style direction], palette [colors], [key materials], flat lay composition, material swatches and furniture samples, editorial lifestyle photography, Dubai apartment, warm light",
+      "negative_prompt":"cheap, IKEA, cartoon, watermark, cold grey, generic",
+      "width":1920,"height":1080,"num_outputs":3
+    }
+  }')
+PRED_ID=$(echo $PRED | python3 -c "import sys,json; print(json.load(sys.stdin)['id'])")
+while true; do
+  R=$(curl -s "https://api.replicate.com/v1/predictions/${PRED_ID}" \
+    -H "Authorization: Token ${REPLICATE_KEY}")
+  STATUS=$(echo $R | python3 -c "import sys,json; print(json.load(sys.stdin)['status'])")
+  [ "$STATUS" = "succeeded" ] && echo $R | python3 -c "import sys,json; [print(u) for u in json.load(sys.stdin)['output']]" && break
+  [ "$STATUS" = "failed" ] && echo "Replicate failed" && break
+  sleep 8
+done
+# Download chosen variant
+CHOSEN_URL="[selected URL]"
+curl -L "${CHOSEN_URL}" -o "${WORKDIR}/02-moodboard/${PROJECT_ID}-moodboard-v1.jpg"
 ```
 
 **Moodboard must convey:**
@@ -682,8 +703,7 @@ Rules: no "AI", no "luxury", no prices, no "drone".
 | Virtual Staging AI | API down or quota exhausted | Wait 30 min. If still down → use REimagineHome API: `POST https://api.reimaginehome.ai/v1/generate` with same params. If both down → use Firefly (Step 5C). |
 | REimagineHome | Also unavailable | Use Firefly render (Step 5C) |
 | Adobe Firefly | Token expired | Re-run token script (Step 3A). Valid 24h. |
-| Firefly | API down | Use Midjourney Discord `/imagine` with same prompt |
-| Midjourney | Unavailable | Use Replicate SDXL: `POST https://api.replicate.com/v1/predictions` with model hash `06d6fae3b75ab68a28cd2900afa6033166910dd09fd9751047043592f8f7cc60` |
+| Firefly | API down | Use Replicate SDXL: `POST https://api.replicate.com/v1/predictions` with model hash `06d6fae3b75ab68a28cd2900afa6033166910dd09fd9751047043592f8f7cc60` |
 | Pandoc PDF | Font not found (xelatex) | `cp [font.ttf] ~/Library/Fonts/ && fc-cache -fv` then retry. Or switch to `--pdf-engine=wkhtmltopdf` |
 | Pandoc PDF | wkhtmltopdf not installed | `brew install wkhtmltopdf` |
 | WeTransfer API | Upload fails | Manual upload at wetransfer.com |

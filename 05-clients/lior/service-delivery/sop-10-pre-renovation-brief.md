@@ -228,10 +228,31 @@ curl -L "${CHOSEN_URL}" -o "${WORKDIR}/02-visualizations/after/${PROJECT_ID}-aft
 echo "Firefly after render saved: ${ROOM}"
 ```
 
-**Firefly fallback: Midjourney Discord**
-```
-/imagine prompt: [room type], post-renovation interior, [specific changes], [style direction], photorealistic, editorial architecture photography, Dubai residential, warm afternoon light --ar 16:9 --style raw --v 6
-Click U1/U2/U3/U4 → Save Image As → save to 02-visualizations/after/
+**Firefly fallback: Replicate SDXL**
+```bash
+REPLICATE_KEY=$(grep REPLICATE_KEY /Users/cashville/.env | cut -d= -f2)
+PRED=$(curl -s -X POST "https://api.replicate.com/v1/predictions" \
+  -H "Authorization: Token ${REPLICATE_KEY}" \
+  -H "Content-Type: application/json" \
+  -d "{
+    \"version\":\"06d6fae3b75ab68a28cd2900afa6033166910dd09fd9751047043592f8f7cc60\",
+    \"input\":{
+      \"prompt\":\"${ROOM} room, post-renovation interior, ${CHANGES}, ${STYLE_DIRECTION}, photorealistic, editorial architecture photography, Dubai residential, warm afternoon light\",
+      \"negative_prompt\":\"cheap, IKEA, cartoon, watermark, cold grey\",
+      \"width\":1920,\"height\":1080,\"num_outputs\":3
+    }
+  }")
+PRED_ID=$(echo $PRED | python3 -c "import sys,json; print(json.load(sys.stdin)['id'])")
+while true; do
+  R=$(curl -s "https://api.replicate.com/v1/predictions/${PRED_ID}" \
+    -H "Authorization: Token ${REPLICATE_KEY}")
+  STATUS=$(echo $R | python3 -c "import sys,json; print(json.load(sys.stdin)['status'])")
+  [ "$STATUS" = "succeeded" ] && echo $R | python3 -c "import sys,json; [print(u) for u in json.load(sys.stdin)['output']]" && break
+  [ "$STATUS" = "failed" ] && echo "Replicate failed" && break
+  sleep 8
+done
+CHOSEN_URL="[selected URL]"
+curl -L "${CHOSEN_URL}" -o "${WORKDIR}/02-visualizations/after/${PROJECT_ID}-after-${ROOM}-v1.jpg"
 ```
 
 #### 2D — Create Before/After Side-by-Side (ImageMagick)
@@ -690,8 +711,7 @@ Rules: no "AI", no "luxury", no prices (except actual budget allocations), no "d
 | Virtual Staging AI | API down or quota exhausted | Wait 30 min. Try REimagineHome: `POST https://api.reimaginehome.ai/v1/generate`. Both down → Firefly (Step 2C). |
 | REimagineHome | Also down | Use Firefly render |
 | Adobe Firefly | Token expired | Re-run token script in Step 2C. Valid 24h. |
-| Firefly | API down | Midjourney Discord `/imagine` — same prompt, add `--ar 16:9 --style raw --v 6` |
-| Midjourney | Unavailable | Replicate SDXL: `POST https://api.replicate.com/v1/predictions` model `06d6fae3b75ab68a28cd2900afa6033166910dd09fd9751047043592f8f7cc60` |
+| Firefly | API down | Replicate SDXL: `POST https://api.replicate.com/v1/predictions` model `06d6fae3b75ab68a28cd2900afa6033166910dd09fd9751047043592f8f7cc60` |
 | ImageMagick | Not installed | `brew install imagemagick` |
 | Pandoc PDF | xelatex font error | `cp [font.ttf] ~/Library/Fonts/ && fc-cache -fv`. Or `--pdf-engine=wkhtmltopdf` |
 | WeTransfer API | Upload fails | Manual upload at wetransfer.com |
@@ -731,7 +751,7 @@ LIOR Studio
 ```
 [YYYY-MM-DD HH:MM] STARTED: [PROJECT_ID] | rooms=[N] | budget=AED [X] | scope=[cosmetic/partial/full]
 [YYYY-MM-DD HH:MM] BEFORE PHOTOS: organized — [N] rooms
-[YYYY-MM-DD HH:MM] VISUALIZATION: [room] — after via [vstaging / Firefly / Midjourney]
+[YYYY-MM-DD HH:MM] VISUALIZATION: [room] — after via [vstaging / Firefly / Replicate]
 [YYYY-MM-DD HH:MM] BEFORE/AFTER: side-by-side created for [room]
 [YYYY-MM-DD HH:MM] SCOPE: written — [N] rooms
 [YYYY-MM-DD HH:MM] MATERIALS: schedule written — [N] rooms

@@ -192,20 +192,7 @@ curl -L "${VAR_URL}" -o "${WORKDIR}/03-renders/direction-${DIRECTION}/${PROJECT_
 | Bathroom | "bathroom ensuite, [style], [palette], freestanding bath or walk-in shower, natural stone" |
 | Balcony | "balcony terrace, outdoor furniture, Dubai skyline or marina view, evening golden hour" |
 
-#### 3C — Fallback: Midjourney via Discord (if Firefly is unavailable)
-
-```
-In Discord, go to any #general-X channel in the Midjourney server.
-Type:
-/imagine prompt: [paste full prompt below] --ar 16:9 --style raw --v 6 --q 2
-
-Wait for 4 variants to generate.
-Click U1 / U2 / U3 / U4 to upscale the best variant.
-Click the upscaled image → Open in Browser → right-click → Save Image As
-Save to: .tmp/[PROJECT_ID]-space-preview/03-renders/direction-[A/B]/[PROJECT_ID]-render-[room]-[A/B]-v1.jpg
-```
-
-#### 3D — Fallback level 2: Replicate SDXL (if both above fail)
+#### 3C — Fallback: Replicate SDXL (if Firefly is unavailable)
 
 ```bash
 REPLICATE_KEY=$(grep REPLICATE_API_KEY /Users/cashville/.env | cut -d= -f2)
@@ -542,8 +529,7 @@ Rules: no "AI", no "luxury", no prices, no "drone".
 | Tool | Failure | Fix |
 |---|---|---|
 | Adobe Firefly | Token expired | Re-run token script (Step 3A). Token valid 24h. |
-| Adobe Firefly | API down | Use Midjourney Discord `/imagine` (Step 3C) |
-| Midjourney Discord | Server unreachable | Use Replicate SDXL (Step 3D) |
+| Adobe Firefly | API down | Use Replicate SDXL (Step 3C) |
 | Runway Gen-3 | Job failed after 3 attempts | Use Ken Burns FFmpeg fallback (Step 4B). Log it. |
 | WeTransfer API | Upload fails | Go to wetransfer.com manually, upload ZIP, copy link |
 | WeTransfer API | File >2GB | Split into two ZIPs: renders in one, videos in another |

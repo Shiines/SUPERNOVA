@@ -5,7 +5,7 @@
 
 | Fichier | Contenu |
 |---------|---------|
-| `TOOLS.md` | Comment utiliser chaque outil : API calls complets, auth setup, polling, download, web UI fallback. ImgBB · Virtual Staging AI · REimagineHome · Runway · Midjourney · Firefly · Replicate · RoomSketcher · FFmpeg · Pandoc · ImageMagick · Lightroom · WeTransfer · CallMeBot · ZIP |
+| `TOOLS.md` | Comment utiliser chaque outil : API calls complets, auth setup, polling, download, web UI fallback. ImgBB · Virtual Staging AI · REimagineHome · Runway · Firefly · Replicate SDXL · RoomSketcher · FFmpeg · Pandoc · ImageMagick · Lightroom · WeTransfer · CallMeBot · ZIP |
 | `PROTOCOLS.md` | Livraison A→Z (script complet) · Templates WhatsApp par service · Fallbacks par outil · Checklist de livraison universelle |
 
 **Tout agent qui exécute un SOP LIOR doit avoir lu TOOLS.md et PROTOCOLS.md avant de commencer.**
@@ -112,9 +112,8 @@ Update `NOTION_LEADS_DB_ID` at each project milestone:
 | Apply Design API | Virtual staging (empty → furnished) | `POST https://api.applydesign.ai/v1/stage` |
 | Runway Gen-3 API | Image-to-video animation | `POST https://api.dev.runwayml.com/v1/image_to_video` |
 | FFmpeg | Video processing, color grade, export | CLI — Bash |
-| Midjourney | Moodboards, concept visuals | Discord API or Midjourney API (v6) |
-| Adobe Firefly API | Commercial-safe image generation | `POST https://firefly-api.adobe.io/v3/images/generate` |
-| Replicate (SD + ControlNet) | Architectural renders, advanced staging | `POST https://api.replicate.com/v1/predictions` |
+| Adobe Firefly API | Image generation (primary — commercial-safe) | `POST https://firefly-api.adobe.io/v3/images/generate` |
+| Replicate SDXL + ControlNet | Architectural renders, moodboards (Firefly fallback) | `POST https://api.replicate.com/v1/predictions` |
 | RoomSketcher API | Space planning / floor plan generation | `POST https://api.roomsketcher.com/v2/projects` |
 | Photoshop (local) | Retouch, compositing | Desktop / Photoshop Actions |
 | Lightroom (local) | Color matching, batch export | Desktop |
