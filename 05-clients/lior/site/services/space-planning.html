@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Full Interior Design by LIOR. from first concept to finished room. One single point of contact, complete design and delivery.">
-<meta property="og:title" content="Full Interior Design · LIOR Studio">
+<meta name="description" content="Space Planning by LIOR. Every room placed with intention. Two fully annotated layout directions before a wall moves.">
+<meta property="og:title" content="Space Planning · LIOR Studio">
 <meta name="theme-color" content="#0E0E10">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230E0E10'/><text x='50%' y='56%' dominant-baseline='middle' text-anchor='middle' font-family='Georgia,serif' font-size='11' font-weight='300' fill='%23E8B873' letter-spacing='2'>LIOR</text></svg>">
-<title>Full Interior Design · LIOR Studio</title>
+<title>Space Planning · LIOR Studio</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
@@ -16,7 +16,7 @@ html{scroll-behavior:smooth}
 body{background:var(--ob);color:var(--day);font-family:'Inter',sans-serif;font-weight:300;overflow-x:hidden;cursor:none}
 @media(max-width:900px){body{cursor:auto}}
 #cd{width:6px;height:6px;background:var(--gold);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s}
-#cr{width:34px;height:34px;border:1px solid rgba(232,184,115,.38);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s}
+#cr{width:34px;height:34px;border:1px solid rgba(232,184,115,.38);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s,opacity .3s}
 body.ch #cd{width:10px;height:10px}
 body.ch #cr{width:50px;height:50px;border-color:rgba(232,184,115,.65)}
 @media(max-width:900px){#cd,#cr{display:none}}
@@ -60,23 +60,9 @@ nav.sc{padding:15px 60px;background:rgba(14,14,16,.96);backdrop-filter:blur(24px
 .hl1::before{width:3px;height:3px;top:30%;right:28%}
 .hl1::after{width:2px;height:2px;top:65%;right:42%}
 .hl2::before{content:'';position:absolute;top:40%;right:24%;width:160px;height:1px;background:linear-gradient(to right,transparent,rgba(232,184,115,.2),transparent)}
-.cube-wrap{position:absolute;right:14%;top:50%;transform:translateY(-50%);width:260px;height:260px;perspective:700px;pointer-events:none}
-.cube{width:100%;height:100%;transform-style:preserve-3d;animation:cubespin 28s linear infinite}
-@keyframes cubespin{0%{transform:rotateX(12deg) rotateY(0)}100%{transform:rotateX(12deg) rotateY(360deg)}}
-.face{position:absolute;border:1px solid rgba(232,184,115,.13);background:rgba(232,184,115,.012)}
-.f1{width:180px;height:180px;top:40px;left:40px;transform:translateZ(90px)}
-.f2{width:180px;height:180px;top:40px;left:40px;transform:rotateY(180deg) translateZ(90px)}
-.f3{width:180px;height:180px;top:40px;left:40px;transform:rotateY(90deg) translateZ(90px)}
-.f4{width:180px;height:180px;top:40px;left:40px;transform:rotateY(-90deg) translateZ(90px)}
-.f5{width:180px;height:180px;top:40px;left:40px;transform:rotateX(90deg) translateZ(90px)}
-.f6{width:180px;height:180px;top:40px;left:40px;transform:rotateX(-90deg) translateZ(90px)}
-.face.i{border-color:rgba(232,184,115,.22)}
-.fi1{width:90px;height:90px;top:85px;left:85px;transform:translateZ(45px)}
-.fi2{width:90px;height:90px;top:85px;left:85px;transform:rotateY(180deg) translateZ(45px)}
-.fi3{width:90px;height:90px;top:85px;left:85px;transform:rotateY(90deg) translateZ(45px)}
-.fi4{width:90px;height:90px;top:85px;left:85px;transform:rotateY(-90deg) translateZ(45px)}
-.fi5{width:90px;height:90px;top:85px;left:85px;transform:rotateX(90deg) translateZ(45px)}
-.fi6{width:90px;height:90px;top:85px;left:85px;transform:rotateX(-90deg) translateZ(45px)}
+/* Grid decoration for space planning */
+.hero-grid{position:absolute;right:10%;top:50%;transform:translateY(-50%);width:300px;height:300px;pointer-events:none;opacity:.18}
+.hero-grid line{stroke:var(--gold);stroke-width:.5}
 .hero-cnt{position:relative;z-index:2;max-width:640px}
 .hero-tag{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);opacity:0;animation:fa 1s ease 1.7s forwards;margin-bottom:30px;display:flex;align-items:center;gap:14px}
 .hero-tag::before{content:'';width:36px;height:1px;background:var(--gold);opacity:.45}
@@ -86,7 +72,7 @@ nav.sc{padding:15px 60px;background:rgba(14,14,16,.96);backdrop-filter:blur(24px
 .hero-scroll{font-size:9px;letter-spacing:.16em;color:var(--std);text-transform:uppercase;opacity:0;animation:fa 1s ease 2.6s forwards;display:flex;align-items:center;gap:14px}
 .hero-scroll::after{content:'';width:40px;height:1px;background:linear-gradient(to right,var(--gold),transparent);animation:sca 2.2s ease 3.1s infinite}
 @keyframes sca{0%,100%{transform:scaleX(.5);opacity:.3}50%{transform:scaleX(1);opacity:.8}}
-@media(max-width:900px){.hero{padding:0 24px;align-items:flex-end;padding-bottom:80px}.cube-wrap{display:none}.hero h1{font-size:clamp(40px,9vw,64px)}}
+@media(max-width:900px){.hero{padding:0 24px;align-items:flex-end;padding-bottom:80px}.hero-grid{display:none}.hero h1{font-size:clamp(40px,9vw,64px)}}
 .mq{padding:13px 0;background:rgba(232,184,115,.05);border-top:1px solid rgba(232,184,115,.09);border-bottom:1px solid rgba(232,184,115,.09);overflow:hidden;white-space:nowrap}
 .mq-t{display:inline-flex;animation:mqs 20s linear infinite}
 .mq:hover .mq-t{animation-play-state:paused}
@@ -95,6 +81,7 @@ nav.sc{padding:15px 60px;background:rgba(14,14,16,.96);backdrop-filter:blur(24px
 .mq-i::after{content:'◇';font-size:7px;opacity:.5}
 .prob{max-width:1300px;margin:0 auto;padding:110px 60px;display:grid;grid-template-columns:1.25fr 1fr;gap:88px;align-items:center}
 @media(max-width:960px){.prob{grid-template-columns:1fr;gap:52px;padding:72px 24px}}
+.prob-body .ey{margin-bottom:18px}
 .prob-h{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,3.8vw,54px);font-weight:300;line-height:1.1;color:var(--day);margin-bottom:22px}
 .prob-h em{font-style:italic;color:var(--gold)}
 .prob-p{font-size:15px;color:var(--stone);line-height:1.84;max-width:460px}
@@ -108,6 +95,7 @@ nav.sc{padding:15px 60px;background:rgba(14,14,16,.96);backdrop-filter:blur(24px
 .dlv{background:var(--ob2);padding:100px 0 0}
 .dlv-hd{max-width:1300px;margin:0 auto;padding:0 60px 64px}
 @media(max-width:900px){.dlv-hd{padding:0 24px 48px}}
+.dlv-hd .ey{margin-bottom:16px}
 .dlv-hd-t{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,3.6vw,54px);font-weight:300;color:var(--day);line-height:1.1}
 .dlv-hd-t em{font-style:italic;color:var(--gold)}
 .row{display:grid;grid-template-columns:1fr 1fr;min-height:320px}
@@ -116,14 +104,13 @@ nav.sc{padding:15px 60px;background:rgba(14,14,16,.96);backdrop-filter:blur(24px
 .row:nth-child(even) .rv{order:1}
 .rt{background:var(--ob3);padding:52px 60px;display:flex;flex-direction:column;justify-content:center}
 @media(max-width:900px){.rt{padding:40px 24px}}
-.rv{position:relative;overflow:hidden;min-height:280px}
+.rv{position:relative;overflow:hidden;min-height:280px;background:var(--ob)}
 .rv-bg{position:absolute;inset:0;transition:transform .5s ease}
 .row:hover .rv-bg{transform:scale(1.05)}
-.rv.v1 .rv-bg{background:linear-gradient(145deg,#1e1a12,#14120e);background-image:radial-gradient(ellipse at 44% 48%,rgba(232,184,115,.3) 0%,transparent 54%)}
-.rv.v2 .rv-bg{background:linear-gradient(145deg,#141e20,#0e1418);background-image:radial-gradient(ellipse at 60% 40%,rgba(165,210,230,.18) 0%,transparent 52%)}
-.rv.v3 .rv-bg{background:linear-gradient(145deg,#201a10,#16120a);background-image:radial-gradient(ellipse at 46% 52%,rgba(232,184,115,.26) 0%,transparent 50%)}
-.rv.v4 .rv-bg{background:linear-gradient(145deg,#141e18,#101412);background-image:radial-gradient(ellipse at 55% 44%,rgba(155,210,175,.18) 0%,transparent 50%)}
-.rv.v5 .rv-bg{background:linear-gradient(145deg,#1c1418,#12100e);background-image:radial-gradient(ellipse at 50% 52%,rgba(210,175,200,.16) 0%,transparent 50%)}
+.rv.v1 .rv-bg{background:linear-gradient(145deg,#1a1a10,#10100a);background-image:radial-gradient(ellipse at 40% 45%,rgba(232,184,115,.28) 0%,transparent 52%)}
+.rv.v2 .rv-bg{background:linear-gradient(145deg,#14181c,#0e1012);background-image:radial-gradient(ellipse at 62% 38%,rgba(148,185,210,.18) 0%,transparent 48%),radial-gradient(ellipse at 28% 65%,rgba(232,184,115,.14) 0%,transparent 44%)}
+.rv.v3 .rv-bg{background:linear-gradient(145deg,#1c1a14,#12110a);background-image:radial-gradient(ellipse at 45% 50%,rgba(232,184,115,.22) 0%,transparent 50%)}
+.rv.v4 .rv-bg{background:linear-gradient(145deg,#14181a,#0c1012);background-image:radial-gradient(ellipse at 55% 42%,rgba(180,215,200,.16) 0%,transparent 50%)}
 .rv::after{content:'';position:absolute;bottom:0;left:0;width:44px;height:44px;border-bottom:1px solid rgba(232,184,115,.3);border-left:1px solid rgba(232,184,115,.3)}
 .rn{font-family:'Cormorant Garamond',serif;font-size:11px;color:var(--gold);opacity:.5;letter-spacing:.08em;margin-bottom:16px}
 .rtt{font-family:'Cormorant Garamond',serif;font-size:clamp(19px,2.2vw,27px);font-weight:300;color:var(--day);margin-bottom:10px;line-height:1.2}
@@ -131,47 +118,29 @@ nav.sc{padding:15px 60px;background:rgba(14,14,16,.96);backdrop-filter:blur(24px
 .proc{padding:100px 60px}
 @media(max-width:900px){.proc{padding:72px 24px}}
 .proc-in{max-width:1300px;margin:0 auto}
+.proc-hd{margin-bottom:68px}
+.proc-hd .ey{margin-bottom:16px}
 .proc-ht{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,3.6vw,54px);font-weight:300;color:var(--day);line-height:1.1}
 .proc-ht em{font-style:italic;color:var(--gold)}
-.steps{display:grid;grid-template-columns:repeat(4,1fr);position:relative;gap:2px;margin-top:64px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);position:relative;gap:2px}
 .steps::before{content:'';position:absolute;top:24px;left:12.5%;right:12.5%;height:1px;background:linear-gradient(to right,transparent,rgba(232,184,115,.35) 12%,rgba(232,184,115,.35) 88%,transparent);z-index:0}
 @media(max-width:860px){.steps{grid-template-columns:1fr 1fr;gap:2px}.steps::before{display:none}}
 @media(max-width:520px){.steps{grid-template-columns:1fr}}
-.step{padding:32px 20px 36px;position:relative;z-index:1;text-align:center;background:var(--ob2)}
+.step{padding:0 20px 36px;position:relative;z-index:1;text-align:center;background:var(--ob2)}
 .sc{width:48px;height:48px;border:1px solid rgba(232,184,115,.24);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 22px;font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:300;color:var(--gold);background:var(--ob);position:relative;z-index:2;transition:border-color .35s,background .35s,transform .35s;transform-style:preserve-3d;cursor:none}
 @media(max-width:900px){.sc{cursor:auto}}
 .step:hover .sc{border-color:var(--gold);background:rgba(232,184,115,.07);transform:perspective(400px) rotateY(15deg) scale(1.1)}
+.step{padding-top:32px}
 .stt{font-size:13.5px;font-weight:400;color:var(--day);margin-bottom:8px}
 .std{font-size:12px;color:var(--stone);line-height:1.66}
-.gal{background:var(--ob2);padding:100px 60px}
-@media(max-width:900px){.gal{padding:72px 24px}}
-.gal-in{max-width:1300px;margin:0 auto}
-.gal-ht{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,3.6vw,54px);font-weight:300;color:var(--day);line-height:1.1}
-.gal-ht em{font-style:italic;color:var(--gold)}
-.gg{display:grid;grid-template-columns:1.45fr 1fr 1fr;grid-template-rows:280px 220px;gap:3px;margin-top:56px}
-.gc{position:relative;overflow:hidden;cursor:none;transform-style:preserve-3d;transition:transform .14s ease-out,box-shadow .14s ease-out}
-.gc:first-child{grid-row:1/3}
-@media(max-width:900px){.gg{grid-template-columns:1fr 1fr;grid-template-rows:auto}.gc:first-child{grid-row:auto}.gc{min-height:220px}}
-@media(max-width:560px){.gg{grid-template-columns:1fr}}
-.gc-bg{position:absolute;inset:0;transition:transform .5s ease}
-.gc:hover .gc-bg{transform:scale(1.06)}
-.gc:nth-child(1) .gc-bg{background:linear-gradient(145deg,#201c12,#16120e);background-image:radial-gradient(ellipse at 44% 48%,rgba(232,184,115,.34) 0%,transparent 54%)}
-.gc:nth-child(2) .gc-bg{background:linear-gradient(145deg,#141a20,#0e1016);background-image:radial-gradient(ellipse at 56% 42%,rgba(160,195,228,.2) 0%,transparent 50%)}
-.gc:nth-child(3) .gc-bg{background:linear-gradient(145deg,#1e1c14,#161210);background-image:radial-gradient(ellipse at 42% 50%,rgba(232,184,115,.24) 0%,transparent 50%)}
-.gc:nth-child(4) .gc-bg{background:linear-gradient(145deg,#161e16,#101210);background-image:radial-gradient(ellipse at 54% 44%,rgba(150,205,165,.18) 0%,transparent 50%)}
-.gc:nth-child(5) .gc-bg{background:linear-gradient(145deg,#1c1418,#12100e);background-image:radial-gradient(ellipse at 50% 52%,rgba(210,170,210,.16) 0%,transparent 52%)}
-.gc-info{position:absolute;bottom:0;left:0;right:0;padding:22px 20px;background:linear-gradient(to top,rgba(14,14,16,.92) 0%,transparent 100%)}
-.gc-tag{font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
-.gc-name{font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:300;color:var(--day)}
-.gc::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(232,184,115,.06) 0%,transparent 45%);opacity:0;transition:opacity .3s}
-.gc:hover::after{opacity:1}
 .faq{padding:100px 60px}
 @media(max-width:900px){.faq{padding:72px 24px}}
 .faq-in{max-width:860px;margin:0 auto}
+.faq-hd{margin-bottom:48px}
+.faq-hd .ey{margin-bottom:16px}
 .faq-ht{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,3.6vw,54px);font-weight:300;color:var(--day);line-height:1.1}
 .faq-ht em{font-style:italic;color:var(--gold)}
-.fi{border-bottom:1px solid rgba(255,255,255,.05);margin-top:48px}
-.fi+.fi{margin-top:0}
+.fi{border-bottom:1px solid rgba(255,255,255,.05)}
 .fq{width:100%;text-align:left;padding:22px 0;display:flex;justify-content:space-between;align-items:center;background:none;border:none;cursor:none;color:var(--day);font-size:15px;font-weight:300;font-family:'Inter',sans-serif;gap:20px;line-height:1.4;transition:color .25s}
 @media(max-width:900px){.fq{cursor:pointer;font-size:14px}}
 .fq:hover{color:var(--gold)}
@@ -184,6 +153,7 @@ nav.sc{padding:15px 60px;background:rgba(14,14,16,.96);backdrop-filter:blur(24px
 .cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(232,184,115,.065) 0%,transparent 58%)}
 .cta-l1,.cta-l2{position:absolute;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(232,184,115,.18),transparent);pointer-events:none}
 .cta-l1{top:22%}.cta-l2{bottom:25%}
+.cta-ey{justify-content:center;margin-bottom:24px}
 .cta-t{font-family:'Cormorant Garamond',serif;font-size:clamp(34px,4.8vw,72px);font-weight:200;color:var(--day);line-height:1.04;margin-bottom:22px;position:relative;z-index:1}
 .cta-t em{font-style:italic;color:var(--gold)}
 .cta-s{font-size:15px;color:var(--stone);max-width:380px;margin:0 auto 46px;line-height:1.74;position:relative;z-index:1}
@@ -196,36 +166,37 @@ footer{display:grid;grid-template-columns:1fr 1fr 1fr;align-items:center;padding
 .fls a:hover{color:var(--gold)}
 .fc{text-align:right;font-size:11px;color:var(--std);line-height:1.72}
 @media(max-width:900px){footer{grid-template-columns:1fr;text-align:center;gap:20px;padding:30px 24px}.fls,.fc{text-align:center;justify-content:center}}
-
-/* ── PROCESS STEPS ── */
 .proc-section{padding:80px 56px;border-top:1px solid rgba(58,54,48,.2)}
 .proc-eyebrow{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;display:flex;align-items:center;gap:10px}
 .proc-eyebrow::before{content:'';width:22px;height:1px;background:var(--gold);opacity:.5}
-.proc-h{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3.2vw,2.8rem);font-weight:300;color:var(--daylight,#F6F1EA);line-height:1.12;margin-bottom:0}
-.proc-h em{font-style:italic;color:var(--gold,#E8B873)}
+.proc-h{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3.2vw,2.8rem);font-weight:300;color:var(--day);line-height:1.12;margin-bottom:0}
+.proc-h em{font-style:italic;color:var(--gold)}
 .proc-grid{display:grid;grid-template-columns:repeat(4,1fr);margin-top:52px;border-top:1px solid rgba(232,184,115,.14)}
 .proc-step{padding:40px 40px 40px 0;position:relative}
 .proc-step:not(:last-child)::after{content:'';position:absolute;top:10%;right:0;bottom:10%;width:1px;background:linear-gradient(to bottom,transparent,rgba(232,184,115,.12) 30%,rgba(232,184,115,.12) 70%,transparent)}
 .proc-step:not(:first-child){padding-left:40px;padding-right:0}
 .proc-step:last-child{padding-right:0}
-.proc-n{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,5vw,4.5rem);font-weight:200;color:var(--gold,#E8B873);opacity:.18;line-height:1;margin-bottom:28px;display:block;transition:opacity .3s}
+.proc-n{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,5vw,4.5rem);font-weight:200;color:var(--gold);opacity:.18;line-height:1;margin-bottom:28px;display:block;transition:opacity .3s}
 .proc-step:hover .proc-n{opacity:.45}
-.proc-t{font-family:'Cormorant Garamond',serif;font-size:clamp(17px,1.6vw,21px);font-weight:400;color:var(--daylight,#F6F1EA);line-height:1.25;margin-bottom:12px}
-.proc-d{font-size:13px;color:var(--stone,#BFB3A4);line-height:1.7;font-family:'Inter',sans-serif;font-weight:300}
-.proc-tag{display:inline-block;margin-top:20px;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold,#E8B873);opacity:.65;font-family:'Inter',sans-serif}
+.proc-t{font-family:'Cormorant Garamond',serif;font-size:clamp(17px,1.6vw,21px);font-weight:400;color:var(--day);line-height:1.25;margin-bottom:12px}
+.proc-d{font-size:13px;color:var(--stone);line-height:1.7;font-family:'Inter',sans-serif;font-weight:300}
+.proc-tag{display:inline-block;margin-top:20px;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);opacity:.65;font-family:'Inter',sans-serif}
 @media(max-width:900px){.proc-section{padding:64px 24px}.proc-grid{grid-template-columns:1fr 1fr}.proc-step{padding:28px 0!important;border-bottom:1px solid rgba(232,184,115,.08)}.proc-step::after{display:none}.proc-step:nth-child(odd){padding-right:20px!important}.proc-step:nth-child(even){padding-left:20px!important;border-left:1px solid rgba(232,184,115,.08)}}
 @media(max-width:500px){.proc-grid{grid-template-columns:1fr}.proc-step:nth-child(even){padding-left:0!important;border-left:none}}
-
 </style>
 </head>
 <body>
 <div id="ent"><div class="el">L I <span>O</span> R</div></div>
 <div id="cd"></div><div id="cr"></div>
+
 <nav id="nav">
   <a href="../lior-v3.html" class="nl">L I <span class="o">O</span> R</a>
   <div class="nr">
-    <a href="../lior-v3.html#b2c" class="nbk"><svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M12 7H2M7 2L2 7l5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>For owners</span></a>
-    <a href="../lior-v3.html#contact" class="npill">Start a project →</a>
+    <a href="../lior-v3.html#services" class="nbk">
+      <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M12 7H2M7 2L2 7l5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>All services</span>
+    </a>
+    <a href="../questionnaire.html" class="npill">Start a project →</a>
   </div>
 </nav>
 
@@ -233,98 +204,153 @@ footer{display:grid;grid-template-columns:1fr 1fr 1fr;align-items:center;padding
   <div class="hero-bg"></div>
   <div class="hl hl1" id="hl1"></div>
   <div class="hl hl2" id="hl2"></div>
-  <div class="cube-wrap" id="cube3d">
-    <div class="cube">
-      <div class="face f1"></div><div class="face f2"></div><div class="face f3"></div><div class="face f4"></div><div class="face f5"></div><div class="face f6"></div>
-      <div class="face i fi1"></div><div class="face i fi2"></div><div class="face i fi3"></div><div class="face i fi4"></div><div class="face i fi5"></div><div class="face i fi6"></div>
-    </div>
-  </div>
+  <svg class="hero-grid" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="0" y1="60" x2="300" y2="60"/><line x1="0" y1="120" x2="300" y2="120"/>
+    <line x1="0" y1="180" x2="300" y2="180"/><line x1="0" y1="240" x2="300" y2="240"/>
+    <line x1="60" y1="0" x2="60" y2="300"/><line x1="120" y1="0" x2="120" y2="300"/>
+    <line x1="180" y1="0" x2="180" y2="300"/><line x1="240" y1="0" x2="240" y2="300"/>
+    <rect x="80" y="80" width="140" height="100" stroke-width="1.5" stroke="rgba(232,184,115,.6)" fill="none"/>
+    <rect x="80" y="180" width="60" height="40" stroke-width="1.5" stroke="rgba(232,184,115,.4)" fill="none"/>
+    <rect x="160" y="180" width="60" height="40" stroke-width="1.5" stroke="rgba(232,184,115,.4)" fill="none"/>
+  </svg>
   <div class="hero-cnt">
-    <div class="hero-tag">Full Interior Design</div>
+    <div class="hero-tag">Space Planning</div>
     <h1>
-      <div class="ww w1"><span>From first concept</span></div>
-      <div class="ww w2"><span><em>to finished</em></span></div>
-      <div class="ww w3"><span>room.</span></div>
+      <div class="ww w1"><span>Every room</span></div>
+      <div class="ww w2"><span>placed with</span></div>
+      <div class="ww w3"><span><em>intention.</em></span></div>
     </h1>
-    <p class="hero-sub">Complete interior design from concept through to delivery. One contact. One brief. Every decision handled. so you arrive to a finished space.</p>
+    <p class="hero-sub">We optimise your layout before a wall moves or a contractor quotes. Two fully annotated directions, delivered in 72 hours.</p>
     <div class="hero-scroll">Scroll to explore</div>
   </div>
 </section>
 
-<div class="mq"><div class="mq-t">
-  <span class="mq-i">Full Interior Design</span><span class="mq-i">LIOR Studio</span><span class="mq-i">Concept to Completion</span><span class="mq-i">One Contact</span><span class="mq-i">Full Scope</span><span class="mq-i">Delivered</span><span class="mq-i">Full Interior Design</span><span class="mq-i">LIOR Studio</span><span class="mq-i">Concept to Completion</span><span class="mq-i">One Contact</span><span class="mq-i">Full Scope</span><span class="mq-i">Delivered</span>
+<div class="mq"><div class="mq-t" id="mqt">
+  <span class="mq-i">Space Planning</span><span class="mq-i">LIOR Studio</span><span class="mq-i">Floor Plans</span><span class="mq-i">Dubai</span><span class="mq-i">Layout Optimisation</span><span class="mq-i">72h Delivery</span><span class="mq-i">Two Directions</span><span class="mq-i">Space Planning</span><span class="mq-i">LIOR Studio</span><span class="mq-i">Floor Plans</span><span class="mq-i">Dubai</span><span class="mq-i">Layout Optimisation</span><span class="mq-i">72h Delivery</span><span class="mq-i">Two Directions</span>
 </div></div>
 
-<div class="prob">
+<div class="prob r3" id="prob">
   <div class="prob-body r3">
-    <div class="ey">Why it matters</div>
-    <h2 class="prob-h">The gap between vision<br><em>and a finished room.</em></h2>
-    <p class="prob-p">Most people know what they want but not how to get there. Multiple suppliers, conflicting timelines, decisions that feel impossible without context. The Full Design service closes that gap entirely. concept through to delivery, one point of contact throughout.</p>
+    <div class="ey">The problem</div>
+    <h2 class="prob-h">A floor plan on paper<br><em>doesn't show how a space lives.</em></h2>
+    <p class="prob-p">Rooms are placed, not designed. Corridors eat into living area. Furniture doesn't fit where you imagined it. LIOR resolves every dimension before any work begins. Spend money building, not changing.</p>
   </div>
-  <div class="scard r3 d2">
-    <span class="sn">One</span>
-    <div class="sl">Single point of contact</div>
-    <div class="sn2">Concept to completed room</div>
+  <div class="scard r3 d2" id="sc1">
+    <span class="sn">2×</span>
+    <div class="sl">Better space utilisation<br>with a planned layout</div>
+    <div class="sn2">Same footprint. More livable space.</div>
   </div>
 </div>
 
 <div class="dlv">
-  <div class="dlv-hd r3"><div class="ey">What you receive</div><div class="dlv-hd-t">The complete service. <em>Nothing left open.</em></div></div>
-  <div class="row r3"><div class="rt"><div class="rn">01</div><div class="rtt">Concept and direction</div><p class="rd">A fully resolved design concept for your space. palette, materials, layout, and atmosphere. presented visually before anything is ordered or committed to.</p></div><div class="rv v1"><div class="rv-bg"></div></div></div>
-  <div class="row r3 d1"><div class="rt"><div class="rn">02</div><div class="rtt">Detailed design drawings</div><p class="rd">Technical floor plans, elevations, and furniture layout drawings at contractor-ready standard. Every dimension confirmed, every clearance checked.</p></div><div class="rv v2"><div class="rv-bg"></div></div></div>
-  <div class="row r3 d2"><div class="rt"><div class="rn">03</div><div class="rtt">Materials and procurement</div><p class="rd">Every surface, fabric, and piece specified and sourced. We manage the procurement entirely. you approve, we order, and confirm delivery timelines.</p></div><div class="rv v3"><div class="rv-bg"></div></div></div>
-  <div class="row r3 d3"><div class="rt"><div class="rn">04</div><div class="rtt">Installation oversight</div><p class="rd">We coordinate with contractors and deliver during installation. Fit-out is checked against drawings. Issues resolved before we hand over.</p></div><div class="rv v4"><div class="rv-bg"></div></div></div>
-  <div class="row r3 d4"><div class="rt"><div class="rn">05</div><div class="rtt">Final handover</div><p class="rd">The finished room presented with every documentation. care notes, supplier contacts, warranty details. You walk in. It's done.</p></div><div class="rv v5"><div class="rv-bg"></div></div></div>
+  <div class="dlv-hd r3">
+    <div class="ey">What you receive</div>
+    <div class="dlv-hd-t">Two directions. <em>Fully annotated.</em></div>
+  </div>
+  <div class="row r3">
+    <div class="rt">
+      <div class="rn">01</div>
+      <div class="rtt">Scale floor plan with furniture placed</div>
+      <p class="rd">A dimensionally accurate layout with every key piece of furniture positioned. Living areas, sleeping zones, circulation paths, storage. You see how the space actually works before committing to anything.</p>
+    </div>
+    <div class="rv v1"><div class="rv-bg"></div></div>
+  </div>
+  <div class="row r3 d1">
+    <div class="rt">
+      <div class="rn">02</div>
+      <div class="rtt">Two layout directions</div>
+      <p class="rd">We never deliver one answer. Two distinct approaches: one optimising flow, one maximising usable area. You choose the direction that fits your lifestyle, then we refine from there.</p>
+    </div>
+    <div class="rv v2"><div class="rv-bg"></div></div>
+  </div>
+  <div class="row r3 d2">
+    <div class="rt">
+      <div class="rn">03</div>
+      <div class="rtt">Circulation and flow analysis</div>
+      <p class="rd">Every layout comes with a circulation overlay. We annotate the movement paths through the space, identifying bottlenecks, dead zones, and opportunities that flat plans miss entirely.</p>
+    </div>
+    <div class="rv v3"><div class="rv-bg"></div></div>
+  </div>
+  <div class="row r3 d3">
+    <div class="rt">
+      <div class="rn">04</div>
+      <div class="rtt">Annotated rationale</div>
+      <p class="rd">Every design decision is explained. Why the bedroom faces this direction, why the kitchen is positioned here, why this circulation path changes how the whole floor feels. Not just a plan. A brief you can hand directly to your contractor.</p>
+    </div>
+    <div class="rv v4"><div class="rv-bg"></div></div>
+  </div>
 </div>
 
 <div class="proc">
   <div class="proc-in">
-    <div class="r3"><div class="ey">How it works</div><div class="proc-ht">One conversation. <em>Full project.</em></div></div>
-    <div class="steps">
-      <div class="step r3 d1"><div class="sc">01</div><div class="stt">Discovery conversation</div><p class="std">We understand how you live in the space, what you want it to feel like, and what constraints we're working within.</p></div>
-      <div class="step r3 d2"><div class="sc">02</div><div class="stt">Concept and approval</div><p class="std">Full concept presented visually. Materials, palette, layout. You approve the direction before we move to detailed design.</p></div>
-      <div class="step r3 d3"><div class="sc">03</div><div class="stt">Design and procurement</div><p class="std">Detailed drawings issued. Every item specified and sourced. Timeline confirmed. You see every decision before it's finalised.</p></div>
-      <div class="step r3 d4"><div class="sc">04</div><div class="stt">Installation and handover</div><p class="std">We oversee installation. Check fit-out. Then hand over a finished, documented room.</p></div>
+    <div class="proc-hd r3">
+      <div class="ey">How it works</div>
+      <div class="proc-ht">Your brief in. <em>Two layouts out.</em></div>
     </div>
-  </div>
-</div>
-
-<div class="gal">
-  <div class="gal-in">
-    <div class="r3"><div class="ey">Work</div><div class="gal-ht">Rooms designed <em>and delivered.</em></div></div>
-    <div class="gg">
-      <div class="gc"><div class="gc-bg"></div><div class="gc-info"><div class="gc-tag">Living room</div><div class="gc-name">Full design. natural stone palette</div></div></div>
-      <div class="gc"><div class="gc-bg"></div><div class="gc-info"><div class="gc-tag">Master suite</div><div class="gc-name">Concept to completion</div></div></div>
-      <div class="gc"><div class="gc-bg"></div><div class="gc-info"><div class="gc-tag">Open plan</div><div class="gc-name">Kitchen and dining</div></div></div>
-      <div class="gc"><div class="gc-bg"></div><div class="gc-info"><div class="gc-tag">Study</div><div class="gc-name">Custom built-in design</div></div></div>
-      <div class="gc"><div class="gc-bg"></div><div class="gc-info"><div class="gc-tag">Terrace</div><div class="gc-name">Indoor-outdoor extension</div></div></div>
+    <div class="steps">
+      <div class="step r3 d1">
+        <div class="sc">01</div>
+        <div class="stt">You send your plans</div>
+        <p class="std">Existing floor plan or basic measurements, your constraints, how you intend to use each room. 10 minutes of your time.</p>
+      </div>
+      <div class="step r3 d2">
+        <div class="sc">02</div>
+        <div class="stt">LIOR analyses the space</div>
+        <p class="std">We study flow, orientation, proportions, and your brief. Then we produce two distinct layout directions from scratch.</p>
+      </div>
+      <div class="step r3 d3">
+        <div class="sc">03</div>
+        <div class="stt">You review in 72h</div>
+        <p class="std">Two annotated options delivered. We walk you through the rationale. Revisions and refinements are included.</p>
+      </div>
+      <div class="step r3 d4">
+        <div class="sc">04</div>
+        <div class="stt">You brief your contractor</div>
+        <p class="std">Hand the final plan directly to your architect or builder. Every dimension clear. No interpretation required.</p>
+      </div>
     </div>
   </div>
 </div>
 
 <div class="faq">
   <div class="faq-in">
-    <div class="r3"><div class="ey">FAQ</div><div class="faq-ht">Questions <em>answered.</em></div></div>
-    <div class="fi r3 d1"><button class="fq">How involved do I need to be during the project?<span class="fic">+</span></button><div class="fa"><p>As much or as little as you prefer. We present decisions clearly and concisely. you approve at key milestones. Between those points, we manage everything on your behalf.</p></div></div>
-    <div class="fi r3 d2"><button class="fq">Do you manage contractors?<span class="fic">+</span></button><div class="fa"><p>Yes. We work with a network of trusted contractors or coordinate with your own. We issue drawings, manage timelines, and oversee installation against the design intent.</p></div></div>
-    <div class="fi r3 d3"><button class="fq">What's the typical project timeline?<span class="fic">+</span></button><div class="fa"><p>Discovery to finished room: 8 to 14 weeks depending on scope and procurement lead times. A detailed timeline is confirmed at the design approval stage.</p></div></div>
-    <div class="fi r3 d4"><button class="fq">Can I start with the Design Brief first?<span class="fic">+</span></button><div class="fa"><p>Yes. The Design Brief is the natural starting point for clients who want clarity before committing to a full project. The brief carries directly into the full design scope.</p></div></div>
+    <div class="faq-hd r3">
+      <div class="ey">FAQ</div>
+      <div class="faq-ht">Questions <em>answered.</em></div>
+    </div>
+    <div class="fi r3 d1">
+      <button class="fq">What do you need from me to start?<span class="fic">+</span></button>
+      <div class="fa"><p>An existing floor plan or rough measurements, your constraints (fixed walls, structural elements, mandatory features), and how you intend to live in the space. If you have reference images of layouts you like, those are helpful but not required.</p></div>
+    </div>
+    <div class="fi r3 d2">
+      <button class="fq">Can you work with an empty site or just existing layouts?<span class="fic">+</span></button>
+      <div class="fa"><p>Both. We work from existing floor plans for renovation projects and from empty site plans for new builds or off-plan purchases. The process is the same: we need the boundaries and any structural constraints.</p></div>
+    </div>
+    <div class="fi r3 d3">
+      <button class="fq">Is the plan ready to submit to a contractor?<span class="fic">+</span></button>
+      <div class="fa"><p>Yes. The final deliverable is a scaled, annotated floor plan with full rationale. It can be handed directly to an architect for technical drawings or to a contractor as a design brief. We can produce a PDF format compatible with any handover format you need.</p></div>
+    </div>
+    <div class="fi r3 d4">
+      <button class="fq">What if I want a third layout direction?<span class="fic">+</span></button>
+      <div class="fa"><p>The standard deliverable includes two directions. Additional layout exploration is available. Just mention it when you brief us and we will include it in the scope. Revisions to the chosen direction are always included at no extra cost.</p></div>
+    </div>
   </div>
 </div>
 
 <div class="cta">
   <div class="cta-l1"></div><div class="cta-l2"></div>
-  <div class="ey r3" style="justify-content:center">Start a project</div>
-  <div class="cta-t r3 d1">Your space, designed<br><em>and delivered.</em></div>
-  <p class="cta-s r3 d2">One conversation. We take it from there.</p>
+  <div class="ey cta-ey r3">Start a project</div>
+  <div class="cta-t r3 d1">Know your layout<br><em>before you build it.</em></div>
+  <p class="cta-s r3 d2">Two annotated directions in 72 hours. Brief us today, hand it to your contractor tomorrow.</p>
   <div class="cta-b r3 d3">
-    <a href="https://wa.me/?text=Hi+LIOR,+I'd+like+to+start+a+Full+Interior+Design+project." class="btn bwa"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Start the conversation</a>
-    <a href="../lior-v3.html#b2c" class="btn bgh">← For owners</a>
+    <a href="../questionnaire.html" class="btn bwa">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Plan my space
+    </a>
+    <a href="../lior-v3.html#services" class="btn bgh">← All services</a>
   </div>
 </div>
 
-
-<!-- HOW IT WORKS -->
 <div class="proc-section">
   <div class="proc-eyebrow">How it works</div>
   <h2 class="proc-h">Four steps. <em>72 hours.</em></h2>
@@ -358,8 +384,13 @@ footer{display:grid;grid-template-columns:1fr 1fr 1fr;align-items:center;padding
 
 <footer>
   <a href="../lior-v3.html" class="fl">L I <span>O</span> R</a>
-  <div class="fls"><a href="../lior-v3.html#services">For Agencies</a><a href="../lior-v3.html#b2c">For Owners</a><a href="../lior-v3.html#portfolio">Work</a><a href="../lior-v3.html#contact">Contact</a></div>
-  <div class="fc">© 2026 LIOR Studio<br>Dubai · Southeast Asia · Remote-first</div>
+  <div class="fls">
+    <a href="../lior-v3.html#services">For Agencies</a>
+    <a href="../lior-v3.html#b2c">For Owners</a>
+    <a href="../lior-v3.html#portfolio">Work</a>
+    <a href="../lior-v3.html#contact">Contact</a>
+  </div>
+  <div class="fc">© 2026 LIOR Studio<br>Interior &amp; Space Design · Dubai</div>
 </footer>
 
 <script>
@@ -367,19 +398,23 @@ const cd=document.getElementById('cd'),cr=document.getElementById('cr');
 let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cd.style.left=mx+'px';cd.style.top=my+'px'});
 (function rl(){rx+=(mx-rx)*.16;ry+=(my-ry)*.16;cr.style.left=rx+'px';cr.style.top=ry+'px';requestAnimationFrame(rl)})();
-document.querySelectorAll('a,button,.gc,.scard,.row,.step').forEach(el=>{el.addEventListener('mouseenter',()=>document.body.classList.add('ch'));el.addEventListener('mouseleave',()=>document.body.classList.remove('ch'))});
+document.querySelectorAll('a,button,.scard,.row,.step').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('ch'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('ch'));
+});
 const ent=document.getElementById('ent'),nav=document.getElementById('nav');
 setTimeout(()=>{ent.classList.add('out');nav.classList.add('vis')},1800);
-const hl1=document.getElementById('hl1'),hl2=document.getElementById('hl2'),cube3d=document.getElementById('cube3d');
+const hl1=document.getElementById('hl1'),hl2=document.getElementById('hl2');
 let hx=0,hy=0,thx=0,thy=0;
 document.addEventListener('mousemove',e=>{thx=(e.clientX/window.innerWidth-.5)*2;thy=(e.clientY/window.innerHeight-.5)*2});
-(function plx(){hx+=(thx-hx)*.06;hy+=(thy-hy)*.06;if(hl1)hl1.style.transform=`translate(${hx*14}px,${hy*10}px)`;if(hl2)hl2.style.transform=`translate(${hx*26}px,${hy*18}px)`;if(cube3d)cube3d.style.transform=`translateY(-50%) translate(${hx*18}px,${hy*12}px)`;requestAnimationFrame(plx)})();
-function addTilt(sel,i=14){document.querySelectorAll(sel).forEach(el=>{el.addEventListener('mousemove',e=>{const r=el.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;el.style.transform=`perspective(900px) rotateY(${x*i}deg) rotateX(${-y*i*.7}deg) translateZ(6px)`;el.style.boxShadow=`${-x*16}px ${-y*12}px 40px rgba(0,0,0,.4),0 0 30px rgba(232,184,115,${Math.abs(x)*.08+Math.abs(y)*.06})`});el.addEventListener('mouseleave',()=>{el.style.transform='';el.style.boxShadow=''})})}
-addTilt('.scard',12);addTilt('.gc',9);
-const io=new IntersectionObserver(e=>{e.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:0.07,rootMargin:'0px 0px -40px 0px'});
+(function plx(){hx+=(thx-hx)*.06;hy+=(thy-hy)*.06;if(hl1)hl1.style.transform=`translate(${hx*14}px,${hy*10}px)`;if(hl2)hl2.style.transform=`translate(${hx*26}px,${hy*18}px)`;requestAnimationFrame(plx)})();
+function addTilt(sel,intensity=14){document.querySelectorAll(sel).forEach(el=>{el.addEventListener('mousemove',e=>{const r=el.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5;const y=(e.clientY-r.top)/r.height-.5;el.style.transform=`perspective(900px) rotateY(${x*intensity}deg) rotateX(${-y*intensity*.7}deg) translateZ(6px)`;el.style.boxShadow=`${-x*16}px ${-y*12}px 40px rgba(0,0,0,.4),0 0 30px rgba(232,184,115,${Math.abs(x)*.08+Math.abs(y)*.06})`});el.addEventListener('mouseleave',()=>{el.style.transform='';el.style.boxShadow=''})})}
+addTilt('.scard',12);
+const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:0.07,rootMargin:'0px 0px -40px 0px'});
 document.querySelectorAll('.r3,.ww').forEach(el=>io.observe(el));
 document.querySelectorAll('.fq').forEach(btn=>{btn.addEventListener('click',()=>{const fi=btn.parentElement,open=fi.classList.contains('open');document.querySelectorAll('.fi.open').forEach(i=>i.classList.remove('open'));if(!open)fi.classList.add('open')})});
 window.addEventListener('scroll',()=>nav.classList.toggle('sc',scrollY>60),{passive:true});
+const mqt=document.getElementById('mqt');if(mqt){const cl=mqt.cloneNode(true);mqt.parentElement.appendChild(cl)}
 if(!('ontouchstart' in window)&&window.innerWidth>900){let fy=0,ty=0,rid=null;window.addEventListener('wheel',e=>{e.preventDefault();ty=Math.max(0,Math.min(ty+e.deltaY*.88,document.body.scrollHeight-window.innerHeight));if(!rid)(function sl(){fy+=(ty-fy)*.095;window.scrollTo(0,fy);rid=(Math.abs(ty-fy)>.3)?requestAnimationFrame(sl):null})()},{passive:false});window.addEventListener('scroll',()=>{if(Math.abs(window.scrollY-fy)>8){fy=window.scrollY;ty=window.scrollY}},{passive:true})}
 </script>
 </body>

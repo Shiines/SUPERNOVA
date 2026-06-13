@@ -3,321 +3,384 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Interior Design Brief by LIOR — See your room styled before you spend a thing. One key space, fully visualised and detailed.">
+<meta name="description" content="Interior Design Brief by LIOR. see your space before you start. One key room, fully resolved. No commitment needed.">
 <meta property="og:title" content="Interior Design Brief · LIOR Studio">
 <meta name="theme-color" content="#0E0E10">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230E0E10'/><text x='50%' y='56%' dominant-baseline='middle' text-anchor='middle' font-family='Georgia,serif' font-size='11' font-weight='300' fill='%23E8B873' letter-spacing='2'>LIOR</text></svg>">
 <title>Interior Design Brief · LIOR Studio</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;1,9..144,200;1,9..144,300&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-:root{--obsidian:#0E0E10;--gold:#E8B873;--daylight:#F6F1EA;--stone:#BFB3A4;--ob2:#141417;--ob3:#1A1A1E;--st-d:rgba(191,179,164,.42)}
+:root{--ob:#0E0E10;--gold:#E8B873;--day:#F6F1EA;--stone:#BFB3A4;--ob2:#141417;--ob3:#1A1A1E;--std:rgba(191,179,164,.38)}
 html{scroll-behavior:smooth}
-body{background:var(--obsidian);color:var(--daylight);font-family:'Inter',sans-serif;font-weight:300;overflow-x:hidden;cursor:none}
-@media(max-width:900px){body{cursor:auto}.faq-q{cursor:pointer}}
-#cur-dot{width:6px;height:6px;background:var(--gold);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
-#cur-ring{width:32px;height:32px;border:1px solid rgba(232,184,115,.4);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s}
-@media(max-width:900px){#cur-dot,#cur-ring{display:none}}
-#ent{position:fixed;inset:0;background:var(--obsidian);z-index:9000;display:flex;align-items:center;justify-content:center;transition:opacity .7s ease .2s}
+body{background:var(--ob);color:var(--day);font-family:'Inter',sans-serif;font-weight:300;overflow-x:hidden;cursor:none}
+@media(max-width:900px){body{cursor:auto}}
+#cd{width:6px;height:6px;background:var(--gold);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s}
+#cr{width:34px;height:34px;border:1px solid rgba(232,184,115,.38);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s}
+body.ch #cd{width:10px;height:10px}
+body.ch #cr{width:50px;height:50px;border-color:rgba(232,184,115,.65)}
+@media(max-width:900px){#cd,#cr{display:none}}
+#ent{position:fixed;inset:0;background:var(--ob);z-index:9000;display:flex;align-items:center;justify-content:center;transition:opacity .8s ease .1s}
 #ent.out{opacity:0;pointer-events:none}
-.ent-logo{font-family:'Fraunces',serif;font-size:20px;font-weight:300;letter-spacing:.32em;color:var(--daylight);opacity:0;animation:ef 1.1s ease .3s forwards}
-.ent-logo span{color:var(--gold)}
-@keyframes ef{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-nav{position:fixed;top:0;left:0;right:0;z-index:800;display:flex;align-items:center;justify-content:space-between;padding:22px 56px;background:linear-gradient(to bottom,rgba(14,14,16,.88) 0%,transparent 100%);opacity:0;transition:opacity .6s,padding .3s,background .3s}
+.el{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;letter-spacing:.34em;color:var(--day);opacity:0;animation:fa 1.2s ease .3s forwards}
+.el span{color:var(--gold)}
+@keyframes fa{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+nav{position:fixed;top:0;left:0;right:0;z-index:800;display:flex;align-items:center;justify-content:space-between;padding:24px 60px;background:linear-gradient(to bottom,rgba(14,14,16,.9),transparent);opacity:0;transition:opacity .6s,padding .35s,background .35s}
 nav.vis{opacity:1}
-nav.sc{padding:16px 56px;background:rgba(14,14,16,.95);backdrop-filter:blur(22px)}
-.nav-logo{font-family:'Fraunces',serif;font-size:18px;font-weight:300;letter-spacing:.24em;color:var(--daylight);text-decoration:none}
-.nav-logo .o{color:var(--gold)}
-.nav-r{display:flex;align-items:center;gap:32px}
-.nav-back{font-size:12px;letter-spacing:.06em;color:var(--stone);text-decoration:none;display:flex;align-items:center;gap:7px;transition:color .25s}
-.nav-back:hover{color:var(--gold)}
-.nav-back svg{transition:transform .25s}
-.nav-back:hover svg{transform:translateX(-3px)}
-.pill-nav{padding:9px 22px;border:1px solid rgba(232,184,115,.32);border-radius:40px;color:var(--gold);font-family:'Inter',sans-serif;font-size:12px;letter-spacing:.06em;text-decoration:none;transition:background .25s,border-color .25s}
-.pill-nav:hover{background:rgba(232,184,115,.07);border-color:var(--gold)}
-@media(max-width:900px){nav{padding:18px 24px}nav.sc{padding:14px 24px}.nav-back span{display:none}}
-.rf{opacity:0;transform:translateY(16px);transition:opacity 1.1s cubic-bezier(.16,1,.3,1),transform 1.1s cubic-bezier(.16,1,.3,1)}
-.rf.in{opacity:1;transform:none}
-.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.32s}
+nav.sc{padding:15px 60px;background:rgba(14,14,16,.96);backdrop-filter:blur(24px)}
+.nl{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;letter-spacing:.26em;color:var(--day);text-decoration:none}
+.nl .o{color:var(--gold)}
+.nr{display:flex;align-items:center;gap:36px}
+.nbk{font-size:11.5px;letter-spacing:.06em;color:var(--stone);text-decoration:none;display:flex;align-items:center;gap:8px;transition:color .25s}
+.nbk:hover{color:var(--gold)}
+.nbk svg{transition:transform .25s}
+.nbk:hover svg{transform:translateX(-3px)}
+.npill{padding:9px 22px;border:1px solid rgba(232,184,115,.3);border-radius:40px;color:var(--gold);font-size:11.5px;letter-spacing:.06em;text-decoration:none;transition:background .25s,border-color .25s}
+.npill:hover{background:rgba(232,184,115,.07);border-color:var(--gold)}
+@media(max-width:900px){nav{padding:18px 24px}nav.sc{padding:13px 24px}.nbk span{display:none}}
+.r3{opacity:0;transform:perspective(1100px) rotateX(13deg) translateY(38px) translateZ(-18px);transition:opacity 1.15s cubic-bezier(.16,1,.3,1),transform 1.15s cubic-bezier(.16,1,.3,1)}
+.r3.in{opacity:1;transform:perspective(1100px) rotateX(0) translateY(0) translateZ(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.22s}.d3{transition-delay:.36s}.d4{transition-delay:.5s}
 .ww{overflow:hidden;display:block}
-.ww span{display:block;transform:translateY(105%);transition:transform 1s cubic-bezier(.16,1,.3,1)}
+.ww span{display:block;transform:translateY(108%);transition:transform 1.15s cubic-bezier(.16,1,.3,1)}
 .ww.in span{transform:none}
-.wd1 span{transition-delay:.1s}.wd2 span{transition-delay:.22s}
-.btn{display:inline-flex;align-items:center;gap:9px;padding:14px 30px;border-radius:40px;font-family:'Inter',sans-serif;font-size:13px;font-weight:400;letter-spacing:.04em;text-decoration:none;transition:transform .25s,box-shadow .25s}
-.btn:hover{transform:translateY(-2px)}
-.btn-wa{background:#25D366;color:#fff}
-.btn-wa:hover{box-shadow:0 8px 28px rgba(37,211,102,.28)}
-.btn-ghost{border:1px solid rgba(232,184,115,.28);color:var(--gold);background:transparent}
-.btn-ghost:hover{background:rgba(232,184,115,.06);border-color:rgba(232,184,115,.5)}
-.eyebrow{font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);display:inline-flex;align-items:center;gap:12px;margin-bottom:22px}
-.eyebrow::before,.eyebrow::after{content:'';display:block;width:32px;height:1px;background:var(--gold);opacity:.38}
-.hero{min-height:88vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 40px 80px;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 58%,rgba(232,184,115,.08) 0%,transparent 62%)}
-.hero-tag{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:30px;opacity:0;animation:ef 1s ease 1.7s forwards}
-.hero h1{font-family:'Fraunces',serif;font-size:clamp(38px,6vw,86px);font-weight:200;line-height:1.07;color:var(--daylight);max-width:820px;margin:0 auto 28px}
+.w1 span{transition-delay:.08s}.w2 span{transition-delay:.22s}.w3 span{transition-delay:.36s}
+.btn{display:inline-flex;align-items:center;gap:12px;padding:13px 28px;border-radius:10px;font-size:11px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;background:rgba(22,22,26,.92);border:1px solid rgba(255,255,255,.14);color:var(--day);transition:transform .28s,background .25s,border-color .25s,box-shadow .28s}
+.btn:hover{transform:translateY(-2px);background:rgba(32,32,38,.96);border-color:rgba(255,255,255,.28);box-shadow:0 10px 32px rgba(0,0,0,.55)}
+.bwa{border-color:rgba(255,255,255,.2)}
+.bwa:hover{border-color:rgba(255,255,255,.36)}
+.bgh{color:var(--stone);border-color:rgba(255,255,255,.09)}
+.bgh:hover{color:var(--day);border-color:rgba(255,255,255,.22)}
+.ey{font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);display:inline-flex;align-items:center;gap:12px;margin-bottom:20px}
+.ey::before,.ey::after{content:'';display:block;width:30px;height:1px;background:var(--gold);opacity:.36}
+.hero{height:100vh;min-height:640px;position:relative;overflow:hidden;display:flex;align-items:center;padding:0 60px}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 68% 48%,rgba(232,184,115,.065) 0%,transparent 52%),radial-gradient(ellipse at 22% 78%,rgba(232,184,115,.04) 0%,transparent 44%)}
+.hl{position:absolute;inset:0;pointer-events:none;will-change:transform}
+.hl1::before,.hl1::after{content:'';position:absolute;border-radius:50%;background:var(--gold);opacity:.18}
+.hl1::before{width:3px;height:3px;top:30%;right:28%}
+.hl1::after{width:2px;height:2px;top:65%;right:42%}
+.hl2::before{content:'';position:absolute;top:40%;right:24%;width:160px;height:1px;background:linear-gradient(to right,transparent,rgba(232,184,115,.2),transparent)}
+.cube-wrap{position:absolute;right:14%;top:50%;transform:translateY(-50%);width:260px;height:260px;perspective:700px;pointer-events:none}
+.cube{width:100%;height:100%;transform-style:preserve-3d;animation:cubespin 28s linear infinite}
+@keyframes cubespin{0%{transform:rotateX(12deg) rotateY(0)}100%{transform:rotateX(12deg) rotateY(360deg)}}
+.face{position:absolute;border:1px solid rgba(232,184,115,.13);background:rgba(232,184,115,.012)}
+.f1{width:180px;height:180px;top:40px;left:40px;transform:translateZ(90px)}
+.f2{width:180px;height:180px;top:40px;left:40px;transform:rotateY(180deg) translateZ(90px)}
+.f3{width:180px;height:180px;top:40px;left:40px;transform:rotateY(90deg) translateZ(90px)}
+.f4{width:180px;height:180px;top:40px;left:40px;transform:rotateY(-90deg) translateZ(90px)}
+.f5{width:180px;height:180px;top:40px;left:40px;transform:rotateX(90deg) translateZ(90px)}
+.f6{width:180px;height:180px;top:40px;left:40px;transform:rotateX(-90deg) translateZ(90px)}
+.face.i{border-color:rgba(232,184,115,.22)}
+.fi1{width:90px;height:90px;top:85px;left:85px;transform:translateZ(45px)}
+.fi2{width:90px;height:90px;top:85px;left:85px;transform:rotateY(180deg) translateZ(45px)}
+.fi3{width:90px;height:90px;top:85px;left:85px;transform:rotateY(90deg) translateZ(45px)}
+.fi4{width:90px;height:90px;top:85px;left:85px;transform:rotateY(-90deg) translateZ(45px)}
+.fi5{width:90px;height:90px;top:85px;left:85px;transform:rotateX(90deg) translateZ(45px)}
+.fi6{width:90px;height:90px;top:85px;left:85px;transform:rotateX(-90deg) translateZ(45px)}
+.hero-cnt{position:relative;z-index:2;max-width:640px}
+.hero-tag{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);opacity:0;animation:fa 1s ease 1.7s forwards;margin-bottom:30px;display:flex;align-items:center;gap:14px}
+.hero-tag::before{content:'';width:36px;height:1px;background:var(--gold);opacity:.45}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(46px,6.8vw,96px);font-weight:200;line-height:1.01;color:var(--day);margin-bottom:28px}
 .hero h1 em{font-style:italic;color:var(--gold)}
-.hero-sub{font-size:clamp(14px,1.4vw,16px);color:var(--stone);max-width:520px;margin:0 auto 52px;line-height:1.75;opacity:0;animation:ef 1s ease 2.1s forwards}
-.hero-scroll{font-size:9px;letter-spacing:.18em;color:var(--st-d);text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;animation:ef 1s ease 2.5s forwards}
-.hero-scroll::after{content:'';width:1px;height:40px;background:linear-gradient(to bottom,var(--gold),transparent);animation:sl 2s ease 3s infinite}
-@keyframes sl{0%,100%{opacity:.4}50%{opacity:.9}}
-.wrap{max-width:1180px;margin:0 auto;padding:96px 56px}
-.dark{background:var(--ob2)}
-.dark .wrap{padding:96px 56px}
-@media(max-width:900px){.wrap,.dark .wrap{padding:64px 24px}}
-.sh2{font-family:'Fraunces',serif;font-size:clamp(26px,3.4vw,50px);font-weight:300;color:var(--daylight);line-height:1.14;margin-bottom:24px}
-.sh2 em{font-style:italic;color:var(--gold)}
-.sbody{font-size:14.5px;color:var(--stone);line-height:1.8;max-width:520px}
-.prob-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:72px;align-items:center}
-@media(max-width:900px){.prob-grid{grid-template-columns:1fr;gap:44px}}
-.pull{border-left:2px solid var(--gold);padding:4px 0 4px 28px}
-.pull-n{font-family:'Fraunces',serif;font-size:clamp(52px,5.5vw,76px);font-weight:200;color:var(--gold);line-height:1;display:block}
-.pull-l{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--stone);margin-top:10px;display:block}
-.pull-note{font-size:12px;color:var(--st-d);margin-top:6px;font-style:italic}
-.deliv-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:54px}
-@media(max-width:700px){.deliv-grid{grid-template-columns:1fr}}
-.deliv-item{background:var(--ob3);padding:36px 34px;border-left:2px solid transparent;transition:border-color .3s}
-.deliv-item:hover{border-left-color:var(--gold)}
-.deliv-n{font-family:'Fraunces',serif;font-size:10px;color:var(--gold);opacity:.55;margin-bottom:14px;letter-spacing:.06em}
-.deliv-title{font-family:'Fraunces',serif;font-size:19px;font-weight:300;color:var(--daylight);margin-bottom:9px}
-.deliv-desc{font-size:13px;color:var(--stone);line-height:1.72}
-.proc{margin-top:64px}
-.proc-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
-@media(max-width:900px){.proc-steps{grid-template-columns:1fr 1fr}}
-@media(max-width:540px){.proc-steps{grid-template-columns:1fr}}
-.proc-step{background:var(--ob3);padding:30px 26px}
-.proc-n{width:40px;height:40px;border:1px solid rgba(232,184,115,.22);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:12px;font-weight:300;color:var(--gold);margin-bottom:18px}
-.proc-title{font-size:13.5px;font-weight:400;color:var(--daylight);margin-bottom:7px}
-.proc-desc{font-size:12px;color:var(--stone);line-height:1.65}
-.gal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:54px}
-@media(max-width:900px){.gal-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:560px){.gal-grid{grid-template-columns:1fr}}
-.gal-card{aspect-ratio:3/4;position:relative;overflow:hidden}
-.gal-bg{position:absolute;inset:0}
-.gal-info{position:absolute;bottom:0;left:0;right:0;padding:26px 22px;background:linear-gradient(to top,rgba(14,14,16,.92) 0%,transparent 100%)}
-.gal-lbl{font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:5px}
-.gal-name{font-family:'Fraunces',serif;font-size:15px;font-weight:300;color:var(--daylight)}
-.faq-wrap{margin-top:54px;max-width:740px}
-.faq-item{border-bottom:1px solid rgba(58,54,48,.16)}
-.faq-q{width:100%;text-align:left;padding:19px 0;display:flex;justify-content:space-between;align-items:center;background:none;border:none;cursor:none;color:var(--daylight);font-size:14px;font-weight:300;font-family:'Inter',sans-serif;gap:18px;line-height:1.4}
-.faq-q::after{content:'+';color:var(--gold);font-size:20px;font-weight:200;flex-shrink:0;transition:transform .3s cubic-bezier(.16,1,.3,1)}
-.faq-item.open .faq-q::after{transform:rotate(45deg)}
-.faq-a{max-height:0;overflow:hidden;transition:max-height .42s cubic-bezier(.16,1,.3,1)}
-.faq-a p{color:var(--stone);font-size:13px;line-height:1.75;padding-bottom:18px;max-width:600px}
-.faq-item.open .faq-a{max-height:180px}
-.cta-final{text-align:center;padding:120px 40px 100px;position:relative;overflow:hidden}
-.cta-final::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(232,184,115,.055) 0%,transparent 62%)}
-.cta-h2{font-family:'Fraunces',serif;font-size:clamp(30px,4.2vw,60px);font-weight:200;color:var(--daylight);line-height:1.1;margin-bottom:20px}
-.cta-h2 em{font-style:italic;color:var(--gold)}
-.cta-sub{font-size:14.5px;color:var(--stone);max-width:420px;margin:0 auto 40px;line-height:1.72}
-.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
-footer{display:grid;grid-template-columns:1fr 1fr 1fr;align-items:center;padding:34px 56px;border-top:1px solid rgba(255,255,255,.04);background:var(--ob2)}
-.f-logo{font-family:'Fraunces',serif;font-size:16px;font-weight:300;letter-spacing:.28em;color:var(--daylight);text-decoration:none}
-.f-logo span{color:var(--gold)}
-.f-links{display:flex;gap:26px;justify-content:center}
-.f-links a{font-size:11px;color:var(--st-d);text-decoration:none;letter-spacing:.06em;transition:color .25s}
-.f-links a:hover{color:var(--gold)}
-.f-copy{text-align:right;font-size:11px;color:var(--st-d);line-height:1.7}
-@media(max-width:900px){footer{grid-template-columns:1fr;text-align:center;gap:20px;padding:30px 24px}.f-links,.f-copy{text-align:center;justify-content:center}}
+.hero-sub{font-size:clamp(14px,1.4vw,16px);color:var(--stone);max-width:440px;line-height:1.82;opacity:0;animation:fa 1s ease 2.2s forwards;margin-bottom:46px}
+.hero-scroll{font-size:9px;letter-spacing:.16em;color:var(--std);text-transform:uppercase;opacity:0;animation:fa 1s ease 2.6s forwards;display:flex;align-items:center;gap:14px}
+.hero-scroll::after{content:'';width:40px;height:1px;background:linear-gradient(to right,var(--gold),transparent);animation:sca 2.2s ease 3.1s infinite}
+@keyframes sca{0%,100%{transform:scaleX(.5);opacity:.3}50%{transform:scaleX(1);opacity:.8}}
+@media(max-width:900px){.hero{padding:0 24px;align-items:flex-end;padding-bottom:80px}.cube-wrap{display:none}.hero h1{font-size:clamp(40px,9vw,64px)}}
+.mq{padding:13px 0;background:rgba(232,184,115,.05);border-top:1px solid rgba(232,184,115,.09);border-bottom:1px solid rgba(232,184,115,.09);overflow:hidden;white-space:nowrap}
+.mq-t{display:inline-flex;animation:mqs 20s linear infinite}
+.mq:hover .mq-t{animation-play-state:paused}
+@keyframes mqs{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.mq-i{font-family:'Cormorant Garamond',serif;font-size:12px;font-weight:200;color:var(--gold);letter-spacing:.14em;padding:0 28px;opacity:.6;display:inline-flex;align-items:center;gap:24px}
+.mq-i::after{content:'◇';font-size:7px;opacity:.5}
+.prob{max-width:1300px;margin:0 auto;padding:110px 60px;display:grid;grid-template-columns:1.25fr 1fr;gap:88px;align-items:center}
+@media(max-width:960px){.prob{grid-template-columns:1fr;gap:52px;padding:72px 24px}}
+.prob-h{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,3.8vw,54px);font-weight:300;line-height:1.1;color:var(--day);margin-bottom:22px}
+.prob-h em{font-style:italic;color:var(--gold)}
+.prob-p{font-size:15px;color:var(--stone);line-height:1.84;max-width:460px}
+.scard{background:var(--ob2);border:1px solid rgba(232,184,115,.1);padding:52px 46px;position:relative;overflow:hidden;transform-style:preserve-3d;transition:transform .14s ease-out,box-shadow .14s ease-out}
+.scard::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(232,184,115,.075) 0%,transparent 55%);pointer-events:none}
+.scard::after{content:'';position:absolute;top:0;right:0;width:52px;height:52px;border-top:2px solid rgba(232,184,115,.35);border-right:2px solid rgba(232,184,115,.35)}
+.sn{font-family:'Cormorant Garamond',serif;font-size:clamp(68px,7.5vw,104px);font-weight:200;color:var(--gold);line-height:1;display:block;margin-bottom:14px;animation:sfloat 5s ease-in-out infinite}
+@keyframes sfloat{0%,100%{transform:translateY(0) translateZ(8px)}50%{transform:translateY(-7px) translateZ(8px)}}
+.sl{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--stone);line-height:1.65;max-width:190px}
+.sn2{font-size:12px;color:var(--std);margin-top:9px;font-style:italic}
+.dlv{background:var(--ob2);padding:100px 0 0}
+.dlv-hd{max-width:1300px;margin:0 auto;padding:0 60px 64px}
+@media(max-width:900px){.dlv-hd{padding:0 24px 48px}}
+.dlv-hd-t{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,3.6vw,54px);font-weight:300;color:var(--day);line-height:1.1}
+.dlv-hd-t em{font-style:italic;color:var(--gold)}
+.row{display:grid;grid-template-columns:1fr 1fr;min-height:320px}
+@media(max-width:860px){.row{grid-template-columns:1fr;min-height:auto}}
+.row:nth-child(even) .rt{order:2}
+.row:nth-child(even) .rv{order:1}
+.rt{background:var(--ob3);padding:52px 60px;display:flex;flex-direction:column;justify-content:center}
+@media(max-width:900px){.rt{padding:40px 24px}}
+.rv{position:relative;overflow:hidden;min-height:280px}
+.rv-bg{position:absolute;inset:0;transition:transform .5s ease}
+.row:hover .rv-bg{transform:scale(1.05)}
+.rv.v1 .rv-bg{background:linear-gradient(145deg,#1e1810,#14100c);background-image:radial-gradient(ellipse at 44% 48%,rgba(232,184,115,.32) 0%,transparent 54%)}
+.rv.v2 .rv-bg{background:linear-gradient(145deg,#141a1e,#0e1014);background-image:radial-gradient(ellipse at 58% 40%,rgba(180,205,230,.18) 0%,transparent 52%)}
+.rv.v3 .rv-bg{background:linear-gradient(145deg,#1a1818,#12100e);background-image:radial-gradient(ellipse at 46% 52%,rgba(232,184,115,.22) 0%,transparent 50%)}
+.rv.v4 .rv-bg{background:linear-gradient(145deg,#181e14,#101208);background-image:radial-gradient(ellipse at 52% 44%,rgba(160,205,150,.18) 0%,transparent 50%)}
+.rv.v5 .rv-bg{background:linear-gradient(145deg,#1a1420,#10100e);background-image:radial-gradient(ellipse at 50% 52%,rgba(195,165,220,.16) 0%,transparent 50%)}
+.rv::after{content:'';position:absolute;bottom:0;left:0;width:44px;height:44px;border-bottom:1px solid rgba(232,184,115,.3);border-left:1px solid rgba(232,184,115,.3)}
+.rn{font-family:'Cormorant Garamond',serif;font-size:11px;color:var(--gold);opacity:.5;letter-spacing:.08em;margin-bottom:16px}
+.rtt{font-family:'Cormorant Garamond',serif;font-size:clamp(19px,2.2vw,27px);font-weight:300;color:var(--day);margin-bottom:10px;line-height:1.2}
+.rd{font-size:13.5px;color:var(--stone);line-height:1.76}
+.proc{padding:100px 60px}
+@media(max-width:900px){.proc{padding:72px 24px}}
+.proc-in{max-width:1300px;margin:0 auto}
+.proc-ht{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,3.6vw,54px);font-weight:300;color:var(--day);line-height:1.1}
+.proc-ht em{font-style:italic;color:var(--gold)}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);position:relative;gap:2px;margin-top:64px}
+.steps::before{content:'';position:absolute;top:24px;left:12.5%;right:12.5%;height:1px;background:linear-gradient(to right,transparent,rgba(232,184,115,.35) 12%,rgba(232,184,115,.35) 88%,transparent);z-index:0}
+@media(max-width:860px){.steps{grid-template-columns:1fr 1fr;gap:2px}.steps::before{display:none}}
+@media(max-width:520px){.steps{grid-template-columns:1fr}}
+.step{padding:32px 20px 36px;position:relative;z-index:1;text-align:center;background:var(--ob2)}
+.sc{width:48px;height:48px;border:1px solid rgba(232,184,115,.24);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 22px;font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:300;color:var(--gold);background:var(--ob);position:relative;z-index:2;transition:border-color .35s,background .35s,transform .35s;transform-style:preserve-3d;cursor:none}
+@media(max-width:900px){.sc{cursor:auto}}
+.step:hover .sc{border-color:var(--gold);background:rgba(232,184,115,.07);transform:perspective(400px) rotateY(15deg) scale(1.1)}
+.stt{font-size:13.5px;font-weight:400;color:var(--day);margin-bottom:8px}
+.std{font-size:12px;color:var(--stone);line-height:1.66}
+.gal{background:var(--ob2);padding:100px 60px}
+@media(max-width:900px){.gal{padding:72px 24px}}
+.gal-in{max-width:1300px;margin:0 auto}
+.gal-ht{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,3.6vw,54px);font-weight:300;color:var(--day);line-height:1.1}
+.gal-ht em{font-style:italic;color:var(--gold)}
+.gg{display:grid;grid-template-columns:1.45fr 1fr 1fr;grid-template-rows:280px 220px;gap:3px;margin-top:56px}
+.gc{position:relative;overflow:hidden;cursor:none;transform-style:preserve-3d;transition:transform .14s ease-out,box-shadow .14s ease-out}
+.gc:first-child{grid-row:1/3}
+@media(max-width:900px){.gg{grid-template-columns:1fr 1fr;grid-template-rows:auto}.gc:first-child{grid-row:auto}.gc{min-height:220px}}
+@media(max-width:560px){.gg{grid-template-columns:1fr}}
+.gc-bg{position:absolute;inset:0;transition:transform .5s ease}
+.gc:hover .gc-bg{transform:scale(1.06)}
+.gc:nth-child(1) .gc-bg{background:linear-gradient(145deg,#201a0e,#14100c);background-image:radial-gradient(ellipse at 44% 48%,rgba(232,184,115,.36) 0%,transparent 54%)}
+.gc:nth-child(2) .gc-bg{background:linear-gradient(145deg,#141820,#0e1016);background-image:radial-gradient(ellipse at 56% 42%,rgba(165,195,228,.2) 0%,transparent 50%)}
+.gc:nth-child(3) .gc-bg{background:linear-gradient(145deg,#1c1a14,#14120c);background-image:radial-gradient(ellipse at 42% 50%,rgba(232,184,115,.24) 0%,transparent 50%)}
+.gc:nth-child(4) .gc-bg{background:linear-gradient(145deg,#181e14,#101208);background-image:radial-gradient(ellipse at 54% 44%,rgba(155,205,155,.18) 0%,transparent 50%)}
+.gc:nth-child(5) .gc-bg{background:linear-gradient(145deg,#1a1420,#100c12);background-image:radial-gradient(ellipse at 50% 52%,rgba(200,170,220,.14) 0%,transparent 52%)}
+.gc-info{position:absolute;bottom:0;left:0;right:0;padding:22px 20px;background:linear-gradient(to top,rgba(14,14,16,.92) 0%,transparent 100%)}
+.gc-tag{font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
+.gc-name{font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:300;color:var(--day)}
+.gc::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(232,184,115,.06) 0%,transparent 45%);opacity:0;transition:opacity .3s}
+.gc:hover::after{opacity:1}
+.faq{padding:100px 60px}
+@media(max-width:900px){.faq{padding:72px 24px}}
+.faq-in{max-width:860px;margin:0 auto}
+.faq-ht{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,3.6vw,54px);font-weight:300;color:var(--day);line-height:1.1}
+.faq-ht em{font-style:italic;color:var(--gold)}
+.fi{border-bottom:1px solid rgba(255,255,255,.05);margin-top:48px}
+.fi+.fi{margin-top:0}
+.fq{width:100%;text-align:left;padding:22px 0;display:flex;justify-content:space-between;align-items:center;background:none;border:none;cursor:none;color:var(--day);font-size:15px;font-weight:300;font-family:'Inter',sans-serif;gap:20px;line-height:1.4;transition:color .25s}
+@media(max-width:900px){.fq{cursor:pointer;font-size:14px}}
+.fq:hover{color:var(--gold)}
+.fic{width:30px;height:30px;border:1px solid rgba(232,184,115,.2);border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:200;color:var(--gold);transition:transform .38s cubic-bezier(.16,1,.3,1),border-color .25s,background .25s}
+.fi.open .fic{transform:rotate(45deg);border-color:var(--gold);background:rgba(232,184,115,.07)}
+.fa{max-height:0;overflow:hidden;transition:max-height .46s cubic-bezier(.16,1,.3,1)}
+.fa p{color:var(--stone);font-size:13.5px;line-height:1.82;padding-bottom:22px;max-width:680px}
+.fi.open .fa{max-height:220px}
+.cta{position:relative;overflow:hidden;text-align:center;padding:130px 40px 110px;background:var(--ob2)}
+.cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(232,184,115,.065) 0%,transparent 58%)}
+.cta-l1,.cta-l2{position:absolute;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(232,184,115,.18),transparent);pointer-events:none}
+.cta-l1{top:22%}.cta-l2{bottom:25%}
+.cta-t{font-family:'Cormorant Garamond',serif;font-size:clamp(34px,4.8vw,72px);font-weight:200;color:var(--day);line-height:1.04;margin-bottom:22px;position:relative;z-index:1}
+.cta-t em{font-style:italic;color:var(--gold)}
+.cta-s{font-size:15px;color:var(--stone);max-width:380px;margin:0 auto 46px;line-height:1.74;position:relative;z-index:1}
+.cta-b{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
+footer{display:grid;grid-template-columns:1fr 1fr 1fr;align-items:center;padding:36px 60px;border-top:1px solid rgba(255,255,255,.04);background:var(--ob)}
+.fl{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:300;letter-spacing:.28em;color:var(--day);text-decoration:none}
+.fl span{color:var(--gold)}
+.fls{display:flex;gap:26px;justify-content:center}
+.fls a{font-size:11px;color:var(--std);text-decoration:none;letter-spacing:.06em;transition:color .25s}
+.fls a:hover{color:var(--gold)}
+.fc{text-align:right;font-size:11px;color:var(--std);line-height:1.72}
+@media(max-width:900px){footer{grid-template-columns:1fr;text-align:center;gap:20px;padding:30px 24px}.fls,.fc{text-align:center;justify-content:center}}
+
+/* ── PROCESS STEPS ── */
+.proc-section{padding:80px 56px;border-top:1px solid rgba(58,54,48,.2)}
+.proc-eyebrow{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.proc-eyebrow::before{content:'';width:22px;height:1px;background:var(--gold);opacity:.5}
+.proc-h{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3.2vw,2.8rem);font-weight:300;color:var(--daylight,#F6F1EA);line-height:1.12;margin-bottom:0}
+.proc-h em{font-style:italic;color:var(--gold,#E8B873)}
+.proc-grid{display:grid;grid-template-columns:repeat(4,1fr);margin-top:52px;border-top:1px solid rgba(232,184,115,.14)}
+.proc-step{padding:40px 40px 40px 0;position:relative}
+.proc-step:not(:last-child)::after{content:'';position:absolute;top:10%;right:0;bottom:10%;width:1px;background:linear-gradient(to bottom,transparent,rgba(232,184,115,.12) 30%,rgba(232,184,115,.12) 70%,transparent)}
+.proc-step:not(:first-child){padding-left:40px;padding-right:0}
+.proc-step:last-child{padding-right:0}
+.proc-n{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,5vw,4.5rem);font-weight:200;color:var(--gold,#E8B873);opacity:.18;line-height:1;margin-bottom:28px;display:block;transition:opacity .3s}
+.proc-step:hover .proc-n{opacity:.45}
+.proc-t{font-family:'Cormorant Garamond',serif;font-size:clamp(17px,1.6vw,21px);font-weight:400;color:var(--daylight,#F6F1EA);line-height:1.25;margin-bottom:12px}
+.proc-d{font-size:13px;color:var(--stone,#BFB3A4);line-height:1.7;font-family:'Inter',sans-serif;font-weight:300}
+.proc-tag{display:inline-block;margin-top:20px;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold,#E8B873);opacity:.65;font-family:'Inter',sans-serif}
+@media(max-width:900px){.proc-section{padding:64px 24px}.proc-grid{grid-template-columns:1fr 1fr}.proc-step{padding:28px 0!important;border-bottom:1px solid rgba(232,184,115,.08)}.proc-step::after{display:none}.proc-step:nth-child(odd){padding-right:20px!important}.proc-step:nth-child(even){padding-left:20px!important;border-left:1px solid rgba(232,184,115,.08)}}
+@media(max-width:500px){.proc-grid{grid-template-columns:1fr}.proc-step:nth-child(even){padding-left:0!important;border-left:none}}
+
 </style>
 </head>
 <body>
-<div id="ent"><div class="ent-logo">L I <span>O</span> R</div></div>
-<div id="cur-dot"></div><div id="cur-ring"></div>
+<div id="ent"><div class="el">L I <span>O</span> R</div></div>
+<div id="cd"></div><div id="cr"></div>
 <nav id="nav">
-  <a href="../lior-v3.html" class="nav-logo">L I <span class="o">O</span> R</a>
-  <div class="nav-r">
-    <a href="../lior-v3.html#b2c" class="nav-back">
-      <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M12 7H2M7 2L2 7l5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <span>All services</span>
-    </a>
-    <a href="../lior-v3.html#contact" class="pill-nav">Start a project →</a>
+  <a href="../lior-v3.html" class="nl">L I <span class="o">O</span> R</a>
+  <div class="nr">
+    <a href="../lior-v3.html#b2c" class="nbk"><svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M12 7H2M7 2L2 7l5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>For owners</span></a>
+    <a href="../lior-v3.html#contact" class="npill">Start a project →</a>
   </div>
 </nav>
 
-<section class="hero">
-  <div class="hero-tag">Interior Design Brief</div>
-  <h1>
-    <div class="ww wd1"><span>See your space</span></div>
-    <div class="ww wd2"><span><em>before you start.</em></span></div>
-  </h1>
-  <p class="hero-sub">One key room, fully styled and visualised. Know exactly what you're creating before you spend a thing.</p>
-  <div class="hero-scroll">Scroll</div>
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hl hl1" id="hl1"></div>
+  <div class="hl hl2" id="hl2"></div>
+  <div class="cube-wrap" id="cube3d">
+    <div class="cube">
+      <div class="face f1"></div><div class="face f2"></div><div class="face f3"></div><div class="face f4"></div><div class="face f5"></div><div class="face f6"></div>
+      <div class="face i fi1"></div><div class="face i fi2"></div><div class="face i fi3"></div><div class="face i fi4"></div><div class="face i fi5"></div><div class="face i fi6"></div>
+    </div>
+  </div>
+  <div class="hero-cnt">
+    <div class="hero-tag">Interior Design Brief</div>
+    <h1>
+      <div class="ww w1"><span>See your space</span></div>
+      <div class="ww w2"><span><em>before</em></span></div>
+      <div class="ww w3"><span>you start.</span></div>
+    </h1>
+    <p class="hero-sub">One key room, fully resolved. Visualised in your actual space before a single decision is locked. No commitment needed. just clarity.</p>
+    <div class="hero-scroll">Scroll to explore</div>
+  </div>
 </section>
 
-<div class="dark">
-  <div class="wrap">
-    <div class="prob-grid">
-      <div>
-        <div class="eyebrow rf">The problem</div>
-        <h2 class="sh2 rf d1">Decorating without a vision costs more <em>than designing one.</em></h2>
-        <p class="sbody rf d2">Most interior mistakes happen because decisions are made without seeing the full picture. The wrong sofa, the wrong tone, the wrong layout. The Design Brief eliminates guesswork before you spend anything.</p>
-      </div>
-      <div class="pull rf d3">
-        <span class="pull-n">One</span>
-        <span class="pull-l">Key room, fully resolved</span>
-        <span class="pull-note">The anchor space that sets the tone for your home</span>
-      </div>
+<div class="mq"><div class="mq-t">
+  <span class="mq-i">Interior Design Brief</span><span class="mq-i">LIOR Studio</span><span class="mq-i">One Key Room</span><span class="mq-i">Fully Resolved</span><span class="mq-i">No Guesswork</span><span class="mq-i">Clarity First</span><span class="mq-i">Interior Design Brief</span><span class="mq-i">LIOR Studio</span><span class="mq-i">One Key Room</span><span class="mq-i">Fully Resolved</span><span class="mq-i">No Guesswork</span><span class="mq-i">Clarity First</span>
+</div></div>
+
+<div class="prob">
+  <div class="prob-body r3">
+    <div class="ey">The problem</div>
+    <h2 class="prob-h">Most renovations go wrong<br><em>before they begin.</em></h2>
+    <p class="prob-p">Decisions are made from samples and catalogues. Then the furniture arrives and it doesn't feel right. The Design Brief shows you the room. your room, your proportions, your light. resolved in full before you spend anything.</p>
+  </div>
+  <div class="scard r3 d2">
+    <span class="sn">One</span>
+    <div class="sl">Key room, fully resolved</div>
+    <div class="sn2">Before any commitment is made</div>
+  </div>
+</div>
+
+<div class="dlv">
+  <div class="dlv-hd r3"><div class="ey">What you receive</div><div class="dlv-hd-t">The full picture. <em>Before you decide.</em></div></div>
+  <div class="row r3"><div class="rt"><div class="rn">01</div><div class="rtt">Full room visualisation</div><p class="rd">Your actual room dimensions and proportions rendered with furniture, materials, and lighting. Exactly what the space will look like. not an approximation.</p></div><div class="rv v1"><div class="rv-bg"></div></div></div>
+  <div class="row r3 d1"><div class="rt"><div class="rn">02</div><div class="rtt">Materials and finish board</div><p class="rd">Every surface material, fabric, and finish compiled into a concise reference. Clear enough to source from, precise enough to share with a contractor.</p></div><div class="rv v2"><div class="rv-bg"></div></div></div>
+  <div class="row r3 d2"><div class="rt"><div class="rn">03</div><div class="rtt">Two design directions</div><p class="rd">Two distinct approaches to the same room. Different in palette and mood. so you can see range and confirm what resonates before anything is purchased.</p></div><div class="rv v3"><div class="rv-bg"></div></div></div>
+  <div class="row r3 d3"><div class="rt"><div class="rn">04</div><div class="rtt">Furniture layout plan</div><p class="rd">A scaled floor plan showing furniture placement, traffic flow, and spatial balance. Practical and visual, in one document.</p></div><div class="rv v4"><div class="rv-bg"></div></div></div>
+  <div class="row r3 d4"><div class="rt"><div class="rn">05</div><div class="rtt">Sourcing guidance</div><p class="rd">Key pieces identified with sourcing recommendations by category. Starting points, not prescriptions. you choose where to buy.</p></div><div class="rv v5"><div class="rv-bg"></div></div></div>
+</div>
+
+<div class="proc">
+  <div class="proc-in">
+    <div class="r3"><div class="ey">How it works</div><div class="proc-ht">One brief. <em>Full clarity.</em></div></div>
+    <div class="steps">
+      <div class="step r3 d1"><div class="sc">01</div><div class="stt">Tell us about the room</div><p class="std">Dimensions, current photos, how you use the space, what isn't working. A 10-minute brief is all we need.</p></div>
+      <div class="step r3 d2"><div class="sc">02</div><div class="stt">Direction session</div><p class="std">A short conversation to understand your aesthetic, lifestyle, and what matters most in this space.</p></div>
+      <div class="step r3 d3"><div class="sc">03</div><div class="stt">Two directions delivered</div><p class="std">Two distinct visual proposals in 5 working days. Review both, request refinements, choose what's right.</p></div>
+      <div class="step r3 d4"><div class="sc">04</div><div class="stt">Brief confirmed</div><p class="std">Final brief and materials board in your hands. ready to act on, with or without us next.</p></div>
     </div>
   </div>
 </div>
 
-<div class="wrap">
-  <div class="eyebrow rf">What you receive</div>
-  <h2 class="sh2 rf d1">Your room. <em>Fully resolved.</em></h2>
-  <div class="deliv-grid">
-    <div class="deliv-item rf d1">
-      <div class="deliv-n">01</div>
-      <div class="deliv-title">Photo-realistic visualisation</div>
-      <p class="deliv-desc">Your chosen room rendered exactly as it will look. Furniture placed, materials selected, light considered.</p>
-    </div>
-    <div class="deliv-item rf d2">
-      <div class="deliv-n">02</div>
-      <div class="deliv-title">Full shopping list</div>
-      <p class="deliv-desc">Every piece specified with links and references. You shop. You execute. No dependency on LIOR after handover.</p>
-    </div>
-    <div class="deliv-item rf d1">
-      <div class="deliv-n">03</div>
-      <div class="deliv-title">Mood and palette board</div>
-      <p class="deliv-desc">The complete colour, texture, and material direction for the space. A reference you keep and return to.</p>
-    </div>
-    <div class="deliv-item rf d2">
-      <div class="deliv-n">04</div>
-      <div class="deliv-title">Layout plan</div>
-      <p class="deliv-desc">Furniture placement optimised for light, flow, and proportion. Your room, working as it should.</p>
-    </div>
-    <div class="deliv-item rf d1" style="grid-column:1/-1">
-      <div class="deliv-n">05</div>
-      <div class="deliv-title">Unlimited revisions</div>
-      <p class="deliv-desc">We refine the direction until it's exactly right before you purchase a single item. Fully included.</p>
+<div class="gal">
+  <div class="gal-in">
+    <div class="r3"><div class="ey">Work</div><div class="gal-ht">Rooms resolved <em>before they exist.</em></div></div>
+    <div class="gg">
+      <div class="gc"><div class="gc-bg"></div><div class="gc-info"><div class="gc-tag">Living room</div><div class="gc-name">Brief. natural palette</div></div></div>
+      <div class="gc"><div class="gc-bg"></div><div class="gc-info"><div class="gc-tag">Master bedroom</div><div class="gc-name">Two directions explored</div></div></div>
+      <div class="gc"><div class="gc-bg"></div><div class="gc-info"><div class="gc-tag">Materials board</div><div class="gc-name">Finishes and fabrics</div></div></div>
+      <div class="gc"><div class="gc-bg"></div><div class="gc-info"><div class="gc-tag">Kitchen</div><div class="gc-name">Layout and materials brief</div></div></div>
+      <div class="gc"><div class="gc-bg"></div><div class="gc-info"><div class="gc-tag">Study</div><div class="gc-name">Functional brief. calm palette</div></div></div>
     </div>
   </div>
 </div>
 
-<div class="dark">
-  <div class="wrap">
-    <div class="eyebrow rf">How it works</div>
-    <h2 class="sh2 rf d1">Brief in. <em>Full vision out.</em></h2>
-    <div class="proc rf d2">
-      <div class="proc-steps">
-        <div class="proc-step">
-          <div class="proc-n">01</div>
-          <div class="proc-title">Share your space</div>
-          <p class="proc-desc">Photos, measurements, and a short style questionnaire. 15 minutes of your time.</p>
-        </div>
-        <div class="proc-step">
-          <div class="proc-n">02</div>
-          <div class="proc-title">LIOR designs the room</div>
-          <p class="proc-desc">We select, arrange, and render your space. Full palette, furniture, and lighting considered.</p>
-        </div>
-        <div class="proc-step">
-          <div class="proc-n">03</div>
-          <div class="proc-title">You review and refine</div>
-          <p class="proc-desc">Adjust any direction, piece, or palette. Unlimited revisions until it's exactly right.</p>
-        </div>
-        <div class="proc-step">
-          <div class="proc-n">04</div>
-          <div class="proc-title">You shop and create</div>
-          <p class="proc-desc">Complete brief and shopping list in hand. Execute at your pace, on your timeline.</p>
-        </div>
-      </div>
-    </div>
+<div class="faq">
+  <div class="faq-in">
+    <div class="r3"><div class="ey">FAQ</div><div class="faq-ht">Questions <em>answered.</em></div></div>
+    <div class="fi r3 d1"><button class="fq">What if I don't know what style I want?<span class="fic">+</span></button><div class="fa"><p>That's exactly what the direction session is for. We guide you through a reference conversation to identify what you respond to. you don't need to arrive with a style already chosen.</p></div></div>
+    <div class="fi r3 d2"><button class="fq">Do I need to buy the furniture through you?<span class="fic">+</span></button><div class="fa"><p>No. The brief gives you sourcing guidance by category. starting points you take wherever you choose. There's no obligation to continue with us for procurement.</p></div></div>
+    <div class="fi r3 d3"><button class="fq">Can I turn this into a full design project?<span class="fic">+</span></button><div class="fa"><p>Yes. The Design Brief is the starting point for a Full Interior Design project. If you'd like to continue, we carry the brief through to a complete design and delivery plan.</p></div></div>
+    <div class="fi r3 d4"><button class="fq">How long does it take?<span class="fic">+</span></button><div class="fa"><p>Brief received to first delivery: 5 working days. Final brief confirmed, with all revisions, within 10 days. Timeline depends on your feedback pace. we match it.</p></div></div>
   </div>
 </div>
 
-<div class="wrap">
-  <div class="eyebrow rf">Results</div>
-  <h2 class="sh2 rf d1">Rooms that feel <em>considered.</em></h2>
-  <div class="gal-grid rf d2">
-    <div class="gal-card">
-      <div class="gal-bg" style="background:linear-gradient(145deg,#1c1712 0%,#110e09 100%)"><div style="position:absolute;inset:0;background:radial-gradient(ellipse at 44% 46%,rgba(232,184,115,.30) 0%,transparent 52%)"></div></div>
-      <div class="gal-info"><div class="gal-lbl">Living room</div><div class="gal-name">Full brief and shopping list</div></div>
-    </div>
-    <div class="gal-card">
-      <div class="gal-bg" style="background:linear-gradient(145deg,#141820 0%,#0d1018 100%)"><div style="position:absolute;inset:0;background:radial-gradient(ellipse at 55% 44%,rgba(172,195,228,.18) 0%,transparent 50%),radial-gradient(ellipse at 30% 68%,rgba(232,184,115,.16) 0%,transparent 44%)"></div></div>
-      <div class="gal-info"><div class="gal-lbl">Bedroom</div><div class="gal-name">Palette and layout resolved</div></div>
-    </div>
-    <div class="gal-card">
-      <div class="gal-bg" style="background:linear-gradient(145deg,#141a15 0%,#0e1210 100%)"><div style="position:absolute;inset:0;background:radial-gradient(ellipse at 48% 50%,rgba(148,190,158,.16) 0%,transparent 52%),radial-gradient(ellipse at 70% 30%,rgba(232,184,115,.20) 0%,transparent 45%)"></div></div>
-      <div class="gal-info"><div class="gal-lbl">Home office</div><div class="gal-name">Before purchase clarity</div></div>
-    </div>
+<div class="cta">
+  <div class="cta-l1"></div><div class="cta-l2"></div>
+  <div class="ey r3" style="justify-content:center">Start a project</div>
+  <div class="cta-t r3 d1">See the room clearly<br><em>before you commit.</em></div>
+  <p class="cta-s r3 d2">One key space. Fully resolved. No guesswork.</p>
+  <div class="cta-b r3 d3">
+    <a href="https://wa.me/?text=Hi+LIOR,+I'd+like+to+start+an+Interior+Design+Brief+for+my+space." class="btn bwa"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Design a room</a>
+    <a href="../lior-v3.html#b2c" class="btn bgh">← For owners</a>
   </div>
 </div>
 
-<div class="dark">
-  <div class="wrap">
-    <div class="eyebrow rf">FAQ</div>
-    <h2 class="sh2 rf d1">Questions <em>answered.</em></h2>
-    <div class="faq-wrap rf d2">
-      <div class="faq-item">
-        <button class="faq-q">Is this service for one room only?</button>
-        <div class="faq-a"><p>Yes. The Design Brief focuses on one key space — typically the living room, bedroom, or another anchor room. For a complete home, see our Full Interior Design service.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">Will I need a designer to execute the brief?</button>
-        <div class="faq-a"><p>No. The brief is designed so you can shop and execute it yourself. Every item is specified with links and references. LIOR's job is done when the brief is in your hands.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">Can you work with furniture I already own?</button>
-        <div class="faq-a"><p>Yes. Tell us what you're keeping in the brief and we'll design around your existing pieces.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">What if I want to expand to more rooms later?</button>
-        <div class="faq-a"><p>The Design Brief naturally leads into Full Interior Design if you want to extend the vision across your entire home. We keep the same aesthetic direction for full coherence.</p></div>
-      </div>
-    </div>
-  </div>
-</div>
 
-<div class="cta-final">
-  <div class="eyebrow rf" style="justify-content:center">Start a project</div>
-  <h2 class="cta-h2 rf d1">Ready to see your room <em>before you touch it?</em></h2>
-  <p class="cta-sub rf d2">Start with one room. Know exactly what you're building before you spend a thing.</p>
-  <div class="cta-btns rf d3">
-    <a href="https://wa.me/?text=Hi+LIOR,+I'd+like+to+discuss+an+interior+design+brief." class="btn btn-wa">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      Design a room
-    </a>
-    <a href="../lior-v3.html#b2c" class="btn btn-ghost">← All services</a>
+<!-- HOW IT WORKS -->
+<div class="proc-section">
+  <div class="proc-eyebrow">How it works</div>
+  <h2 class="proc-h">Four steps. <em>72 hours.</em></h2>
+  <div class="proc-grid">
+    <div class="proc-step">
+      <span class="proc-n">01</span>
+      <div class="proc-t">You brief us</div>
+      <p class="proc-d">Send your property photos and a 5-minute brief using our standard template. We handle everything from there.</p>
+      <span class="proc-tag">5 min · standard template</span>
+    </div>
+    <div class="proc-step">
+      <span class="proc-n">02</span>
+      <div class="proc-t">We craft the work</div>
+      <p class="proc-d">Every room shown at its full potential. First direction in your inbox within 24 to 48 hours.</p>
+      <span class="proc-tag">24–48h production</span>
+    </div>
+    <div class="proc-step">
+      <span class="proc-n">03</span>
+      <div class="proc-t">You review and approve</div>
+      <p class="proc-d">We present the first direction for your feedback. Revisions included until you are fully satisfied.</p>
+      <span class="proc-tag">Unlimited revisions</span>
+    </div>
+    <div class="proc-step">
+      <span class="proc-n">04</span>
+      <div class="proc-t">You publish</div>
+      <p class="proc-d">Ready-to-use files delivered to your inbox. Your property, impossible to ignore.</p>
+      <span class="proc-tag">72h total delivery</span>
+    </div>
   </div>
 </div>
 
 <footer>
-  <a href="../lior-v3.html" class="f-logo">L I <span>O</span> R</a>
-  <div class="f-links">
-    <a href="../lior-v3.html#services">For Agencies</a>
-    <a href="../lior-v3.html#b2c">For Owners</a>
-    <a href="../lior-v3.html#portfolio">Work</a>
-    <a href="../lior-v3.html#contact">Contact</a>
-  </div>
-  <div class="f-copy">© 2026 LIOR Studio<br>Dubai · Southeast Asia · Remote-first</div>
+  <a href="../lior-v3.html" class="fl">L I <span>O</span> R</a>
+  <div class="fls"><a href="../lior-v3.html#services">For Agencies</a><a href="../lior-v3.html#b2c">For Owners</a><a href="../lior-v3.html#portfolio">Work</a><a href="../lior-v3.html#contact">Contact</a></div>
+  <div class="fc">© 2026 LIOR Studio<br>Dubai · Southeast Asia · Remote-first</div>
 </footer>
 
 <script>
-const dot=document.getElementById('cur-dot'),ring=document.getElementById('cur-ring');
+const cd=document.getElementById('cd'),cr=document.getElementById('cr');
 let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px'});
-(function rl(){rx+=(mx-rx)*.18;ry+=(my-ry)*.18;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(rl)})();
-document.querySelectorAll('a,button').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{ring.style.width='46px';ring.style.height='46px';ring.style.borderColor='rgba(232,184,115,.7)'});
-  el.addEventListener('mouseleave',()=>{ring.style.width='32px';ring.style.height='32px';ring.style.borderColor='rgba(232,184,115,.4)'});
-});
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cd.style.left=mx+'px';cd.style.top=my+'px'});
+(function rl(){rx+=(mx-rx)*.16;ry+=(my-ry)*.16;cr.style.left=rx+'px';cr.style.top=ry+'px';requestAnimationFrame(rl)})();
+document.querySelectorAll('a,button,.gc,.scard,.row,.step').forEach(el=>{el.addEventListener('mouseenter',()=>document.body.classList.add('ch'));el.addEventListener('mouseleave',()=>document.body.classList.remove('ch'))});
 const ent=document.getElementById('ent'),nav=document.getElementById('nav');
-setTimeout(()=>{ent.classList.add('out');nav.classList.add('vis')},1700);
-const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:0.08,rootMargin:'0px 0px -36px 0px'});
-document.querySelectorAll('.rf,.ww').forEach(el=>io.observe(el));
-document.querySelectorAll('.faq-q').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    const item=btn.parentElement,isOpen=item.classList.contains('open');
-    document.querySelectorAll('.faq-item.open').forEach(i=>i.classList.remove('open'));
-    if(!isOpen)item.classList.add('open');
-  });
-});
-window.addEventListener('scroll',()=>nav.classList.toggle('sc',scrollY>60));
-if(!('ontouchstart' in window)&&window.innerWidth>900){
-  let fy=0,ty=0,rid=null;
-  window.addEventListener('wheel',e=>{e.preventDefault();ty=Math.max(0,Math.min(ty+e.deltaY*.88,document.body.scrollHeight-window.innerHeight));if(!rid)(function sl(){fy+=(ty-fy)*.095;window.scrollTo(0,fy);rid=(Math.abs(ty-fy)>.3)?requestAnimationFrame(sl):null})();},{passive:false});
-  window.addEventListener('scroll',()=>{if(Math.abs(window.scrollY-fy)>8){fy=window.scrollY;ty=window.scrollY}},{passive:true});
-}
+setTimeout(()=>{ent.classList.add('out');nav.classList.add('vis')},1800);
+const hl1=document.getElementById('hl1'),hl2=document.getElementById('hl2'),cube3d=document.getElementById('cube3d');
+let hx=0,hy=0,thx=0,thy=0;
+document.addEventListener('mousemove',e=>{thx=(e.clientX/window.innerWidth-.5)*2;thy=(e.clientY/window.innerHeight-.5)*2});
+(function plx(){hx+=(thx-hx)*.06;hy+=(thy-hy)*.06;if(hl1)hl1.style.transform=`translate(${hx*14}px,${hy*10}px)`;if(hl2)hl2.style.transform=`translate(${hx*26}px,${hy*18}px)`;if(cube3d)cube3d.style.transform=`translateY(-50%) translate(${hx*18}px,${hy*12}px)`;requestAnimationFrame(plx)})();
+function addTilt(sel,i=14){document.querySelectorAll(sel).forEach(el=>{el.addEventListener('mousemove',e=>{const r=el.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;el.style.transform=`perspective(900px) rotateY(${x*i}deg) rotateX(${-y*i*.7}deg) translateZ(6px)`;el.style.boxShadow=`${-x*16}px ${-y*12}px 40px rgba(0,0,0,.4),0 0 30px rgba(232,184,115,${Math.abs(x)*.08+Math.abs(y)*.06})`});el.addEventListener('mouseleave',()=>{el.style.transform='';el.style.boxShadow=''})})}
+addTilt('.scard',12);addTilt('.gc',9);
+const io=new IntersectionObserver(e=>{e.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:0.07,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.r3,.ww').forEach(el=>io.observe(el));
+document.querySelectorAll('.fq').forEach(btn=>{btn.addEventListener('click',()=>{const fi=btn.parentElement,open=fi.classList.contains('open');document.querySelectorAll('.fi.open').forEach(i=>i.classList.remove('open'));if(!open)fi.classList.add('open')})});
+window.addEventListener('scroll',()=>nav.classList.toggle('sc',scrollY>60),{passive:true});
+if(!('ontouchstart' in window)&&window.innerWidth>900){let fy=0,ty=0,rid=null;window.addEventListener('wheel',e=>{e.preventDefault();ty=Math.max(0,Math.min(ty+e.deltaY*.88,document.body.scrollHeight-window.innerHeight));if(!rid)(function sl(){fy+=(ty-fy)*.095;window.scrollTo(0,fy);rid=(Math.abs(ty-fy)>.3)?requestAnimationFrame(sl):null})()},{passive:false});window.addEventListener('scroll',()=>{if(Math.abs(window.scrollY-fy)>8){fy=window.scrollY;ty=window.scrollY}},{passive:true})}
 </script>
 </body>
 </html>
