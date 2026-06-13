@@ -133,7 +133,7 @@ ADOBE_CLIENT_SECRET=$(grep ADOBE_CLIENT_SECRET /Users/cashville/.env | cut -d= -
 
 FIREFLY_TOKEN=$(curl -s -X POST "https://ims-na1.adobelogin.com/ims/token/v3" \
   -H "Content-Type: application/x-www-form-urlencoded" \
-  -d "grant_type=client_credentials&client_id=${ADOBE_CLIENT_ID}&client_secret=${ADOBE_CLIENT_SECRET}&scope=openid,AdobeID,firefly_enterprise,firefly_api" \
+  -d "grant_type=client_credentials&client_id=${ADOBE_CLIENT_ID}&client_secret=${ADOBE_CLIENT_SECRET}&scope=openid,AdobeID,firefly_api" \
   | python3 -c "import sys,json; print(json.load(sys.stdin)['access_token'])")
 
 echo "Firefly token obtained. Valid 24h."
@@ -261,7 +261,7 @@ STAGED_IMAGE_URL="${IMAGE_URL}"  # from step 4A
 ROOM="living"
 DIRECTION="A"
 
-JOB=$(curl -s -X POST "https://api.dev.runwayml.com/v1/image_to_video" \
+JOB=$(curl -s -X POST "https://api.runwayml.com/v1/image_to_video" \
   -H "Authorization: Bearer ${RUNWAY_KEY}" \
   -H "Content-Type: application/json" \
   -d "{
@@ -278,7 +278,7 @@ echo "Runway job ID: ${JOB_ID}"
 
 # Poll until complete
 while true; do
-  RESULT=$(curl -s "https://api.dev.runwayml.com/v1/tasks/${JOB_ID}" \
+  RESULT=$(curl -s "https://api.runwayml.com/v1/tasks/${JOB_ID}" \
     -H "Authorization: Bearer ${RUNWAY_KEY}")
   STATUS=$(echo $RESULT | python3 -c "import sys,json; print(json.load(sys.stdin).get('status','unknown'))")
   if [ "$STATUS" = "SUCCEEDED" ]; then

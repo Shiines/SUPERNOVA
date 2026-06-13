@@ -368,32 +368,54 @@ unzip -l "${PROJECT_ID}-staging-v1.zip" | tail -5
 ```
 
 ### 6.2 Upload WeTransfer
+
+WeTransfer v2 requires 5 steps — missing any step → finalize returns an error or empty URL.
+
 ```bash
 WT_KEY=$(grep WETRANSFER_API_KEY /Users/cashville/.env | cut -d= -f2)
 ZIP_FILE=".tmp/${PROJECT_ID}-staging/${PROJECT_ID}-staging-v1.zip"
 ZIP_SIZE=$(wc -c < "${ZIP_FILE}")
 ZIP_NAME="${PROJECT_ID}-staging-v1.zip"
 
-# Créer le transfert
+# ÉTAPE 1 — Obtenir le JWT Bearer token (valide 30 min, obligatoire pour toutes les requêtes)
+WT_TOKEN=$(curl -s -X POST "https://dev.wetransfer.com/v2/authorize" \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: ${WT_KEY}" \
+  | python3 -c "import sys,json; print(json.load(sys.stdin)['token'])")
+echo "  ✓ WeTransfer token: ${WT_TOKEN:0:20}..."
+
+# ÉTAPE 2 — Créer le transfert
 TRANSFER=$(curl -s -X POST "https://dev.wetransfer.com/v2/transfers" \
   -H "Content-Type: application/json" \
   -H "x-api-key: ${WT_KEY}" \
+  -H "Authorization: Bearer ${WT_TOKEN}" \
   -d "{\"message\":\"${PROJECT_ID} — Virtual Staging LIOR\",\"files\":[{\"name\":\"${ZIP_NAME}\",\"size\":${ZIP_SIZE}}]}")
 
 TRANSFER_ID=$(echo $TRANSFER | python3 -c "import sys,json; print(json.load(sys.stdin)['id'])")
+FILE_ID=$(echo $TRANSFER | python3 -c "import sys,json; print(json.load(sys.stdin)['files'][0]['id'])")
 UPLOAD_URL=$(echo $TRANSFER | python3 -c "import sys,json; print(json.load(sys.stdin)['files'][0]['multipart']['url'])")
+echo "  ✓ Transfer created: ${TRANSFER_ID} | File: ${FILE_ID}"
 
-# Upload
+# ÉTAPE 3 — Upload le fichier
 curl -s -X PUT "${UPLOAD_URL}" \
   -H "Content-Type: application/octet-stream" \
   --data-binary @"${ZIP_FILE}"
+echo "  ✓ File uploaded to S3"
 
-# Finaliser et récupérer le lien
+# ÉTAPE 4 — Marquer le fichier comme uploadé (OBLIGATOIRE — sans cette étape, finalize échoue)
+curl -s -X PUT "https://dev.wetransfer.com/v2/transfers/${TRANSFER_ID}/files/${FILE_ID}/upload-complete" \
+  -H "x-api-key: ${WT_KEY}" \
+  -H "Authorization: Bearer ${WT_TOKEN}" \
+  | python3 -c "import sys,json; d=json.load(sys.stdin); print('  ✓ File marked complete' if d.get('success') else f'  ✗ Error: {d}')"
+
+# ÉTAPE 5 — Finaliser et récupérer le lien
 DOWNLOAD_URL=$(curl -s -X PUT "https://dev.wetransfer.com/v2/transfers/${TRANSFER_ID}/finalize" \
   -H "x-api-key: ${WT_KEY}" \
+  -H "Authorization: Bearer ${WT_TOKEN}" \
   | python3 -c "import sys,json; print(json.load(sys.stdin)['url'])")
 
 echo "DOWNLOAD LINK: ${DOWNLOAD_URL}"
+[ -z "$DOWNLOAD_URL" ] && echo "  ✗ EMPTY URL — check WT_KEY and that all 5 steps completed"
 ```
 
 ### 6.3 Notifier le client via WhatsApp

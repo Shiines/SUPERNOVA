@@ -67,7 +67,38 @@ The cinematic tour is a **hybrid video** — not purely AI-generated, not purely
 
 ---
 
-## III. PRODUCTION PIPELINE — 7 PHASES
+## III. SETUP — TOOLS & ENV VARS (one-time per machine)
+
+Run this once before the first project. All API keys must be present — any empty value causes silent 401s.
+
+```bash
+# 1. Tools
+which ffmpeg  || brew install ffmpeg
+which magick  || brew install imagemagick
+which ffprobe || echo "ffprobe included with ffmpeg"
+python3 -c "import json,subprocess" && echo "python3 OK"
+
+# 2. Add missing keys to /Users/cashville/.env (fill in each value)
+cat >> /Users/cashville/.env << 'KEYS'
+IMGBB_API_KEY=               # https://imgbb.com → Account → API → Generate Key
+VSTAGING_API_KEY=            # https://virtualstaging.ai → Settings → API Keys
+RUNWAY_API_KEY=              # https://app.runwayml.com → Account → API Keys
+WETRANSFER_API_KEY=          # https://developers.wetransfer.com → Create App
+REPLICATE_KEY=               # https://replicate.com/account/api-tokens
+ADOBE_CLIENT_ID=             # https://developer.adobe.com → Create Project → Firefly API
+ADOBE_CLIENT_SECRET=         # same project, OAuth credential
+KEYS
+
+# 3. Verify all keys are present (no empty values)
+for VAR in IMGBB_API_KEY VSTAGING_API_KEY RUNWAY_API_KEY WETRANSFER_API_KEY CALLMEBOT_PHONE CALLMEBOT_API_KEY NOTION_TOKEN; do
+  VAL=$(grep "^${VAR}=" /Users/cashville/.env | cut -d= -f2)
+  [ -z "$VAL" ] && echo "  ✗ MISSING: ${VAR}" || echo "  ✓ OK: ${VAR}"
+done
+```
+
+---
+
+## IV. PRODUCTION PIPELINE — 7 PHASES
 
 **Total time: 4–6 hours for a 5-room property. Always completable within 24h.**
 
@@ -246,26 +277,58 @@ Style choice is a production decision, not a visual preference. Match to propert
 8. Review all 3–4 variants generated
 9. Select best → apply QA checklist (Step 4) → accept or regenerate
 
-**API call (for agent automation):**
-```json
-POST https://api.applydesign.ai/v1/stage
-{
-  "image_url": "[URL of empty room photo from 03-staging-input/]",
-  "room_type": "living_room",
-  "style": "contemporary_warm",
-  "density": "medium",
-  "color_temperature": "warm"
-}
+**Option A — Apply Design web UI (manual, preferred for quality review):**
+1. Go to applydesign.ai → New Project → Upload empty room photo
+2. Room type: select correct room → Style: use mapping from Step 2 → Density: Medium → Color Temp: Warm
+3. Generate (60–90s) → review 3–4 variants → select best → download full resolution
+4. Save to `03-staging-stills/0[N]-[room]-staged.jpg`
+
+**Option B — Virtual Staging AI API (automation):**
+```bash
+VSTAGING_KEY=$(grep VSTAGING_API_KEY /Users/cashville/.env | cut -d= -f2)
+IMGBB_KEY=$(grep IMGBB_API_KEY /Users/cashville/.env | cut -d= -f2)
+
+# Upload photo to get public URL (VStagingAI needs a URL, not a local file)
+IMG_URL=$(curl -s -X POST "https://api.imgbb.com/1/upload" \
+  -F "key=${IMGBB_KEY}" \
+  -F "image=@03-staging-stills/_inputs/[ROOM]-empty.jpg" \
+  | python3 -c "import sys,json; print(json.load(sys.stdin)['data']['url'])")
+
+# Submit staging job (use room_type and style from Step 2 mapping)
+RESPONSE=$(curl -s -X POST "https://api.virtualstaging.ai/v1/stage" \
+  -H "Authorization: Bearer ${VSTAGING_KEY}" \
+  -H "Content-Type: application/json" \
+  -d "{
+    \"image_url\": \"${IMG_URL}\",
+    \"room_type\": \"living_room\",
+    \"style\": \"contemporary\",
+    \"furnishing_level\": \"medium\"
+  }")
+
+JOB_ID=$(echo $RESPONSE | python3 -c "import sys,json; print(json.load(sys.stdin).get('job_id','ERROR'))")
+echo "  → VStagingAI job: ${JOB_ID}"
+
+# Poll until complete (max 6 min)
+ATTEMPTS=0
+while true; do
+  RESULT=$(curl -s "https://api.virtualstaging.ai/v1/jobs/${JOB_ID}" \
+    -H "Authorization: Bearer ${VSTAGING_KEY}")
+  STATUS=$(echo $RESULT | python3 -c "import sys,json; print(json.load(sys.stdin).get('status','unknown'))")
+  if [ "$STATUS" = "completed" ]; then
+    OUTPUT_URL=$(echo $RESULT | python3 -c "import sys,json; print(json.load(sys.stdin)['output_url'])")
+    curl -s -L "${OUTPUT_URL}" -o "03-staging-stills/[ROOM]-staged-raw.jpg"
+    echo "  ✓ Staged: [ROOM]"
+    break
+  elif [ "$STATUS" = "failed" ]; then
+    echo "  ✗ VStagingAI failed → use Apply Design web UI (Option A)"
+    break
+  fi
+  ((ATTEMPTS++)); [ $ATTEMPTS -ge 36 ] && echo "  ✗ Timeout" && break
+  sleep 10
+done
 ```
-Response: `{ "staged_url": "...", "generation_id": "..." }`
 
-Save `generation_id` to `log.txt` for traceability.
-
-**Fallback: Virtual Staging AI (virtualstaging.ai)**
-Use when Apply Design is unavailable or for a simpler brief.
-1. Upload photo → select room type → select style → Generate
-2. Download highest resolution output (2048px+)
-3. Apply same QA checklist before accepting
+Save `job_id` to `log.txt` for traceability.
 
 **Agent / advanced option: Stable Diffusion via ComfyUI + ControlNet**
 Use when full control required, or when agent has a LIOR-trained LoRA loaded.
@@ -391,13 +454,14 @@ For each virtual staging still, generate a 6–8 second animated clip using Runw
 
 **Primary tool: Runway Gen-3 Alpha Turbo**
 
-API endpoint: `POST https://api.dev.runwayml.com/v1/image_to_video`
+API endpoint: `POST https://api.runwayml.com/v1/image_to_video`
+**Required headers:** `Authorization: Bearer {RUNWAY_API_KEY}` · `X-Runway-Version: 2024-11-06` · `Content-Type: application/json`
 
-**Standard request:**
+**Standard request body:**
 ```json
 {
   "model": "gen3a_turbo",
-  "promptImage": "[URL or base64 of staging still]",
+  "promptImage": "[public URL of staging still — use ImgBB]",
   "promptText": "[motion prompt — see library below]",
   "duration": 8,
   "ratio": "1280:768",
@@ -431,6 +495,113 @@ BALCONY / OUTDOOR:
 
 DINING ROOM:
 "Very slow orbit around dining table, warm pendant light above, elegant place settings, smooth cinematic tracking"
+```
+
+**PHASE 3 — FULL BASH SCRIPT (submit all stills, poll, download):**
+
+```bash
+RUNWAY_KEY=$(grep RUNWAY_API_KEY /Users/cashville/.env | cut -d= -f2)
+IMGBB_KEY=$(grep IMGBB_API_KEY /Users/cashville/.env | cut -d= -f2)
+mkdir -p 04-animated-clips 05-assembly
+
+# Motion prompts by filename prefix
+declare -A MOTION_PROMPTS
+MOTION_PROMPTS["01-living"]="Extremely slow cinematic push forward into the living room, natural warm light, shallow depth of field, luxury interior photography, smooth steady camera, no shake, 24fps"
+MOTION_PROMPTS["02-master"]="Very slow push into bedroom through doorway, soft diffused light on bedding, luxury hotel quality, steady smooth camera, warm tones, cinematic"
+MOTION_PROMPTS["03-kitchen"]="Slow pan right across kitchen, warm light on surfaces, island in foreground, smooth tracking motion, architectural photography style"
+MOTION_PROMPTS["04-dining"]="Very slow orbit around dining table, warm pendant light above, elegant place settings, smooth cinematic tracking"
+MOTION_PROMPTS["05-ensuite"]="Slow reveal push into bathroom, warm soft light on tiles, spa quality, mirror reflection, smooth cinematic movement"
+MOTION_PROMPTS["06-balcony"]="Slow push forward toward the view, glass railing catching light, city visible beyond, smooth glide, golden hour quality"
+DEFAULT_PROMPT="Extremely slow cinematic push forward, natural warm light, luxury interior, smooth steady camera, no shake, 24fps"
+
+> 05-assembly/runway-tasks.txt  # clear/create task log
+
+# STEP 3A — Submit all stills to Runway
+for STILL in 03-staging-stills/[0-9]*.jpg; do
+  ROOM=$(basename "$STILL" .jpg)           # e.g. "01-living-staged"
+  PREFIX=$(echo "$ROOM" | grep -oE '^[0-9]+-[a-z]+')  # e.g. "01-living"
+  PROMPT="${MOTION_PROMPTS[$PREFIX]:-$DEFAULT_PROMPT}"
+
+  # Upload to ImgBB for public URL
+  IMG_URL=$(curl -s -X POST "https://api.imgbb.com/1/upload" \
+    -F "key=${IMGBB_KEY}" \
+    -F "image=@${STILL}" \
+    | python3 -c "import sys,json; print(json.load(sys.stdin)['data']['url'])")
+
+  if [ -z "$IMG_URL" ]; then
+    echo "  ✗ ImgBB upload failed: ${ROOM} → Ken Burns fallback"
+    ffmpeg -loop 1 -i "${STILL}" \
+      -vf "scale=3840:2160,zoompan=z='min(zoom+0.0006,1.12)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=192:s=1920x1080,fps=24" \
+      -t 8 -pix_fmt yuv420p "04-animated-clips/${ROOM}.mp4"
+    continue
+  fi
+
+  RESPONSE=$(curl -s -X POST "https://api.runwayml.com/v1/image_to_video" \
+    -H "Authorization: Bearer ${RUNWAY_KEY}" \
+    -H "X-Runway-Version: 2024-11-06" \
+    -H "Content-Type: application/json" \
+    -d "{\"model\":\"gen3a_turbo\",\"promptImage\":\"${IMG_URL}\",\"promptText\":\"${PROMPT}\",\"duration\":8,\"ratio\":\"1280:768\",\"seed\":42}")
+
+  TASK_ID=$(echo $RESPONSE | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('id','ERROR'))" 2>/dev/null)
+
+  if [ "$TASK_ID" = "ERROR" ] || [ -z "$TASK_ID" ]; then
+    echo "  ✗ Runway submit failed: ${ROOM} — $(echo $RESPONSE | python3 -c 'import sys,json; d=json.load(sys.stdin); print(d.get("error",d))' 2>/dev/null)"
+    ffmpeg -loop 1 -i "${STILL}" \
+      -vf "scale=3840:2160,zoompan=z='min(zoom+0.0006,1.12)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=192:s=1920x1080,fps=24" \
+      -t 8 -pix_fmt yuv420p "04-animated-clips/${ROOM}.mp4"
+    echo "  ✓ Ken Burns fallback applied: ${ROOM}"
+    continue
+  fi
+
+  echo "${ROOM}=${TASK_ID}" >> 05-assembly/runway-tasks.txt
+  echo "  → Runway task submitted: ${ROOM} (${TASK_ID})"
+  sleep 3  # rate limit between submissions
+done
+
+# STEP 3B — Poll all tasks and download
+while IFS='=' read -r ROOM TASK_ID; do
+  [ -z "$ROOM" ] && continue
+  echo "=== Polling: ${ROOM} ==="
+  ATTEMPTS=0
+  STILL="03-staging-stills/${ROOM}.jpg"
+
+  while true; do
+    RESULT=$(curl -s "https://api.runwayml.com/v1/tasks/${TASK_ID}" \
+      -H "Authorization: Bearer ${RUNWAY_KEY}" \
+      -H "X-Runway-Version: 2024-11-06")
+    STATUS=$(echo $RESULT | python3 -c "import sys,json; print(json.load(sys.stdin).get('status','PENDING'))")
+
+    if [ "$STATUS" = "SUCCEEDED" ]; then
+      VIDEO_URL=$(echo $RESULT | python3 -c "import sys,json; print(json.load(sys.stdin)['output'][0])")
+      curl -s -L "${VIDEO_URL}" -o "04-animated-clips/${ROOM}.mp4"
+      CLIP_DUR=$(ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "04-animated-clips/${ROOM}.mp4")
+      echo "  ✓ ${ROOM}: ${CLIP_DUR}s"
+      echo "[$(date '+%Y-%m-%d %H:%M')] RUNWAY OK: ${ROOM} | dur=${CLIP_DUR}s" >> log.txt
+      break
+
+    elif [ "$STATUS" = "FAILED" ]; then
+      FAIL=$(echo $RESULT | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('failure','unknown'))")
+      echo "  ✗ FAILED: ${ROOM} — ${FAIL} → Ken Burns fallback"
+      echo "[$(date '+%Y-%m-%d %H:%M')] RUNWAY FAILED: ${ROOM} | ${FAIL}" >> log.txt
+      ffmpeg -loop 1 -i "${STILL}" \
+        -vf "scale=3840:2160,zoompan=z='min(zoom+0.0006,1.12)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=192:s=1920x1080,fps=24" \
+        -t 8 -pix_fmt yuv420p "04-animated-clips/${ROOM}.mp4"
+      echo "  ✓ Ken Burns applied: ${ROOM}"
+      break
+    fi
+
+    ((ATTEMPTS++))
+    [ $ATTEMPTS -ge 80 ] && echo "  ✗ TIMEOUT: ${ROOM} → Ken Burns" && \
+      ffmpeg -loop 1 -i "${STILL}" \
+        -vf "scale=3840:2160,zoompan=z='min(zoom+0.0006,1.12)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=192:s=1920x1080,fps=24" \
+        -t 8 -pix_fmt yuv420p "04-animated-clips/${ROOM}.mp4" && break
+    echo "  ${STATUS} (${ATTEMPTS}/80) — 15s..."
+    sleep 15
+  done
+done < 05-assembly/runway-tasks.txt
+
+echo "=== Clips ready in 04-animated-clips/ ==="
+ls -1 04-animated-clips/
 ```
 
 **Quality check per clip:**
@@ -494,6 +665,44 @@ file '../02-raw-cuts/02-master-empty-slow.mp4'
 file '../04-animated-clips/03-kitchen-staged.mp4'
 file '../02-raw-cuts/03-kitchen-empty-slow.mp4'
 file '../02-raw-cuts/99-balcony-close-slow.mp4'
+```
+
+**IMPORTANT — Calculate xfade offsets before assembling (clips may not all be exactly 8s):**
+
+```bash
+# Dynamic offset calculator — run this FIRST, copy the offsets into the ffmpeg command below
+python3 << 'EOF'
+import subprocess
+
+# ← Update this list to match your actual sequence.txt order
+clips = [
+  "02-raw-cuts/00-balcony-open-slow.mp4",
+  "04-animated-clips/01-living-staged.mp4",
+  "02-raw-cuts/01-living-empty-slow.mp4",
+  "04-animated-clips/02-master-staged.mp4",
+  "02-raw-cuts/02-master-empty-slow.mp4",
+  "04-animated-clips/03-kitchen-staged.mp4",
+  "02-raw-cuts/03-kitchen-empty-slow.mp4",
+  "02-raw-cuts/99-balcony-close-slow.mp4",
+]
+# Transition duration for each cut (staged→empty = 0.4s, between scenes = 0.6s)
+trans = [0.6, 0.4, 0.6, 0.4, 0.6, 0.4, 0.6]
+
+def dur(f):
+    r = subprocess.run(["ffprobe","-v","error","-show_entries","format=duration",
+        "-of","default=noprint_wrappers=1:nokey=1",f], capture_output=True, text=True)
+    return float(r.stdout.strip())
+
+durations = [dur(c) for c in clips]
+total = sum(durations) - sum(trans)
+print(f"Clip durations: {[round(d,2) for d in durations]}")
+print(f"Final video duration estimate: {round(total,2)}s")
+print("\nxfade offsets to use:")
+cum = 0
+for i,(d,t) in enumerate(zip(durations[:-1], trans)):
+    cum += d - t
+    print(f"  offset {i+1} (between clip {i+1}→{i+2}): {round(cum,3)}")
+EOF
 ```
 
 Then concatenate with xfade transitions:
@@ -589,12 +798,19 @@ Epidemic Sound tags: cinematic, ambient, calm, sophisticated
 
 **Audio processing:**
 ```bash
+# Étape obligatoire : mesurer la durée exacte de la vidéo avant de calculer les fades
+VIDEO_DURATION=$(ffprobe -v error -show_entries format=duration \
+  -of default=noprint_wrappers=1:nokey=1 \
+  05-assembly/assembled-raw.mp4)
+AUDIO_FADE_START=$(python3 -c "print(round(float('${VIDEO_DURATION}') - 2.5, 3))")
+echo "Video: ${VIDEO_DURATION}s | Audio fade-out at: ${AUDIO_FADE_START}s"
+
 # Trim to video length, fade in 1.5s / fade out 2.5s, normalize
 ffmpeg -i 06-audio/music-track.mp3 \
   -af "afade=t=in:st=0:d=1.5, \
-       afade=t=out:st=$(echo '[VIDEO_DURATION] - 2.5' | bc):d=2.5, \
+       afade=t=out:st=${AUDIO_FADE_START}:d=2.5, \
        loudnorm=I=-14:TP=-1:LRA=11" \
-  -t [VIDEO_DURATION] \
+  -t "${VIDEO_DURATION}" \
   06-audio/music-ready.aac
 ```
 
@@ -607,8 +823,15 @@ ffmpeg -i 05-assembly/color-graded.mp4 -i 06-audio/music-ready.aac \
 
 **Add fade-in from black and fade-out to black:**
 ```bash
+# Mesurer la durée de la version avec audio avant de calculer le fade-out
+FINAL_DUR=$(ffprobe -v error -show_entries format=duration \
+  -of default=noprint_wrappers=1:nokey=1 \
+  05-assembly/final-with-audio.mp4)
+VFADE_OUT=$(python3 -c "print(round(float('${FINAL_DUR}') - 1.2, 3))")
+echo "Final duration: ${FINAL_DUR}s | Video fade-out at: ${VFADE_OUT}s"
+
 ffmpeg -i 05-assembly/final-with-audio.mp4 \
-  -vf "fade=t=in:st=0:d=0.8,fade=t=out:st=[DURATION-1.2]:d=1.2" \
+  -vf "fade=t=in:st=0:d=0.8,fade=t=out:st=${VFADE_OUT}:d=1.2" \
   -c:a copy \
   05-assembly/final-faded.mp4
 ```

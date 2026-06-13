@@ -193,9 +193,10 @@ for STILL in .tmp/${PROJECT_ID}-pack/02-staging/*.jpg; do
     -F "image=@${STILL}" \
     | python3 -c "import sys,json; print(json.load(sys.stdin)['data']['url'])")
 
-  # Lancer l'animation
-  RESPONSE=$(curl -s -X POST "https://api.dev.runwayml.com/v1/image_to_video" \
+  # Lancer l'animation (X-Runway-Version requis, api.runwayml.com sans "dev")
+  RESPONSE=$(curl -s -X POST "https://api.runwayml.com/v1/image_to_video" \
     -H "Authorization: Bearer ${RUNWAY_KEY}" \
+    -H "X-Runway-Version: 2024-11-06" \
     -H "Content-Type: application/json" \
     -d "{
       \"model\": \"gen3a_turbo\",
@@ -224,8 +225,9 @@ while IFS='=' read -r ROOM TASK_ID; do
   ATTEMPTS=0
 
   while true; do
-    RESULT=$(curl -s "https://api.dev.runwayml.com/v1/tasks/${TASK_ID}" \
-      -H "Authorization: Bearer ${RUNWAY_KEY}")
+    RESULT=$(curl -s "https://api.runwayml.com/v1/tasks/${TASK_ID}" \
+      -H "Authorization: Bearer ${RUNWAY_KEY}" \
+      -H "X-Runway-Version: 2024-11-06")
     STATUS=$(echo $RESULT | python3 -c "import sys,json; print(json.load(sys.stdin).get('status','unknown'))")
 
     if [ "$STATUS" = "SUCCEEDED" ]; then
@@ -359,24 +361,42 @@ echo "ZIP: $(du -sh ${PROJECT_ID}-listing-pack-v1.zip)"
 ```
 
 ### 11.2 WeTransfer
+
 ```bash
 WT_KEY=$(grep WETRANSFER_API_KEY /Users/cashville/.env | cut -d= -f2)
 ZIP_FILE=".tmp/${PROJECT_ID}-pack/${PROJECT_ID}-listing-pack-v1.zip"
 ZIP_SIZE=$(wc -c < "${ZIP_FILE}")
 ZIP_NAME="${PROJECT_ID}-listing-pack-v1.zip"
 
+# 1 — JWT Bearer token (obligatoire)
+WT_TOKEN=$(curl -s -X POST "https://dev.wetransfer.com/v2/authorize" \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: ${WT_KEY}" \
+  | python3 -c "import sys,json; print(json.load(sys.stdin)['token'])")
+
+# 2 — Créer le transfert
 TRANSFER=$(curl -s -X POST "https://dev.wetransfer.com/v2/transfers" \
   -H "Content-Type: application/json" \
   -H "x-api-key: ${WT_KEY}" \
+  -H "Authorization: Bearer ${WT_TOKEN}" \
   -d "{\"message\":\"${PROJECT_ID} — Full Listing Pack LIOR\",\"files\":[{\"name\":\"${ZIP_NAME}\",\"size\":${ZIP_SIZE}}]}")
 
 TRANSFER_ID=$(echo $TRANSFER | python3 -c "import sys,json; print(json.load(sys.stdin)['id'])")
+FILE_ID=$(echo $TRANSFER | python3 -c "import sys,json; print(json.load(sys.stdin)['files'][0]['id'])")
 UPLOAD_URL=$(echo $TRANSFER | python3 -c "import sys,json; print(json.load(sys.stdin)['files'][0]['multipart']['url'])")
 
+# 3 — Upload
 curl -s -X PUT "${UPLOAD_URL}" -H "Content-Type: application/octet-stream" --data-binary @"${ZIP_FILE}"
 
+# 4 — Marquer le fichier comme uploadé (OBLIGATOIRE avant finalize)
+curl -s -X PUT "https://dev.wetransfer.com/v2/transfers/${TRANSFER_ID}/files/${FILE_ID}/upload-complete" \
+  -H "x-api-key: ${WT_KEY}" \
+  -H "Authorization: Bearer ${WT_TOKEN}"
+
+# 5 — Finaliser
 DOWNLOAD_URL=$(curl -s -X PUT "https://dev.wetransfer.com/v2/transfers/${TRANSFER_ID}/finalize" \
   -H "x-api-key: ${WT_KEY}" \
+  -H "Authorization: Bearer ${WT_TOKEN}" \
   | python3 -c "import sys,json; print(json.load(sys.stdin)['url'])")
 
 echo "DOWNLOAD LINK: ${DOWNLOAD_URL}"
