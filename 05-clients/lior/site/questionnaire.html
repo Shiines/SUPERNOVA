@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Get an Estimate · LIOR</title>
+<meta name="description" content="Tell us about your project. Get an instant estimate.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ── TOKENS ── */
+:root{
+  --ob:#0E0E10;--ob2:#121214;--ob3:#161618;--ob4:#1c1c1e;
+  --gold:#E8B873;--day:#F6F1EA;--stone:#BFB3A4;--st-d:#7A7166;--st-dp:#3A3630;
+  --wa:#25D366;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;-webkit-font-smoothing:antialiased}
+body{background:var(--ob);color:var(--day);font-family:'Inter',sans-serif;font-weight:300;overflow:hidden}
+
+/* ── PROGRESS BAR ── */
+#progress-bar{
+  position:fixed;top:0;left:0;height:2px;
+  background:var(--gold);
+  transition:width .55s cubic-bezier(.16,1,.3,1);
+  z-index:200;width:0%;
+  box-shadow:0 0 12px rgba(232,184,115,.45);
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:22px 48px;display:flex;align-items:center;justify-content:space-between;
+}
+.logo{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:400;letter-spacing:.38em;color:var(--day);text-decoration:none;text-transform:uppercase}
+.nav-back{font-size:11.5px;letter-spacing:.1em;color:var(--st-d);text-decoration:none;display:flex;align-items:center;gap:7px;transition:color .2s}
+.nav-back:hover{color:var(--stone)}
+.step-counter{font-size:11px;letter-spacing:.12em;color:var(--st-d);font-family:'Inter',sans-serif}
+
+/* ── QUIZ CONTAINER ── */
+#quiz{
+  position:fixed;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  padding:80px 24px 40px;
+}
+
+/* ── STEPS ── */
+.step{
+  position:absolute;width:100%;max-width:780px;
+  opacity:0;transform:translateX(56px);
+  transition:opacity .38s cubic-bezier(.16,1,.3,1), transform .38s cubic-bezier(.16,1,.3,1);
+  pointer-events:none;
+}
+.step.active{opacity:1;transform:translateX(0);pointer-events:all}
+.step.exit{opacity:0;transform:translateX(-56px)}
+
+/* ── STEP HEADER ── */
+.step-eyebrow{
+  font-size:10px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:18px;
+  display:flex;align-items:center;gap:9px;
+}
+.step-eyebrow::before{content:'';width:20px;height:1px;background:var(--gold);opacity:.5}
+.step-q{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.7rem,3.8vw,2.8rem);font-weight:300;
+  color:var(--day);line-height:1.15;margin-bottom:36px;
+}
+.step-q em{font-style:italic;color:var(--gold)}
+
+/* ── OPTION CARDS GRID ── */
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.cards.cols-3{grid-template-columns:repeat(3,1fr)}
+
+.card{
+  background:var(--ob2);border:1px solid rgba(255,255,255,.06);
+  padding:26px 28px;cursor:pointer;
+  transition:border-color .2s, background .2s, transform .15s;
+  position:relative;overflow:hidden;
+}
+.card::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 30% 50%, rgba(232,184,115,.05) 0%, transparent 70%);
+  opacity:0;transition:opacity .3s;
+}
+.card:hover{border-color:rgba(232,184,115,.3);transform:translateY(-1px)}
+.card:hover::before{opacity:1}
+.card.selected{
+  border-color:var(--gold);background:rgba(232,184,115,.06);
+}
+.card.selected::before{opacity:1}
+
+.card-tag{
+  font-size:9px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold);opacity:.55;margin-bottom:14px;display:block;
+}
+.card-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(17px,2vw,22px);font-weight:300;
+  color:var(--day);line-height:1.2;margin-bottom:7px;
+}
+.card-desc{font-size:11.5px;color:var(--st-d);line-height:1.6}
+.card-badge{
+  display:inline-block;margin-top:14px;
+  font-size:9px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--gold);background:rgba(232,184,115,.08);
+  padding:3px 9px;border:1px solid rgba(232,184,115,.18);
+}
+.check-icon{
+  position:absolute;top:16px;right:16px;
+  width:18px;height:18px;border-radius:50%;
+  background:var(--gold);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;transform:scale(.6);
+  transition:opacity .2s, transform .2s;
+}
+.card.selected .check-icon{opacity:1;transform:scale(1)}
+.check-icon svg{width:9px;height:9px}
+
+/* ── BACK BUTTON ── */
+.btn-back{
+  display:inline-flex;align-items:center;gap:7px;
+  background:none;border:none;cursor:pointer;
+  font-size:11.5px;letter-spacing:.1em;color:var(--st-d);
+  font-family:'Inter',sans-serif;padding:0;margin-top:28px;
+  transition:color .2s;
+}
+.btn-back:hover{color:var(--stone)}
+
+/* ── SUMMARY / QUOTE STEP ── */
+.summary-wrap{max-width:680px;margin:0 auto}
+.summary-brief{
+  display:flex;flex-wrap:wrap;gap:6px;margin-bottom:42px;
+}
+.brief-pill{
+  font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--stone);background:var(--ob3);
+  border:1px solid rgba(255,255,255,.07);
+  padding:6px 14px;
+}
+
+.quote-card{
+  background:var(--ob2);border:1px solid rgba(232,184,115,.14);
+  padding:48px;text-align:center;position:relative;
+}
+.quote-card::before{
+  content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
+  width:60%;height:1px;background:var(--gold);opacity:.25;
+}
+.quote-label{
+  font-size:10px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--st-d);margin-bottom:20px;display:block;
+}
+.quote-range{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2.5rem,7vw,5rem);font-weight:200;
+  color:var(--day);line-height:1;letter-spacing:-.02em;
+}
+.quote-range em{color:var(--gold);font-style:normal}
+.quote-sep{
+  font-size:11px;color:var(--st-d);letter-spacing:.12em;
+  margin:0 12px;vertical-align:middle;
+}
+.quote-note{
+  font-size:11.5px;color:var(--st-d);margin-top:10px;
+  line-height:1.6;font-style:italic;
+}
+.quote-div{width:100%;height:1px;background:rgba(255,255,255,.06);margin:28px 0}
+.quote-includes{
+  text-align:left;display:flex;flex-direction:column;gap:9px;margin-bottom:32px;
+}
+.quote-inc-item{
+  display:flex;align-items:flex-start;gap:10px;
+  font-size:12.5px;color:var(--stone);
+}
+.quote-inc-item::before{
+  content:'';width:4px;height:4px;min-width:4px;border-radius:50%;
+  background:var(--gold);opacity:.6;margin-top:5px;
+}
+
+.disclaimer{
+  font-size:10.5px;color:var(--st-dp);line-height:1.6;
+  text-align:center;margin-top:18px;
+}
+
+/* ── BUTTONS ── */
+.btn-wa{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;padding:17px 28px;
+  background:var(--wa);color:#fff;
+  font-family:'Inter',sans-serif;font-size:13.5px;font-weight:500;
+  letter-spacing:.04em;text-decoration:none;border:none;cursor:pointer;
+  transition:opacity .2s,transform .15s;
+}
+.btn-wa:hover{opacity:.88;transform:translateY(-1px)}
+.btn-edit{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  width:100%;padding:13px 20px;margin-top:8px;
+  background:none;border:1px solid rgba(255,255,255,.07);
+  color:var(--st-d);font-family:'Inter',sans-serif;font-size:12px;
+  letter-spacing:.08em;cursor:pointer;transition:border-color .2s,color .2s;
+}
+.btn-edit:hover{border-color:rgba(232,184,115,.25);color:var(--stone)}
+
+/* ── LOCATION INPUT ── */
+.loc-input{
+  width:100%;background:transparent;
+  border:none;border-bottom:1px solid rgba(232,184,115,.25);
+  color:var(--day);
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.5rem,3.5vw,2.4rem);font-weight:300;
+  padding:16px 0;outline:none;
+  transition:border-color .25s;letter-spacing:.01em;
+}
+.loc-input::placeholder{color:var(--st-dp);font-style:italic}
+.loc-input:focus{border-bottom-color:var(--gold)}
+.loc-hint{font-size:11px;color:var(--st-dp);margin-top:12px;letter-spacing:.08em}
+.btn-continue{
+  display:inline-flex;align-items:center;gap:9px;
+  margin-top:32px;padding:14px 30px;
+  background:var(--gold);color:var(--ob);
+  font-family:'Inter',sans-serif;font-size:12.5px;font-weight:500;
+  letter-spacing:.08em;border:none;cursor:pointer;
+  opacity:.3;pointer-events:none;
+  transition:opacity .2s,transform .15s;
+}
+.btn-continue.ready{opacity:1;pointer-events:all}
+.btn-continue.ready:hover{transform:translateY(-1px)}
+.loc-actions{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+
+/* ── LOADING TICK (on card select) ── */
+@keyframes pulse-gold{0%{box-shadow:0 0 0 0 rgba(232,184,115,.4)}100%{box-shadow:0 0 0 10px rgba(232,184,115,0)}}
+.card.selected{animation:pulse-gold .4s ease-out}
+
+/* ── RESPONSIVE ── */
+@media(max-width:680px){
+  nav{padding:18px 20px}
+  #quiz{padding:72px 16px 24px}
+  .cards{grid-template-columns:1fr;gap:8px}
+  .cards.cols-3{grid-template-columns:1fr}
+  .card{padding:20px 22px}
+  .quote-card{padding:32px 24px}
+  .quote-range{font-size:2.4rem}
+}
+</style>
+</head>
+<body>
+
+<!-- PROGRESS -->
+<div id="progress-bar"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="lior-v3.html" class="logo">L I O R</a>
+  <span class="step-counter" id="step-counter">1 / 4</span>
+  <a href="lior-v3.html" class="nav-back">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M5 12l7-7M5 12l7 7"/></svg>
+    Exit
+  </a>
+</nav>
+
+<!-- QUIZ -->
+<div id="quiz">
+
+  <!-- ── STEP 1 : SERVICE ── -->
+  <div class="step active" data-step="1">
+    <div class="step-eyebrow">Your project</div>
+    <h2 class="step-q">What do you need<br>for this property?</h2>
+    <div class="cards" id="cards-1">
+
+      <div class="card" data-step="1" data-value="staging">
+        <div class="check-icon"><svg viewBox="0 0 10 8" fill="none" stroke="#0E0E10" stroke-width="2"><path d="M1 4l2.5 2.5L9 1"/></svg></div>
+        <span class="card-tag">Most popular</span>
+        <div class="card-title">Virtual Staging</div>
+        <p class="card-desc">Transform empty spaces into furnished, desirable interiors. Every room at its full potential.</p>
+      </div>
+
+      <div class="card" data-step="1" data-value="cinematic">
+        <div class="check-icon"><svg viewBox="0 0 10 8" fill="none" stroke="#0E0E10" stroke-width="2"><path d="M1 4l2.5 2.5L9 1"/></svg></div>
+        <span class="card-tag">Premium</span>
+        <div class="card-title">Cinematic Walkthrough</div>
+        <p class="card-desc">A full video tour that puts buyers inside the property before they visit. Immersive and conversion-ready.</p>
+      </div>
+
+      <div class="card" data-step="1" data-value="floorplan">
+        <div class="check-icon"><svg viewBox="0 0 10 8" fill="none" stroke="#0E0E10" stroke-width="2"><path d="M1 4l2.5 2.5L9 1"/></svg></div>
+        <span class="card-tag">Essential</span>
+        <div class="card-title">Floor Plan</div>
+        <p class="card-desc">Clean, professional architectural plans that give buyers an immediate understanding of the space.</p>
+      </div>
+
+      <div class="card" data-step="1" data-value="full">
+        <div class="check-icon"><svg viewBox="0 0 10 8" fill="none" stroke="#0E0E10" stroke-width="2"><path d="M1 4l2.5 2.5L9 1"/></svg></div>
+        <span class="card-tag">Best value</span>
+        <div class="card-title">Full Package</div>
+        <p class="card-desc">Staging, cinematic walkthrough, and floor plan. Everything delivered together in one brief.</p>
+        <span class="card-badge">Complete listing kit</span>
+      </div>
+
+      <div class="card" data-step="1" data-value="spaceplanning">
+        <div class="check-icon"><svg viewBox="0 0 10 8" fill="none" stroke="#0E0E10" stroke-width="2"><path d="M1 4l2.5 2.5L9 1"/></svg></div>
+        <span class="card-tag">New</span>
+        <div class="card-title">Space Planning</div>
+        <p class="card-desc">Room layout and flow optimized before a wall moves. Two directions, fully annotated.</p>
+      </div>
+
+      <div class="card" data-step="1" data-value="archiviz">
+        <div class="check-icon"><svg viewBox="0 0 10 8" fill="none" stroke="#0E0E10" stroke-width="2"><path d="M1 4l2.5 2.5L9 1"/></svg></div>
+        <span class="card-tag">New</span>
+        <div class="card-title">Architectural Visualization</div>
+        <p class="card-desc">Your plans in 3D volume. See the space before the first decision is locked in.</p>
+      </div>
+
+      <div class="card" data-step="1" data-value="concept">
+        <div class="check-icon"><svg viewBox="0 0 10 8" fill="none" stroke="#0E0E10" stroke-width="2"><path d="M1 4l2.5 2.5L9 1"/></svg></div>
+        <span class="card-tag">New</span>
+        <div class="card-title">Design Concept</div>
+        <p class="card-desc">Full creative direction — style, materials, palette — before a single contractor is briefed.</p>
+      </div>
+
+      <div class="card" data-step="1" data-value="prereno">
+        <div class="check-icon"><svg viewBox="0 0 10 8" fill="none" stroke="#0E0E10" stroke-width="2"><path d="M1 4l2.5 2.5L9 1"/></svg></div>
+        <span class="card-tag">New</span>
+        <div class="card-title">Pre-Renovation Brief</div>
+        <p class="card-desc">A complete visual dossier to hand to your architect or contractor. Nothing lost in translation.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── STEP 2 : PROPERTY TYPE ── -->
+  <div class="step" data-step="2">
+    <div class="step-eyebrow">Property type</div>
+    <h2 class="step-q">What type of<br><em>property is it?</em></h2>
+    <div class="cards" id="cards-2">
+
+      <div class="card" data-step="2" data-value="apartment">
+        <div class="check-icon"><svg viewBox="0 0 10 8" fill="none" stroke="#0E0E10" stroke-width="2"><path d="M1 4l2.5 2.5L9 1"/></svg></div>
+        <div class="card-title">Apartment</div>
+        <p class="card-desc">City residences, serviced units, investment properties.</p>
+      </div>
+
+      <div class="card" data-step="2" data-value="villa">
+        <div class="check-icon"><svg viewBox="0 0 10 8" fill="none" stroke="#0E0E10" stroke-width="2"><path d="M1 4l2.5 2.5L9 1"/></svg></div>
+        <div class="card-title">Villa</div>
+        <p class="card-desc">Standalone homes, private gardens, multiple floors.</p>
+      </div>
+
+      <div class="card" data-step="2" data-value="penthouse">
+        <div class="check-icon"><svg viewBox="0 0 10 8" fill="none" stroke="#0E0E10" stroke-width="2"><path d="M1 4l2.5 2.5L9 1"/></svg></div>
+        <div class="card-title">Penthouse</div>
+        <p class="card-desc">Top-floor residences, panoramic views, premium positioning.</p>
+      </div>
+
+      <div class="card" data-step="2" data-value="commercial">
+        <div class="check-icon"><svg viewBox="0 0 10 8" fill="none" stroke="#0E0E10" stroke-width="2"><path d="M1 4l2.5 2.5L9 1"/></svg></div>
+        <div class="card-title">Commercial</div>
+        <p class="card-desc">Office spaces, retail units, hospitality projects.</p>
+      </div>
+
+    </div>
+    <button class="btn-back" onclick="prevStep()">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M5 12l7-7M5 12l7 7"/></svg>
+      Back
+    </button>
+  </div>
+
+  <!-- ── STEP 3 : LOCATION ── -->
+  <div class="step" data-step="3">
+    <div class="step-eyebrow">Location</div>
+    <h2 class="step-q">Where is the<br><em>property located?</em></h2>
+    <input class="loc-input" id="loc-input" type="text" placeholder="Dubai Marina, Downtown, Palm Jumeirah..." autocomplete="off" spellcheck="false">
+    <p class="loc-hint">City, district, or full address</p>
+    <div class="loc-actions">
+      <button class="btn-continue" id="btn-continue" onclick="confirmLocation()">
+        Continue
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+      <button class="btn-back" onclick="prevStep()">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M5 12l7-7M5 12l7 7"/></svg>
+        Back
+      </button>
+    </div>
+  </div>
+
+  <!-- ── STEP 4 : SPACES ── -->
+  <div class="step" data-step="4">
+    <div class="step-eyebrow">Scale</div>
+    <h2 class="step-q">How many spaces<br>need to be <em>visualized?</em></h2>
+    <div class="cards" id="cards-4">
+
+      <div class="card" data-step="4" data-value="1-2">
+        <div class="check-icon"><svg viewBox="0 0 10 8" fill="none" stroke="#0E0E10" stroke-width="2"><path d="M1 4l2.5 2.5L9 1"/></svg></div>
+        <div class="card-title">1 to 2 spaces</div>
+        <p class="card-desc">Studio, one-bedroom, or key areas only.</p>
+      </div>
+
+      <div class="card" data-step="4" data-value="3-5">
+        <div class="check-icon"><svg viewBox="0 0 10 8" fill="none" stroke="#0E0E10" stroke-width="2"><path d="M1 4l2.5 2.5L9 1"/></svg></div>
+        <div class="card-title">3 to 5 spaces</div>
+        <p class="card-desc">Standard apartment or townhouse layout.</p>
+      </div>
+
+      <div class="card" data-step="4" data-value="6-10">
+        <div class="check-icon"><svg viewBox="0 0 10 8" fill="none" stroke="#0E0E10" stroke-width="2"><path d="M1 4l2.5 2.5L9 1"/></svg></div>
+        <div class="card-title">6 to 10 spaces</div>
+        <p class="card-desc">Large apartment, penthouse, or mid-size villa.</p>
+      </div>
+
+      <div class="card" data-step="4" data-value="10+">
+        <div class="check-icon"><svg viewBox="0 0 10 8" fill="none" stroke="#0E0E10" stroke-width="2"><path d="M1 4l2.5 2.5L9 1"/></svg></div>
+        <div class="card-title">10+ spaces</div>
+        <p class="card-desc">Full villa, commercial space, or complete development.</p>
+      </div>
+
+    </div>
+    <button class="btn-back" onclick="prevStep()">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M5 12l7-7M5 12l7 7"/></svg>
+      Back
+    </button>
+  </div>
+
+  <!-- ── STEP 5 : TIMELINE ── -->
+  <div class="step" data-step="5">
+    <div class="step-eyebrow">Timeline</div>
+    <h2 class="step-q">When do you need<br>the <em>deliverables?</em></h2>
+    <div class="cards cols-3" id="cards-5">
+
+      <div class="card" data-step="5" data-value="72h">
+        <div class="check-icon"><svg viewBox="0 0 10 8" fill="none" stroke="#0E0E10" stroke-width="2"><path d="M1 4l2.5 2.5L9 1"/></svg></div>
+        <span class="card-tag">Standard</span>
+        <div class="card-title">72 hours</div>
+        <p class="card-desc">Our default turnaround. Brief to delivery in three days.</p>
+      </div>
+
+      <div class="card" data-step="5" data-value="48h">
+        <div class="check-icon"><svg viewBox="0 0 10 8" fill="none" stroke="#0E0E10" stroke-width="2"><path d="M1 4l2.5 2.5L9 1"/></svg></div>
+        <span class="card-tag">Express</span>
+        <div class="card-title">48 hours</div>
+        <p class="card-desc">Accelerated production. Priority queue, slight surcharge applied.</p>
+        <span class="card-badge">+25% on estimate</span>
+      </div>
+
+      <div class="card" data-step="5" data-value="flexible">
+        <div class="check-icon"><svg viewBox="0 0 10 8" fill="none" stroke="#0E0E10" stroke-width="2"><path d="M1 4l2.5 2.5L9 1"/></svg></div>
+        <span class="card-tag">No rush</span>
+        <div class="card-title">Flexible</div>
+        <p class="card-desc">No fixed deadline. We work at the best pace for the project.</p>
+      </div>
+
+    </div>
+    <button class="btn-back" onclick="prevStep()">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M5 12l7-7M5 12l7 7"/></svg>
+      Back
+    </button>
+  </div>
+
+  <!-- ── STEP 6 : QUOTE SUMMARY ── -->
+  <div class="step" data-step="6">
+    <div class="summary-wrap">
+      <div class="step-eyebrow">Your estimate</div>
+      <h2 class="step-q" style="margin-bottom:20px">Your project<br><em>at a glance.</em></h2>
+      <div class="summary-brief" id="summary-pills"></div>
+      <div class="quote-card">
+        <span class="quote-label">Estimated investment</span>
+        <div>
+          <span class="quote-range" id="quote-low">$0</span>
+          <span class="quote-sep">to</span>
+          <span class="quote-range"><em id="quote-high">$0</em></span>
+        </div>
+        <p class="quote-note" id="quote-note"></p>
+        <div class="quote-div"></div>
+        <div class="quote-includes" id="quote-includes"></div>
+        <a href="#" class="btn-wa" id="btn-wa">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Send this brief to LIOR
+        </a>
+        <button class="btn-edit" onclick="goToStep(1)">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          Edit my answers
+        </button>
+      </div>
+      <p class="disclaimer">This estimate is indicative and based on your inputs. LIOR will confirm the exact investment after reviewing your property. No commitment required.</p>
+    </div>
+  </div>
+
+</div><!-- /quiz -->
+
+<script>
+/* ══════════════════════════════════════════════════════════════════════════════
+   PRICES — UPDATE THESE BEFORE LAUNCH
+   All values in USD. Format: [min, max]
+   ══════════════════════════════════════════════════════════════════════════════ */
+const PRICES = {
+  staging:      { '1-2':[800,1200],   '3-5':[1500,2500],  '6-10':[3000,4500],  '10+':[5000,8000]   },
+  cinematic:    { '1-2':[1200,2000],  '3-5':[2500,3800],  '6-10':[4000,6500],  '10+':[7000,11000]  },
+  floorplan:    { '1-2':[300,500],    '3-5':[500,850],    '6-10':[850,1400],   '10+':[1400,2200]   },
+  full:         { '1-2':[2000,3200],  '3-5':[4000,6500],  '6-10':[7500,11000], '10+':[13000,20000] },
+  spaceplanning:{ '1-2':[600,900],    '3-5':[900,1400],   '6-10':[1400,2200],  '10+':[2200,3500]   },
+  archiviz:     { '1-2':[1000,1600],  '3-5':[1800,3000],  '6-10':[3200,5000],  '10+':[5500,9000]   },
+  concept:      { '1-2':[1200,1800],  '3-5':[2000,3200],  '6-10':[3500,5500],  '10+':[6000,9500]   },
+  prereno:      { '1-2':[900,1400],   '3-5':[1500,2400],  '6-10':[2600,4000],  '10+':[4500,7000]   },
+};
+const EXPRESS = 1.25; // 48h = +25%
+/* ══════════════════════════════════════════════════════════════════════════════ */
+
+/* WhatsApp number — add number after wa.me/ e.g. wa.me/971501234567 */
+const WA_BASE = 'https://wa.me/';
+
+const LABELS = {
+  service:  { staging:'Virtual Staging', cinematic:'Cinematic Walkthrough', floorplan:'Floor Plan', full:'Full Package', spaceplanning:'Space Planning', archiviz:'Architectural Visualization', concept:'Design Concept', prereno:'Pre-Renovation Brief' },
+  property: { apartment:'Apartment', villa:'Villa', penthouse:'Penthouse', commercial:'Commercial' },
+  spaces:   { '1-2':'1 to 2 spaces', '3-5':'3 to 5 spaces', '6-10':'6 to 10 spaces', '10+':'10+ spaces' },
+  timeline: { '72h':'72h standard', '48h':'48h express', flexible:'Flexible' },
+};
+
+const INCLUDES = {
+  staging:       ['Professional furnishing and styling of every selected space', 'Unlimited revisions until full approval', 'High-resolution files ready for listing platforms'],
+  cinematic:     ['Full immersive video walkthrough of the property', 'Cinematic grade production with natural light simulation', 'Delivery in MP4 and web-optimized formats'],
+  floorplan:     ['Clean architectural floor plan with accurate dimensions', 'Digital format ready for listings and presentations', 'Unlimited revisions until approval'],
+  full:          ['Virtual staging for all selected spaces', 'Full cinematic walkthrough video', 'Floor plan and complete listing kit', 'Single brief, coordinated delivery'],
+  spaceplanning: ['Room disposition and circulation flow analysis', 'Scale floor plan with furniture placement', '2 layout options with annotated rationale', 'Ready to hand to any contractor or architect'],
+  archiviz:      ['3D volume rendering from your existing floor plan', 'Exterior and interior high-resolution renders', 'Material and natural light simulation', 'Presentation-ready output for clients or investors'],
+  concept:       ['Full moodboard and style direction document', 'Key room visualizations in your chosen style', 'Complete material, finish and furniture selection', 'Ready to brief any contractor or interior firm'],
+  prereno:       ['Complete project visualization before works begin', 'Annotated scope of works document', 'Material and finish schedule', 'Contractor-ready brief — nothing lost in translation'],
+};
+
+/* ── STATE ── */
+const state = { service:null, property:null, location:'', spaces:null, timeline:null };
+let current = 1;
+const TOTAL_STEPS = 5;
+
+/* ── NAVIGATION ── */
+function goToStep(n) {
+  const steps = document.querySelectorAll('.step');
+  steps.forEach(s => {
+    if(+s.dataset.step === current) {
+      s.classList.add('exit');
+      setTimeout(() => { s.classList.remove('active','exit') }, 380);
+    }
+  });
+  setTimeout(() => {
+    const next = document.querySelector(`.step[data-step="${n}"]`);
+    if(next) { next.classList.add('active'); current = n; }
+    updateUI();
+  }, n > current ? 60 : 0);
+  current = n;
+  updateUI();
+}
+
+function nextStep() {
+  if(current < 5) goToStep(current + 1);
+}
+
+function prevStep() {
+  if(current > 1) goToStep(current - 1);
+}
+
+function updateUI() {
+  // Progress bar
+  const pct = Math.min(current, TOTAL_STEPS) / TOTAL_STEPS * 100;
+  document.getElementById('progress-bar').style.width = pct + '%';
+  // Counter
+  const counter = document.getElementById('step-counter');
+  if(current <= TOTAL_STEPS) counter.textContent = current + ' / ' + TOTAL_STEPS;
+  else counter.textContent = 'Your estimate';
+  // Build summary if on step 6
+  if(current === 6) buildSummary();
+  // Focus location input when on step 3
+  if(current === 3) setTimeout(() => document.getElementById('loc-input')?.focus(), 400);
+}
+
+/* ── LOCATION STEP ── */
+const locInput = document.getElementById('loc-input');
+const btnContinue = document.getElementById('btn-continue');
+locInput.addEventListener('input', () => {
+  const hasText = locInput.value.trim().length > 0;
+  btnContinue.classList.toggle('ready', hasText);
+});
+locInput.addEventListener('keydown', e => {
+  if(e.key === 'Enter' && locInput.value.trim().length > 0) confirmLocation();
+});
+function confirmLocation() {
+  state.location = locInput.value.trim();
+  nextStep();
+}
+
+/* ── CARD SELECTION ── */
+document.querySelectorAll('.card').forEach(card => {
+  card.addEventListener('click', () => {
+    const step = +card.dataset.step;
+    const val  = card.dataset.value;
+    const key  = ['service','property','location','spaces','timeline'][step - 1];
+    state[key] = val;
+
+    // Deselect siblings
+    document.querySelectorAll(`#cards-${step} .card`).forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+
+    // Auto-advance after brief visual feedback
+    setTimeout(() => nextStep(), 320);
+  });
+});
+
+/* ── QUOTE CALCULATION ── */
+function calcQuote() {
+  const base = PRICES[state.service]?.[state.spaces];
+  if(!base) return [0,0];
+  const factor = state.timeline === '48h' ? EXPRESS : 1;
+  return [Math.round(base[0] * factor), Math.round(base[1] * factor)];
+}
+
+function fmt(n) {
+  return '$' + n.toLocaleString('en-US');
+}
+
+/* ── BUILD SUMMARY ── */
+function buildSummary() {
+  const [low, high] = calcQuote();
+
+  // Pills
+  const pills = document.getElementById('summary-pills');
+  const pillKeys = ['service','property','spaces','timeline'];
+  let pillsHtml = pillKeys.map(k => `<span class="brief-pill">${LABELS[k][state[k]] || ''}</span>`).join('');
+  if(state.location) pillsHtml += `<span class="brief-pill">${state.location}</span>`;
+  pills.innerHTML = pillsHtml;
+
+  // Quote numbers
+  document.getElementById('quote-low').textContent  = fmt(low);
+  document.getElementById('quote-high').textContent = fmt(high);
+
+  // Note
+  const note = document.getElementById('quote-note');
+  note.textContent = state.timeline === '48h'
+    ? 'Express 48h rate applied (+25%)'
+    : 'Standard 72h delivery';
+
+  // Includes
+  const inc = document.getElementById('quote-includes');
+  inc.innerHTML = (INCLUDES[state.service] || [])
+    .map(i => `<div class="quote-inc-item">${i}</div>`)
+    .join('');
+
+  // WhatsApp link
+  const msg = buildWAMessage(low, high);
+  document.getElementById('btn-wa').href = WA_BASE + '?text=' + encodeURIComponent(msg);
+}
+
+/* ── WHATSAPP MESSAGE ── */
+function buildWAMessage(low, high) {
+  const loc = state.location ? `\nLocation: ${state.location}` : '';
+  return `Hi LIOR, here is my project brief:\n\nService: ${LABELS.service[state.service]}\nProperty: ${LABELS.property[state.property]}${loc}\nSpaces: ${LABELS.spaces[state.spaces]}\nTimeline: ${LABELS.timeline[state.timeline]}\n\nEstimate shown: ${fmt(low)} – ${fmt(high)}\n\nReady to discuss.`;
+}
+
+/* ── INIT ── */
+updateUI();
+</script>
+</body>
+</html>

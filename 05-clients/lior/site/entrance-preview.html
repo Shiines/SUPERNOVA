@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Entrance Preview — LIOR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--ob:#0E0E10;--gold:#E8B873;--day:#F6F1EA;--stone:#BFB3A4}
+html,body{width:100%;height:100%;background:var(--ob);overflow:hidden}
+
+#ent{
+  position:fixed;inset:0;
+  background:var(--ob);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+}
+
+/* SVG ring — centered on screen */
+#ent-ring{
+  position:absolute;
+  top:50%;left:50%;
+  overflow:visible;
+  pointer-events:none;
+  opacity:1;
+}
+#ent-ring circle{
+  fill:none;
+  stroke:var(--gold);
+  stroke-opacity:.55;
+  stroke-width:1.2;
+  stroke-linecap:round;
+  transform-origin:0px 0px;
+}
+
+.ent-logo{
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:clamp(2.8rem,6vw,4.8rem);
+  font-weight:300;
+  letter-spacing:.28em;
+  color:var(--day);
+  display:flex;
+  gap:.08em;
+  position:relative;
+  z-index:1;
+}
+.ent-logo .o{color:var(--gold)}
+
+.ent-line{
+  width:120px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--stone),transparent);
+  margin-top:1.1rem;
+  position:relative;z-index:1;
+}
+
+.ent-tag{
+  font-family:'Inter',sans-serif;
+  font-size:.68rem;
+  font-weight:300;
+  letter-spacing:.22em;
+  color:var(--stone);
+  margin-top:1rem;
+  position:relative;z-index:1;
+}
+</style>
+</head>
+<body>
+<div id="ent">
+  <svg id="ent-ring" width="0" height="0">
+    <circle id="ent-ring-c" cx="0" cy="0"/>
+  </svg>
+  <div class="ent-logo">
+    <span>L</span><span>I</span><span class="o">O</span><span>R</span>
+  </div>
+  <div class="ent-line"></div>
+  <div class="ent-tag">INTERIOR &amp; SPACE DESIGN STUDIO</div>
+</div>
+
+<script>
+// Reconstruct mid-animation state: circle 70% drawn, O visible
+(function(){
+  const svg   = document.getElementById('ent-ring');
+  const circ  = document.getElementById('ent-ring-c');
+  const r     = 152;
+  const len   = 2 * Math.PI * r;
+
+  circ.setAttribute('r', r);
+  circ.style.strokeDasharray  = len;
+  circ.style.strokeDashoffset = len * 0.30; // 70% drawn
+  circ.style.transform        = 'rotate(-90deg)';
+
+  // SVG is at top:50% left:50% (top-left corner) with overflow:visible
+  // translate so the SVG origin (cx=0, cy=0 = circle center) sits at screen center
+  svg.style.transform = 'translate(0,0)'; // origin is already at 50%/50%
+  svg.style.opacity   = '1';
+})();
+</script>
+</body>
+</html>

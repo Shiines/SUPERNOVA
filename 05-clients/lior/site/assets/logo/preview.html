@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LIOR — Logo Kit</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,200;9..144,300&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1A1A1E;font-family:'Inter',sans-serif;font-weight:300;padding:60px 40px}
+h1{font-family:'Fraunces',serif;font-size:13px;font-weight:300;letter-spacing:.3em;color:#8C8480;text-transform:uppercase;margin-bottom:56px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:3px}
+.tile{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:56px 40px;gap:24px;min-height:200px}
+.tile-label{font-size:9px;letter-spacing:.22em;text-transform:uppercase;margin-top:8px}
+.t-noir{background:#F6F1EA}
+.t-blanc{background:#0E0E10;border:1px solid rgba(255,255,255,.06)}
+.t-gris{background:#2A2620}
+.t-transparent{background:repeating-conic-gradient(#1e1e22 0% 25%,#141417 0% 50%) 0 0/20px 20px}
+
+.logo{
+  font-family:'Fraunces',serif;
+  font-size:32px;
+  font-weight:300;
+  letter-spacing:.32em;
+  padding-right:.32em;
+}
+.logo .o{color:#E8B873}
+.logo-noir{color:#0E0E10}
+.logo-blanc{color:#F6F1EA}
+.logo-gris{color:#8C8480}
+.logo-brand{color:#0E0E10}
+
+.rule{width:64px;height:1px;opacity:.35}
+.rule-noir{background:#0E0E10}
+.rule-blanc{background:#F6F1EA}
+.rule-gris{background:#8C8480}
+.rule-brand{background:#E8B873;opacity:.5}
+
+.t-noir .tile-label{color:#8C8480}
+.t-blanc .tile-label{color:#4A4448}
+.t-gris .tile-label{color:#8C8480}
+.t-transparent .tile-label{color:#6A6468}
+
+.files{margin-top:40px;padding:28px 32px;background:#141417;border:1px solid rgba(255,255,255,.05)}
+.files h2{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#4A4448;margin-bottom:18px}
+.files ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.files li{font-size:12px;color:#8C8480;display:flex;align-items:center;gap:12px}
+.files li::before{content:'';display:block;width:6px;height:6px;border:1px solid rgba(232,184,115,.3);flex-shrink:0}
+.files a{color:#E8B873;text-decoration:none;letter-spacing:.04em}
+.files a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+<h1>L I O R — Logo Kit</h1>
+
+<div class="grid">
+
+  <div class="tile t-noir">
+    <div class="logo logo-noir">L I O R</div>
+    <div class="rule rule-noir"></div>
+    <div class="tile-label">lior-noir.svg</div>
+  </div>
+
+  <div class="tile t-blanc">
+    <div class="logo logo-blanc">L I O R</div>
+    <div class="rule rule-blanc"></div>
+    <div class="tile-label" style="color:#4A4448">lior-blanc.svg</div>
+  </div>
+
+  <div class="tile t-gris">
+    <div class="logo logo-gris">L I O R</div>
+    <div class="rule rule-gris"></div>
+    <div class="tile-label">lior-gris.svg</div>
+  </div>
+
+  <div class="tile t-transparent">
+    <div class="logo logo-brand">L I <span class="o">O</span> R</div>
+    <div class="rule rule-brand"></div>
+    <div class="tile-label">lior-transparent.svg</div>
+  </div>
+
+</div>
+
+<div class="files">
+  <h2>Fichiers</h2>
+  <ul>
+    <li><a href="lior-noir.svg" download>lior-noir.svg</a> — noir · fond transparent · usage sur fond clair</li>
+    <li><a href="lior-blanc.svg" download>lior-blanc.svg</a> — blanc · fond transparent · usage sur fond sombre</li>
+    <li><a href="lior-gris.svg" download>lior-gris.svg</a> — gris · fond transparent · filigrane / usage neutre</li>
+    <li><a href="lior-transparent.svg" download>lior-transparent.svg</a> — brand · O or · fond transparent · version master</li>
+  </ul>
+</div>
+
+</body>
+</html>
