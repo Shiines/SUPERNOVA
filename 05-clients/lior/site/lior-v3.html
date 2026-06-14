@@ -64,20 +64,33 @@ body.ch #cur-ring{width:62px;height:62px;border-color:rgba(232,184,115,.22)}
 }
 #ent.out{opacity:0;pointer-events:none}
 .ent-logo{
-  font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,5.5vw,4rem);
-  font-weight:200;letter-spacing:.55em;display:flex;overflow:hidden;
+  font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,6.5vw,5rem);
+  font-weight:300;letter-spacing:.32em;text-indent:.32em;
+  display:flex;overflow:hidden;
 }
 .ent-logo span{
-  display:inline-block;transform:translateY(110%);opacity:0;
-  transition:transform .72s cubic-bezier(.16,1,.3,1),opacity .5s;
+  display:inline-block;color:var(--day);
+  opacity:0;transform:translateY(105%);
+  animation:letterUp .75s cubic-bezier(.16,1,.3,1) forwards;
 }
-.ent-logo span.in{transform:translateY(0);opacity:1}
-.ent-tag{font-size:.62rem;letter-spacing:.28em;color:var(--st-d);opacity:0;transition:opacity .6s ease}
-.ent-tag.in{opacity:1}
-.ent-line{width:0;height:1px;background:var(--gold);opacity:.4;transition:width 1s cubic-bezier(.16,1,.3,1)}
-.ent-line.in{width:130px}
-#ent-ring{position:absolute;top:50%;left:50%;overflow:visible;pointer-events:none;opacity:0;transition:transform .95s cubic-bezier(.16,1,.3,1),opacity .22s}
-#ent-ring circle{fill:none;stroke:#E8B873;stroke-opacity:.55;stroke-width:1;stroke-linecap:round}
+.ent-logo span:nth-child(1){animation-delay:.18s}
+.ent-logo span:nth-child(2){animation-delay:.33s}
+.ent-logo span:nth-child(3){animation-delay:.48s}
+.ent-logo span:nth-child(4){animation-delay:.63s}
+.ent-logo .o{color:var(--gold)}
+.ent-tag{
+  font-size:.62rem;letter-spacing:.26em;text-indent:.26em;color:var(--st-d);
+  margin-top:.9rem;
+  opacity:0;animation:entFadeUp 1s cubic-bezier(.16,1,.3,1) 1s forwards;
+}
+@keyframes letterUp{
+  from{opacity:0;transform:translateY(105%)}
+  to  {opacity:1;transform:translateY(0)}
+}
+@keyframes entFadeUp{
+  from{opacity:0;transform:translateY(8px)}
+  to  {opacity:1;transform:translateY(0)}
+}
 
 /* ── NAV ── */
 nav{
@@ -1357,10 +1370,8 @@ footer::before{
 
 <!-- ENTRANCE -->
 <div id="ent">
-  <svg id="ent-ring" width="400" height="400"><circle id="ent-ring-c" cx="200" cy="200" transform="rotate(-90,200,200)"/></svg>
-  <div class="ent-logo" id="ent-logo"></div>
-  <div class="ent-line" id="ent-line"></div>
-  <div class="ent-tag" id="ent-tag">INTERIOR &amp; SPACE DESIGN STUDIO</div>
+  <div class="ent-logo"><span>L</span><span>I</span><span class="o">O</span><span>R</span></div>
+  <div class="ent-tag">INTERIOR &amp; SPACE DESIGN STUDIO</div>
 </div>
 
 <!-- NAV -->
@@ -1898,34 +1909,11 @@ window.addEventListener('scroll',()=>{sp.style.height=((scrollY/(document.body.s
 // ════════════════════════════════════════
 // ENTRANCE
 // ════════════════════════════════════════
-const ent=document.getElementById('ent'),entLogo=document.getElementById('ent-logo');
-'LIOR'.split('').forEach((c,i)=>{const s=document.createElement('span');s.textContent=c;if(c==='O')s.style.color='var(--gold)';entLogo.appendChild(s)});
-entLogo.style.gap='.08em';
-entLogo.querySelectorAll('span').forEach((l,i)=>setTimeout(()=>l.classList.add('in'),280+i*110));
-setTimeout(()=>document.getElementById('ent-line').classList.add('in'),520);
-setTimeout(()=>document.getElementById('ent-tag').classList.add('in'),750);
-// Cercle émerge du centre, s'agrandit en se dessinant, encercle tout le texte
-setTimeout(()=>{
-  const svg=document.getElementById('ent-ring');
-  const circle=document.getElementById('ent-ring-c');
-  const r=152;
-  const circ=2*Math.PI*r;
-  circle.setAttribute('r',r);
-  // CSS stroke properties (not SVG attributes) for transition support
-  circle.style.strokeDasharray=circ+'px';
-  circle.style.strokeDashoffset=circ+'px';
-  // SVG 400x400: translate(-50%,-50%) = translate(-200px,-200px) - correct center
-  svg.style.transform='translate(-50%,-50%) scale(.06)';
-  svg.style.opacity='1';
-  requestAnimationFrame(()=>requestAnimationFrame(()=>{
-    svg.style.transform='translate(-50%,-50%) scale(1)';
-    circle.style.transition='stroke-dashoffset 1.05s cubic-bezier(.16,1,.3,1)';
-    circle.style.strokeDashoffset='0px';
-  }));
-},1080);
+// ENTRANCE — pure CSS animation, dismiss after completion
+const ent=document.getElementById('ent');
 const nav=document.getElementById('nav'),hero=document.getElementById('hero');
-setTimeout(()=>{ent.classList.add('out');nav.classList.add('vis');hero.classList.add('vis')},2520);
-setTimeout(()=>{ent.style.display='none'},3500);
+setTimeout(()=>{ent.classList.add('out');nav.classList.add('vis');hero.classList.add('vis')},2200);
+setTimeout(()=>{ent.style.display='none'},3100);
 
 // ════════════════════════════════════════
 // 3D ROOM WIREFRAME. perspective canvas
