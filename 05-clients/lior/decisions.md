@@ -55,3 +55,26 @@ Déclencheur Marbella : 10 projets livrés + 1 partenaire local
 ### Alerte technique
 - Runway Gen-3 Alpha Turbo sunset : 30 juillet 2026
 - Mis à jour → gen4_turbo dans tous les SOPs (fait le 13/06/2026)
+
+---
+
+## Risques systémiques — Marco (War Room 14/06/2026)
+
+### Risque 1 — Concentration géographique
+- **Exposition :** 50 agences Dubai, trigger July 1 2027 simultané → choc MRR synchronisé
+- **Mitigation :** Commencer expansion Marbella dès mois 6 (10 projets livrés + 1 partenaire local)
+- **Seuil d'alerte :** >80% du pipeline dans un seul marché → déclencher géo 2
+
+### Risque 2 — Dépendance Higgsfield
+- **Exposition :** Pipeline de livraison entier sur un seul outil tiers (higgsfield.ai)
+- **Mitigation :** Maintenir Runway gen4_turbo comme fallback opérationnel à tout moment
+- **Seuil d'alerte :** Panne ou changement prix Higgsfield → basculer sur Runway sans délai
+- **Action :** Tester pipeline Runway fallback avant partenaire #5
+
+### Risque 3 — Auto-déclaration performance fees
+- **Exposition :** À 50 agences, vérifier manuellement chaque transaction DLD = non scalable
+- **Mitigation :** Solution automatisée requise avant partenaire #10
+- **Options :** API DLD directe / n8n webhook / partenariat vérificateur tiers
+- **Deadline :** Avoir la solution en place avant signature #10, pas après
+
+*Documenté par Marco · 14/06/2026*
