@@ -1,14 +1,14 @@
-# PROTOCOLS.md — Livraison · Communication · Fallbacks
+# PROTOCOLS.md: Livraison · Communication · Fallbacks
 > Référence partagée par tous les SOPs LIOR.
 > Trois sections : livraison complète de A à Z · communication client exacte · que faire quand ça échoue.
 
 ---
 
-## SECTION 1 — LIVRAISON COMPLÈTE (de A à Z)
+## SECTION 1: LIVRAISON COMPLÈTE (de A à Z)
 
 Protocole identique pour tous les services. S'exécute après que tous les fichiers sont produits et que la QA est passée.
 
-### Étape 1 — Vérifier que tous les fichiers sont là
+### Étape 1: Vérifier que tous les fichiers sont là
 
 ```bash
 PROJECT_ID="LIOR-DM2601"
@@ -25,7 +25,7 @@ echo "Taille totale: $(du -sh "${EXPORT_DIR}/")"
 Vérifier que chaque fichier attendu est présent (voir liste dans le SOP du service concerné).
 Si un fichier manque → relancer la production de ce composant avant de continuer.
 
-### Étape 2 — Nommer les fichiers correctement
+### Étape 2: Nommer les fichiers correctement
 
 Convention stricte : `[PROJECT-ID]-[TYPE]-[ROOM/VARIANT]-v[N].[ext]`
 
@@ -41,7 +41,7 @@ for f in "${EXPORT_DIR}"/*.jpg; do
 done
 ```
 
-### Étape 3 — Créer le ZIP
+### Étape 3: Créer le ZIP
 
 ```bash
 cd .tmp/${PROJECT_ID}/
@@ -53,7 +53,7 @@ echo "Contents:"
 unzip -l "${PROJECT_ID}-${SERVICE}-v1.zip"
 ```
 
-### Étape 4 — Upload WeTransfer et récupérer le lien
+### Étape 4: Upload WeTransfer et récupérer le lien
 
 ```bash
 WT_KEY=$(grep WETRANSFER_API_KEY /Users/cashville/.env | cut -d= -f2)
@@ -66,7 +66,7 @@ TRANSFER=$(curl -s -X POST "https://dev.wetransfer.com/v2/transfers" \
   -H "Content-Type: application/json" \
   -H "x-api-key: ${WT_KEY}" \
   -d "{
-    \"message\": \"${PROJECT_ID} — Livraison LIOR\",
+    \"message\": \"${PROJECT_ID}: Livraison LIOR\",
     \"files\": [{\"name\": \"${ZIP_NAME}\", \"size\": ${ZIP_SIZE}}]
   }")
 
@@ -84,12 +84,12 @@ RESULT=$(curl -s -X PUT "https://dev.wetransfer.com/v2/transfers/${TRANSFER_ID}/
 
 DOWNLOAD_URL=$(echo $RESULT | python3 -c "import sys,json; print(json.load(sys.stdin)['url'])")
 echo "DOWNLOAD LINK: ${DOWNLOAD_URL}"
-# → Sauvegarder ce lien — il sera envoyé au client
+# → Sauvegarder ce lien: il sera envoyé au client
 ```
 
 **Si WeTransfer API échoue → upload manuel sur https://wetransfer.com, copier le lien.**
 
-### Étape 5 — Notifier le client par WhatsApp
+### Étape 5: Notifier le client par WhatsApp
 
 ```bash
 PHONE=$(grep CALLMEBOT_PHONE /Users/cashville/.env | cut -d= -f2)
@@ -97,20 +97,20 @@ APIKEY=$(grep CALLMEBOT_API_KEY /Users/cashville/.env | cut -d= -f2)
 CLIENT_NAME="Omar"  # depuis le brief
 DOWNLOAD_URL="https://wetransfer.com/xxx"
 
-# Composer le message (adapter selon le service — voir templates section 2)
-MESSAGE="${CLIENT_NAME} — votre commande LIOR est prête. Téléchargement (7 jours) : ${DOWNLOAD_URL}"
+# Composer le message (adapter selon le service: voir templates section 2)
+MESSAGE="${CLIENT_NAME}: votre commande LIOR est prête. Téléchargement (7 jours) : ${DOWNLOAD_URL}"
 
 ENCODED=$(python3 -c "import urllib.parse,sys; print(urllib.parse.quote(sys.argv[1]))" "${MESSAGE}")
 curl -s "https://api.callmebot.com/whatsapp.php?phone=${PHONE}&text=${ENCODED}&apikey=${APIKEY}"
 echo "WhatsApp sent."
 ```
 
-### Étape 6 — Mettre à jour Notion
+### Étape 6: Mettre à jour Notion
 
 ```bash
 NOTION_TOKEN=$(grep NOTION_TOKEN /Users/cashville/.env | cut -d= -f2)
 LEADS_DB=$(grep NOTION_LEADS_DB_ID /Users/cashville/.env | cut -d= -f2)
-PAGE_ID="[ID de la page Notion du projet — récupérer à la création du projet]"
+PAGE_ID="[ID de la page Notion du projet: récupérer à la création du projet]"
 
 # Mettre à jour le statut et ajouter le lien de livraison
 curl -s -X PATCH "https://api.notion.com/v1/pages/${PAGE_ID}" \
@@ -127,7 +127,7 @@ curl -s -X PATCH "https://api.notion.com/v1/pages/${PAGE_ID}" \
 echo "Notion updated."
 ```
 
-### Étape 7 — Logger la livraison
+### Étape 7: Logger la livraison
 
 ```bash
 echo "[$(date '+%Y-%m-%d %H:%M')] DELIVERED: ${PROJECT_ID} | Service: ${SERVICE} | ZIP: ${ZIP_NAME} | Link: ${DOWNLOAD_URL} | WA: sent" \
@@ -136,7 +136,7 @@ echo "[$(date '+%Y-%m-%d %H:%M')] DELIVERED: ${PROJECT_ID} | Service: ${SERVICE}
 
 ---
 
-## SECTION 2 — TEMPLATES WHATSAPP PAR SERVICE
+## SECTION 2: TEMPLATES WHATSAPP PAR SERVICE
 
 Copier-coller + remplacer les variables entre crochets.
 
@@ -144,9 +144,9 @@ Copier-coller + remplacer les variables entre crochets.
 
 ---
 
-### SOP-01 — Virtual Staging
+### SOP-01: Virtual Staging
 ```
-[NOM] — vos pièces aménagées sont prêtes.
+[NOM]: vos pièces aménagées sont prêtes.
 
 [N] pièces livrées avec les formats sociaux inclus.
 
@@ -157,9 +157,9 @@ Dites-nous si vous souhaitez ajuster quelque chose.
 
 ---
 
-### SOP-02 — Full Listing Pack
+### SOP-02: Full Listing Pack
 ```
-[NOM] — votre Full Listing Pack est prêt.
+[NOM]: votre Full Listing Pack est prêt.
 
 • [N] pièces aménagées (JPG + format carré)
 • 1 tour cinématique (16:9 · vertical · carré)
@@ -172,14 +172,14 @@ N'hésitez pas si vous voulez ajuster quoi que ce soit.
 
 ---
 
-### SOP-03 — Space Preview
+### SOP-03: Space Preview
 ```
-[NOM] — votre Space Preview est prêt.
+[NOM]: votre Space Preview est prêt.
 
 Deux directions créatives pour votre espace :
 
-Direction A — [nom] : [description une ligne]
-Direction B — [nom] : [description une ligne]
+Direction A: [nom] : [description une ligne]
+Direction B: [nom] : [description une ligne]
 
 Chacune inclut les visuels des pièces, un tour cinématique et les formats sociaux.
 
@@ -190,9 +190,9 @@ Dites-nous quelle direction vous parle le plus.
 
 ---
 
-### SOP-04 — Interior Design Brief
+### SOP-04: Interior Design Brief
 ```
-[NOM] — votre brief de design intérieur est prêt.
+[NOM]: votre brief de design intérieur est prêt.
 
 Le document couvre :
 • Direction de style et moodboard
@@ -207,9 +207,9 @@ Ce document est prêt à partager directement avec un entrepreneur ou un archite
 
 ---
 
-### SOP-05 — Full Interior Design
+### SOP-05: Full Interior Design
 ```
-[NOM] — votre dossier de design complet est prêt.
+[NOM]: votre dossier de design complet est prêt.
 
 Il contient tout ce dont votre équipe a besoin :
 • Visuels de toutes les pièces
@@ -224,9 +224,9 @@ Nous sommes disponibles pendant le chantier pour toute clarification.
 
 ---
 
-### SOP-06 — Property Management (rapport mensuel)
+### SOP-06: Property Management (rapport mensuel)
 ```
-[NOM] — rapport [MOIS] prêt.
+[NOM]: rapport [MOIS] prêt.
 
 • Occupation : [X]% ([N] nuits)
 • Revenu : AED [X]
@@ -239,13 +239,13 @@ Rapport complet : [LIEN]
 
 ---
 
-### SOP-07 — Space Planning
+### SOP-07: Space Planning
 ```
-[NOM] — votre étude d'espace est prête.
+[NOM]: votre étude d'espace est prête.
 
 Deux options de layout :
-• Option A — [nom] : [description courte]
-• Option B — [nom] : [description courte]
+• Option A: [nom] : [description courte]
+• Option B: [nom] : [description courte]
 
 Chaque option inclut le plan coté avec mobilier et le raisonnement détaillé.
 
@@ -256,9 +256,9 @@ Dites-nous quelle direction vous convient ou si vous voulez explorer autrement.
 
 ---
 
-### SOP-08 — Architectural Visualization
+### SOP-08: Architectural Visualization
 ```
-[NOM] — vos rendus architecturaux sont prêts.
+[NOM]: vos rendus architecturaux sont prêts.
 
 [N] rendus livrés :
 • [N] vues extérieures
@@ -272,9 +272,9 @@ Prêt à partager avec vos investisseurs, votre équipe commerciale ou pour dép
 
 ---
 
-### SOP-09 — Design Concept
+### SOP-09: Design Concept
 ```
-[NOM] — votre concept design est prêt.
+[NOM]: votre concept design est prêt.
 
 Le document couvre tout ce dont un entrepreneur a besoin :
 • Direction créative et moodboard
@@ -288,9 +288,9 @@ Téléchargement (7 jours) : [LIEN]
 
 ---
 
-### SOP-10 — Pre-Renovation Brief
+### SOP-10: Pre-Renovation Brief
 ```
-[NOM] — votre dossier de rénovation est prêt.
+[NOM]: votre dossier de rénovation est prêt.
 
 Il contient :
 • Visuels avant/après de toutes les pièces concernées
@@ -307,7 +307,7 @@ Téléchargement (7 jours) : [LIEN]
 
 ### Demande de photos manquantes (toutes pièces)
 ```
-[NOM] — pour [PIÈCE], la photo que nous avons reçue est [raison : trop sombre / floue / angle insuffisant].
+[NOM]: pour [PIÈCE], la photo que nous avons reçue est [raison : trop sombre / floue / angle insuffisant].
 
 Pourriez-vous la reprendre depuis l'angle opposé de la pièce, en journée, téléphone horizontal à hauteur de poitrine ?
 
@@ -318,7 +318,7 @@ Nous relançons dès réception.
 
 ### Demande de vidéo manquante
 ```
-[NOM] — pour démarrer votre commande, nous avons besoin d'une vidéo de visite de votre bien.
+[NOM]: pour démarrer votre commande, nous avons besoin d'une vidéo de visite de votre bien.
 
 5 minutes, n'importe quel smartphone. Instructions : [LIEN VERS ANNEX A ou questionnaire.html]
 
@@ -327,9 +327,9 @@ Nous relançons dès réception.
 
 ---
 
-## SECTION 3 — FALLBACKS (que faire quand ça échoue)
+## SECTION 3: FALLBACKS (que faire quand ça échoue)
 
-### Virtual Staging AI — API down ou quota épuisé
+### Virtual Staging AI: API down ou quota épuisé
 ```
 1. Attendre 30 min → réessayer (souvent une interruption temporaire)
 2. Si toujours down après 30 min → passer à REimagineHome (voir TOOLS.md section 3)
@@ -337,7 +337,7 @@ Nous relançons dès réception.
 4. Logger: [DATE] FALLBACK virtualstaging.ai → reimaginehome.ai pour [PROJECT-ID]
 ```
 
-### Runway Gen-3 — timeout ou artefacts sur 3 tentatives
+### Runway Gen-3: timeout ou artefacts sur 3 tentatives
 ```
 1. Changer le seed (seed: 42 → seed: 123)
 2. Raccourcir le prompt de motion (versions trop longues peuvent dégrader le résultat)
@@ -349,14 +349,14 @@ Nous relançons dès réception.
 4. Logger: [DATE] FALLBACK Runway → Ken Burns pour [room] [PROJECT-ID]
 ```
 
-### Midjourney — Discord inaccessible ou API non disponible
+### Midjourney: Discord inaccessible ou API non disponible
 ```
 1. Passer directement à Adobe Firefly API (voir TOOLS.md section 6)
 2. Si Firefly aussi down → Replicate avec SDXL (voir TOOLS.md section 7)
 3. Logger le fallback utilisé
 ```
 
-### Replicate — modèle déprécié ou erreur de version
+### Replicate: modèle déprécié ou erreur de version
 ```
 1. Aller sur https://replicate.com/explore → rechercher "interior design SDXL"
 2. Trouver le modèle avec le plus d'utilisations récentes
@@ -364,7 +364,7 @@ Nous relançons dès réception.
 4. Relancer
 ```
 
-### WeTransfer — upload échoué
+### WeTransfer: upload échoué
 ```
 1. Vérifier la taille du ZIP (WeTransfer free: max 2GB, Pro: max 200GB)
 2. Si trop lourd → séparer en deux ZIPs (staged rooms / videos séparément)
@@ -375,7 +375,7 @@ Nous relançons dès réception.
    - Copier le lien → envoyer au client
 ```
 
-### CallMeBot — message non envoyé
+### CallMeBot: message non envoyé
 ```
 Erreurs communes:
 - "Phone number not registered": refaire le setup WhatsApp (envoyer "I allow callmebot to send me messages" au +34 644 29 73 73)
@@ -392,12 +392,12 @@ Réponse attendue: "Message sent" ou code d'erreur explicite.
 ```
 1. Identifier le problème précis (trop sombre / flou / angle / occupée)
 2. Envoyer la demande de reshoot (template section 2)
-3. Logger: [DATE] BLOCKED [PROJECT-ID] — [pièce] en attente reshoot
-4. Ne pas bloquer les autres pièces — continuer la production sur les photos valides
+3. Logger: [DATE] BLOCKED [PROJECT-ID]: [pièce] en attente reshoot
+4. Ne pas bloquer les autres pièces: continuer la production sur les photos valides
 5. Quand la photo reshoot arrive → reprendre seulement cette pièce
 ```
 
-### Pandoc — erreur de génération PDF
+### Pandoc: erreur de génération PDF
 ```
 Erreur fréquente: police manquante (xelatex ne trouve pas Inter ou Cormorant Garamond)
 
@@ -416,12 +416,12 @@ brew install wkhtmltopdf
 1. Aller dans le dashboard du service concerné → régénérer la clé
 2. Mettre à jour /Users/cashville/.env
 3. Relancer le script
-4. Ne jamais hardcoder les clés dans les scripts — toujours lire depuis .env
+4. Ne jamais hardcoder les clés dans les scripts: toujours lire depuis .env
 ```
 
 ---
 
-## SECTION 4 — CHECKLIST DE LIVRAISON (universelle)
+## SECTION 4: CHECKLIST DE LIVRAISON (universelle)
 
 À cocher avant chaque livraison, quel que soit le service.
 

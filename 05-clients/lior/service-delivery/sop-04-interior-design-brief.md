@@ -1,5 +1,5 @@
-# SOP 04 — Interior Design Brief
-**Automation level: C — Guided (agent handles production, human leads style session)**
+# SOP 04: Interior Design Brief
+**Automation level: C: Guided (agent handles production, human leads style session)**
 **Timeline: 4 days from brief session**
 **Deliverable: Moodboard · space plan (2 layout options) · key room visualizations · complete material + furnishing schedule · assembled PDF**
 
@@ -14,8 +14,8 @@ Client has a property (existing or recently purchased) and needs a full design d
 | # | Input | Format | Source | Blocker? |
 |---|-------|--------|--------|---------|
 | 1 | Property photos (all rooms) | JPG ≥ 1920×1080 | Client | YES |
-| 2 | Floor plan | PDF or JPG | Client | Preferred — derive from photos if absent |
-| 3 | Style brief questionnaire responses | Text/form answers | Human-led session | YES — core of this service |
+| 2 | Floor plan | PDF or JPG | Client | Preferred: derive from photos if absent |
+| 3 | Style brief questionnaire responses | Text/form answers | Human-led session | YES: core of this service |
 | 4 | Budget range | Entry / mid / high-end | Intake form | YES |
 | 5 | Move-in / project timeline | Date or timeframe | Intake form | YES |
 | 6 | Project ID | `LIOR-DB[CODE][YY][SEQ]` | Agent | Internal |
@@ -35,14 +35,14 @@ brew install wkhtmltopdf
 grep -E "IMGBB_API_KEY|VSTAGING_API_KEY|ADOBE_CLIENT_ID|ADOBE_CLIENT_SECRET|WETRANSFER_API_KEY|CALLMEBOT_PHONE|CALLMEBOT_API_KEY|NOTION_TOKEN" /Users/cashville/.env
 
 # Keys needed:
-# IMGBB_API_KEY          — image hosting for API calls
-# VSTAGING_API_KEY       — Virtual Staging AI (room visualizations)
-# ADOBE_CLIENT_ID        — Firefly (moodboard generation + fallback renders)
-# ADOBE_CLIENT_SECRET    — Firefly
-# WETRANSFER_API_KEY     — delivery
-# CALLMEBOT_PHONE        — WhatsApp
-# CALLMEBOT_API_KEY      — WhatsApp
-# NOTION_TOKEN           — project tracking
+# IMGBB_API_KEY         : image hosting for API calls
+# VSTAGING_API_KEY      : Virtual Staging AI (room visualizations)
+# ADOBE_CLIENT_ID       : Firefly (moodboard generation + fallback renders)
+# ADOBE_CLIENT_SECRET   : Firefly
+# WETRANSFER_API_KEY    : delivery
+# CALLMEBOT_PHONE       : WhatsApp
+# CALLMEBOT_API_KEY     : WhatsApp
+# NOTION_TOKEN          : project tracking
 ```
 
 ---
@@ -59,7 +59,7 @@ touch .tmp/${PROJECT_ID}-design-brief/log.txt
 
 ## V. PRODUCTION STEPS
 
-### Step 1 — Send Questionnaire (Day 0)
+### Step 1: Send Questionnaire (Day 0)
 
 Agent sends via WhatsApp:
 
@@ -69,7 +69,7 @@ APIKEY=$(grep CALLMEBOT_API_KEY /Users/cashville/.env | cut -d= -f2)
 CLIENT_NAME="[CLIENT NAME]"
 QUESTIONNAIRE_URL="https://[lior-domain]/questionnaire.html"
 
-MSG="${CLIENT_NAME} — before we start your Interior Design Brief, we need 15 minutes of your input. This shapes everything — the more precise you are, the more precisely we can design your space.
+MSG="${CLIENT_NAME}: before we start your Interior Design Brief, we need 15 minutes of your input. This shapes everything: the more precise you are, the more precisely we can design your space.
 
 Complete here: ${QUESTIONNAIRE_URL}"
 
@@ -113,14 +113,14 @@ echo "Questionnaire sent."
     Free text
 ```
 
-### Step 2 — Parse Responses into Brief (Day 1)
+### Step 2: Parse Responses into Brief (Day 1)
 
 ```bash
 PROJECT_ID="LIOR-DB2601"
 WORKDIR=".tmp/${PROJECT_ID}-design-brief"
 
 cat > "${WORKDIR}/00-brief/00-design-brief.txt" << 'EOF'
-PROJECT BRIEF — [PROJECT_ID]
+PROJECT BRIEF: [PROJECT_ID]
 Date: [date]
 Intention: [primary / rental / holiday]
 Occupants: [description]
@@ -136,9 +136,9 @@ Rooms to cover: [all rooms from property photos]
 EOF
 ```
 
-### Step 3 — Moodboard (Day 1)
+### Step 3: Moodboard (Day 1)
 
-#### 3A — Get Firefly Token
+#### 3A: Get Firefly Token
 
 ```bash
 ADOBE_CLIENT_ID=$(grep ADOBE_CLIENT_ID /Users/cashville/.env | cut -d= -f2)
@@ -153,7 +153,7 @@ echo $FIREFLY_TOKEN > /tmp/firefly_token.txt
 echo "Token obtained."
 ```
 
-#### 3B — Generate Moodboard with Firefly
+#### 3B: Generate Moodboard with Firefly
 
 ```bash
 FIREFLY_TOKEN=$(cat /tmp/firefly_token.txt)
@@ -229,7 +229,7 @@ curl -L "${CHOSEN_URL}" -o "${WORKDIR}/02-moodboard/${PROJECT_ID}-moodboard-v1.j
 - Textiles (sofa, bed linen, curtains)
 - Accent material (brass / stone / ceramic)
 
-### Step 4 — Space Plan (Day 1–2)
+### Step 4: Space Plan (Day 1–2)
 
 Create two layout options using RoomSketcher web UI (no API required).
 
@@ -268,11 +268,11 @@ mv ~/Downloads/layout-option-B.jpg "${WORKDIR}/03-space-plan/${PROJECT_ID}-layou
 
 For each layout, write 3–5 bullet points explaining the design rationale.
 
-### Step 5 — Key Room Visualizations (Day 2–3)
+### Step 5: Key Room Visualizations (Day 2–3)
 
 Visualize 3 key rooms: living + master + kitchen (or client-specified).
 
-#### 5A — Upload room photo to ImgBB
+#### 5A: Upload room photo to ImgBB
 
 ```bash
 IMGBB_KEY=$(grep IMGBB_API_KEY /Users/cashville/.env | cut -d= -f2)
@@ -287,7 +287,7 @@ IMAGE_URL=$(curl -s -X POST "https://api.imgbb.com/1/upload" \
 echo "Hosted: ${IMAGE_URL}"
 ```
 
-#### 5B — Virtual Staging AI (primary — for rooms with usable photos)
+#### 5B: Virtual Staging AI (primary: for rooms with usable photos)
 
 ```bash
 VSTAGING_KEY=$(grep VSTAGING_API_KEY /Users/cashville/.env | cut -d= -f2)
@@ -323,7 +323,7 @@ while true; do
     echo "FAILED: ${ROOM}"
     break
   fi
-  echo "Status: ${STATUS} — waiting 10s..."
+  echo "Status: ${STATUS}: waiting 10s..."
   sleep 10
 done
 ```
@@ -331,7 +331,7 @@ done
 **Room type values:** `living_room` · `bedroom` · `kitchen` · `dining_room` · `bathroom` · `office`
 **Style values:** `modern` · `contemporary` · `minimalist` · `scandinavian` · `luxury` · `traditional`
 
-#### 5C — Fallback (no usable photo): Firefly render
+#### 5C: Fallback (no usable photo): Firefly render
 
 ```bash
 FIREFLY_TOKEN=$(cat /tmp/firefly_token.txt)
@@ -363,7 +363,7 @@ curl -L "${CHOSEN_URL}" -o "${WORKDIR}/04-visualizations/${PROJECT_ID}-viz-${ROO
 - [ ] Room proportions look realistic
 - [ ] Lighting is warm, not cold or flat
 
-### Step 6 — Material + Furnishing Schedule (Day 3)
+### Step 6: Material + Furnishing Schedule (Day 3)
 
 Write the material schedule in Markdown. One section per room covering all rooms in scope.
 
@@ -373,13 +373,13 @@ WORKDIR=".tmp/${PROJECT_ID}-design-brief"
 
 cat > "${WORKDIR}/05-material-schedule/${PROJECT_ID}-material-schedule-v1.md" << 'EOF'
 ---
-title: "Interior Design Brief — Material Schedule"
+title: "Interior Design Brief: Material Schedule"
 date: "[Date]"
 geometry: "margin=2cm"
 fontsize: 11pt
 ---
 
-# Material + Furnishing Schedule — [PROJECT_ID]
+# Material + Furnishing Schedule: [PROJECT_ID]
 Property: [Address]
 Style direction: [name]
 
@@ -400,7 +400,7 @@ Style direction: [name]
 
 ### Ceiling
 - Finish: Brilliant white matte
-- Height: Existing — no change
+- Height: Existing: no change
 
 ### Curtains
 - Style: Linen, pinch-pleat, floor-to-ceiling
@@ -411,7 +411,7 @@ Style direction: [name]
 - Form: 3-seat modular, low-back
 - Material: Performance linen or bouclé
 - Color: Warm cream / stone
-- Reference: [Restoration Hardware / BoConcept / Zara Home — per budget tier]
+- Reference: [Restoration Hardware / BoConcept / Zara Home: per budget tier]
 
 ### Coffee Table
 - Material: Honed travertine top
@@ -420,14 +420,14 @@ Style direction: [name]
 ### Key Lighting
 - Floor lamp: Arc design, brushed brass, white linen shade
 - Recessed: Warm white 2700K, wide-beam downlights
-- Pendant: None in living — use floor lamp + recessed
+- Pendant: None in living: use floor lamp + recessed
 
 ---
 
 ## Master Bedroom
 
 ### Floor
-- Material: [Same as living or carpet — per brief]
+- Material: [Same as living or carpet: per brief]
 
 ### Walls
 - Color: [Slightly warmer / same base]
@@ -451,7 +451,7 @@ Style direction: [name]
 ## Kitchen
 
 ### Cabinetry
-- Style: [Handleless slab / Shaker — per brief]
+- Style: [Handleless slab / Shaker: per brief]
 - Color: [Warm white / sage / mid-tone grey]
 
 ### Countertop
@@ -475,11 +475,11 @@ EOF
 echo "Material schedule draft saved."
 ```
 
-### Step 7 — PDF Assembly (Day 3–4)
+### Step 7: PDF Assembly (Day 3–4)
 
 Compile all sections into a single deliverable PDF.
 
-#### 7A — Prepare image references in Markdown
+#### 7A: Prepare image references in Markdown
 
 ```bash
 PROJECT_ID="LIOR-DB2601"
@@ -487,7 +487,7 @@ WORKDIR=".tmp/${PROJECT_ID}-design-brief"
 
 cat > "${WORKDIR}/07-pdf-assembly/brief-content.md" << 'EOF'
 ---
-title: "Interior Design Brief — [PROJECT_ID]"
+title: "Interior Design Brief: [PROJECT_ID]"
 date: "[Date]"
 geometry: "margin=2cm"
 fontsize: 11pt
@@ -518,11 +518,11 @@ fontsize: 11pt
 
 ## Layout Options
 
-**Option A — [name]:** [rationale 3–5 bullets]
+**Option A: [name]:** [rationale 3–5 bullets]
 
 ![Layout A](.tmp/[PROJECT_ID]-design-brief/03-space-plan/[PROJECT_ID]-layout-A-v1.jpg){ width=100% }
 
-**Option B — [name]:** [rationale 3–5 bullets]
+**Option B: [name]:** [rationale 3–5 bullets]
 
 ![Layout B](.tmp/[PROJECT_ID]-design-brief/03-space-plan/[PROJECT_ID]-layout-B-v1.jpg){ width=100% }
 
@@ -548,7 +548,7 @@ cat "${WORKDIR}/05-material-schedule/${PROJECT_ID}-material-schedule-v1.md" >> "
 echo "PDF source assembled."
 ```
 
-#### 7B — Generate PDF
+#### 7B: Generate PDF
 
 ```bash
 # Primary: xelatex
@@ -577,13 +577,13 @@ ls -lh "${WORKDIR}/06-exports/"
 ## VI. QA CHECKLIST
 
 Human verifies before delivery:
-- [ ] Moodboard colors are cohesive — no clashing elements
+- [ ] Moodboard colors are cohesive: no clashing elements
 - [ ] Palette reads as warm overall, consistent with brief
 - [ ] Room visualizations match the moodboard direction (same palette, materials)
-- [ ] Space plan furniture placement is realistic — no blocking, correct clearances
+- [ ] Space plan furniture placement is realistic: no blocking, correct clearances
 - [ ] Material schedule: all references are real and available in Dubai market
 - [ ] No invented product SKUs
-- [ ] PDF opens correctly — no broken image links, no placeholder text
+- [ ] PDF opens correctly: no broken image links, no placeholder text
 - [ ] PDF is client-presentable (correct branding, no draft watermarks)
 - [ ] Correct name, address, date on cover
 
@@ -612,7 +612,7 @@ ZIP_SIZE=$(wc -c < "${ZIP_FILE}")
 
 TRANSFER=$(curl -s -X POST "https://dev.wetransfer.com/v2/transfers" \
   -H "Content-Type: application/json" -H "x-api-key: ${WT_KEY}" \
-  -d "{\"message\":\"${PROJECT_ID} — Interior Design Brief LIOR\",\"files\":[{\"name\":\"${PROJECT_ID}-design-brief-v1.zip\",\"size\":${ZIP_SIZE}}]}")
+  -d "{\"message\":\"${PROJECT_ID}: Interior Design Brief LIOR\",\"files\":[{\"name\":\"${PROJECT_ID}-design-brief-v1.zip\",\"size\":${ZIP_SIZE}}]}")
 
 TRANSFER_ID=$(echo $TRANSFER | python3 -c "import sys,json; print(json.load(sys.stdin)['id'])")
 UPLOAD_URL=$(echo $TRANSFER | python3 -c "import sys,json; print(json.load(sys.stdin)['files'][0]['multipart']['url'])")
@@ -635,7 +635,7 @@ APIKEY=$(grep CALLMEBOT_API_KEY /Users/cashville/.env | cut -d= -f2)
 CLIENT_NAME="[CLIENT NAME]"
 N_ROOMS="3"
 
-MSG="${CLIENT_NAME} — your Interior Design Brief is ready.
+MSG="${CLIENT_NAME}: your Interior Design Brief is ready.
 
 The document covers:
 - Style direction and moodboard
@@ -645,7 +645,7 @@ The document covers:
 
 Download (valid 7 days): ${DOWNLOAD_URL}
 
-This document is ready to use — share it with any contractor, architect, or furniture supplier. Let us know if you would like to adjust any direction or explore specific rooms further."
+This document is ready to use: share it with any contractor, architect, or furniture supplier. Let us know if you would like to adjust any direction or explore specific rooms further."
 
 ENCODED=$(python3 -c "import urllib.parse,sys; print(urllib.parse.quote(sys.argv[1]))" "${MSG}")
 curl -s "https://api.callmebot.com/whatsapp.php?phone=${PHONE}&text=${ENCODED}&apikey=${APIKEY}"
@@ -656,7 +656,7 @@ echo "WhatsApp sent."
 
 ```bash
 NOTION_TOKEN=$(grep NOTION_TOKEN /Users/cashville/.env | cut -d= -f2)
-PAGE_ID="[ID_NOTION — from project Notion page]"
+PAGE_ID="[ID_NOTION: from project Notion page]"
 
 curl -s -X PATCH "https://api.notion.com/v1/pages/${PAGE_ID}" \
   -H "Authorization: Bearer ${NOTION_TOKEN}" \
@@ -679,7 +679,7 @@ echo "[$(date '+%Y-%m-%d %H:%M')] DELIVERED: ${PROJECT_ID} | Service: design-bri
 ## VIII. WHATSAPP TEMPLATE
 
 ```
-[CLIENT NAME] — your Interior Design Brief is ready.
+[CLIENT NAME]: your Interior Design Brief is ready.
 
 The document covers:
 - Style direction and moodboard
@@ -689,7 +689,7 @@ The document covers:
 
 Download (valid 7 days): [LINK]
 
-This document is ready to use — share it with any contractor, architect, or furniture supplier. Let us know if you would like to adjust any direction or explore specific rooms further.
+This document is ready to use: share it with any contractor, architect, or furniture supplier. Let us know if you would like to adjust any direction or explore specific rooms further.
 ```
 
 Rules: no "AI", no "luxury", no prices, no "drone".
@@ -723,11 +723,11 @@ Rules: no "AI", no "luxury", no prices, no "drone".
 [YYYY-MM-DD HH:MM] BRIEF: parsed and saved to 00-brief/
 [YYYY-MM-DD HH:MM] MOODBOARD: generated and saved
 [YYYY-MM-DD HH:MM] SPACE PLAN: Option A + B exported from RoomSketcher
-[YYYY-MM-DD HH:MM] VISUALIZATION: living — completed
-[YYYY-MM-DD HH:MM] VISUALIZATION: master — completed
-[YYYY-MM-DD HH:MM] VISUALIZATION: kitchen — completed
-[YYYY-MM-DD HH:MM] FALLBACK: [tool] → [alternative] — [reason]
-[YYYY-MM-DD HH:MM] PDF: generated — [filename]
+[YYYY-MM-DD HH:MM] VISUALIZATION: living: completed
+[YYYY-MM-DD HH:MM] VISUALIZATION: master: completed
+[YYYY-MM-DD HH:MM] VISUALIZATION: kitchen: completed
+[YYYY-MM-DD HH:MM] FALLBACK: [tool] → [alternative]: [reason]
+[YYYY-MM-DD HH:MM] PDF: generated: [filename]
 [YYYY-MM-DD HH:MM] QA: APPROVED by [name]
 [YYYY-MM-DD HH:MM] DELIVERED: [PROJECT_ID] | ZIP: [filename] | Link: [URL] | WA: sent
 ```
@@ -739,9 +739,9 @@ Rules: no "AI", no "luxury", no prices, no "drone".
 48h after delivery, agent sends:
 
 ```
-[CLIENT NAME] — glad the brief is working well for you.
-If you would like to take it further — every room fully designed, project coordination,
-contractor management from brief to handover — that is exactly what our full design service covers.
+[CLIENT NAME]: glad the brief is working well for you.
+If you would like to take it further: every room fully designed, project coordination,
+contractor management from brief to handover: that is exactly what our full design service covers.
 Worth a conversation?
 ```
 

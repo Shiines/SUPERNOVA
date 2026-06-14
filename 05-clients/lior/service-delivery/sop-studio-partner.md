@@ -1,11 +1,11 @@
-# SOP — Studio Partner (Agency Retainer)
-**Automation level: B — Auto + monthly human review**
+# SOP: Studio Partner (Agency Retainer)
+**Automation level: B: Auto + monthly human review**
 **Timeline: Ongoing monthly retainer**
 **Deliverable: 5 Full Listing Packs/month · priority 48h turnaround · 1 cinematic tour/month · co-branded visuals · 10% referral revenue tracking · monthly performance report**
 
 ## I. OVERVIEW
 
-For real estate agencies with active listing inventory. LIOR acts as the agency's in-house visual studio — always on, always on-brand, always 48h. Agent manages the production pipeline and ledger; human manages the agency relationship and approves the monthly report. Each listing pack runs SOP-02 at priority 48h turnaround. One cinematic tour is included per month — the agency designates which listing.
+For real estate agencies with active listing inventory. LIOR acts as the agency's in-house visual studio: always on, always on-brand, always 48h. Agent manages the production pipeline and ledger; human manages the agency relationship and approves the monthly report. Each listing pack runs SOP-02 at priority 48h turnaround. One cinematic tour is included per month: the agency designates which listing.
 
 ---
 
@@ -50,20 +50,20 @@ touch .tmp/studio-partner-${AGENCY_CODE}/log.txt
 ```bash
 AGENCY_CODE="GGP"
 mkdir -p .tmp/studio-partner-${AGENCY_CODE}/{partner-profile,ledger,reports,referrals}
-# Per listing — follows SOP-02 folder structure under a different project ID prefix
+# Per listing: follows SOP-02 folder structure under a different project ID prefix
 # Project IDs: [AGENCY_CODE]-[YYYYMM]-[SEQ] e.g. GGP-202606-01
 ```
 
 ---
 
-## V. STEP 1 — ONBOARDING: CREATE PARTNER PROFILE
+## V. STEP 1: ONBOARDING: CREATE PARTNER PROFILE
 
 ```bash
 AGENCY_CODE="GGP"
 WORKDIR=".tmp/studio-partner-${AGENCY_CODE}"
 
 cat > "${WORKDIR}/partner-profile/partner-profile.txt" << 'EOF'
-PARTNER PROFILE — [AGENCY NAME]
+PARTNER PROFILE: [AGENCY NAME]
 ─────────────────────────────────────────────────────────
 Agency: [name]
 Agency code: [3-letter code]
@@ -71,10 +71,10 @@ Primary contact: [name] / [WhatsApp number]
 Billing contact: [name] / [email]
 Brand: [logo filename] / [primary color hex] / [font if specified]
 Co-branding: [LIOR + Agency / White-label]
-Style default: [agreed default style if no brief — Contemporary Warm / Modern Minimal / Standard]
+Style default: [agreed default style if no brief: Contemporary Warm / Modern Minimal / Standard]
 Retainer tier: Standard (5 listing packs/month)
 Cinematic tour: 1 per month (agency designates which listing)
-Rollover terms: Unused listings roll to next month — max 1 month carry
+Rollover terms: Unused listings roll to next month: max 1 month carry
 Contract start: [date]
 Contract renewal: [date]
 ─────────────────────────────────────────────────────────
@@ -91,7 +91,7 @@ PHONE=$(grep CALLMEBOT_PHONE /Users/cashville/.env | cut -d= -f2)
 APIKEY=$(grep CALLMEBOT_API_KEY /Users/cashville/.env | cut -d= -f2)
 CONTACT_NAME="[CONTACT NAME]"
 
-MSG="${CONTACT_NAME} — welcome to Studio Partner. To submit listings, use this format in each message:
+MSG="${CONTACT_NAME}: welcome to Studio Partner. To submit listings, use this format in each message:
 
 LIOR LISTING BRIEF
 Agency: [Agency name]
@@ -126,14 +126,14 @@ LISTING RECEIVED
      ├─ Assign Project ID: [AGENCY_CODE]-[YYYYMM]-[SEQ]
      │    Example: GGP-202606-01
      │
-     ├─ Execute SOP-02 (Full Listing Pack) — 48h priority turnaround
+     ├─ Execute SOP-02 (Full Listing Pack): 48h priority turnaround
      │    Staging: up to 8 rooms
      │    Cinematic tour: YES for designated tour listing / NO for others
      │
      └─ Deliver → update partner ledger → WhatsApp confirmation
 ```
 
-**SOP-02 reference — use this for every listing pack:**
+**SOP-02 reference: use this for every listing pack:**
 - Virtual Staging AI: 8 rooms staged
 - Runway Gen-3: animated renders for cinematic tour
 - FFmpeg: social cuts (30s reel 9:16, 15s teaser 9:16, 30s landscape)
@@ -155,9 +155,9 @@ for PHOTO in .tmp/${LISTING_REF}-listing-pack/01-client-inputs/photos/*.jpg; do
   DIMS=$(magick identify -format "%wx%h" "${PHOTO}" 2>/dev/null)
   WIDTH=$(echo $DIMS | cut -dx -f1)
   if [ "${WIDTH}" -lt "1920" ] 2>/dev/null; then
-    echo "  FAIL: $(basename ${PHOTO}) — ${DIMS} (min 1920px wide)"
+    echo "  FAIL: $(basename ${PHOTO}): ${DIMS} (min 1920px wide)"
   else
-    echo "  OK:   $(basename ${PHOTO}) — ${DIMS}"
+    echo "  OK:   $(basename ${PHOTO}): ${DIMS}"
   fi
 done
 ```
@@ -172,7 +172,7 @@ LISTING_REF="[listing ref]"
 ROOM="[room name]"
 ISSUE="too dark / blurry / angle insufficient"
 
-MSG="${CONTACT_NAME} — for ${LISTING_REF}, the photo for ${ROOM} is ${ISSUE}. Could you reshoot from the opposite corner of the room, in daylight, phone horizontal at chest height? We will start immediately on receipt."
+MSG="${CONTACT_NAME}: for ${LISTING_REF}, the photo for ${ROOM} is ${ISSUE}. Could you reshoot from the opposite corner of the room, in daylight, phone horizontal at chest height? We will start immediately on receipt."
 
 ENCODED=$(python3 -c "import urllib.parse,sys; print(urllib.parse.quote(sys.argv[1]))" "${MSG}")
 curl -s "https://api.callmebot.com/whatsapp.php?phone=${PHONE}&text=${ENCODED}&apikey=${APIKEY}"
@@ -208,7 +208,7 @@ echo "Listings remaining: ${REMAINING}"
 
 ## VII. CO-BRANDING
 
-### Option A — Co-branded (LIOR + Agency)
+### Option A: Co-branded (LIOR + Agency)
 
 Add watermark to all delivered still images:
 
@@ -231,18 +231,18 @@ done
 echo "Watermark applied to all staged images."
 ```
 
-Add credit to cinematic tour (last 3 seconds text overlay — handled in FFmpeg final export in SOP-02):
+Add credit to cinematic tour (last 3 seconds text overlay: handled in FFmpeg final export in SOP-02):
 ```
 Text: "Visual direction: LIOR × [Agency Name]"
 Font: Cormorant Garamond Light, centered, 2s fade in → fade out with music
 ```
 
-### Option B — White-label (Agency brand only)
+### Option B: White-label (Agency brand only)
 
 Remove all LIOR references from deliverables. If agency requests their logo, add it instead:
 
 ```bash
-# No LIOR watermark — deliver files as-is
+# No LIOR watermark: deliver files as-is
 # If agency logo provided, add theirs instead:
 AGENCY_LOGO="${WORKDIR}/partner-profile/agency-logo.png"
 for IMG in "${EXPORT_DIR}/staged-rooms/"*.jpg; do
@@ -261,7 +261,7 @@ done
 
 One cinematic tour is included per month. The agency designates which listing gets it.
 
-**If agency has not designated by the 25th of the prior month — agent sends:**
+**If agency has not designated by the 25th of the prior month: agent sends:**
 
 ```bash
 PHONE=$(grep CALLMEBOT_PHONE /Users/cashville/.env | cut -d= -f2)
@@ -270,7 +270,7 @@ CONTACT_NAME="[CONTACT NAME]"
 NEXT_MONTH="[Month name]"
 DESIGNATION_DEADLINE="$(date -v+5d -u +%d %B)"
 
-MSG="${CONTACT_NAME} — which listing should we schedule for the cinematic tour in ${NEXT_MONTH}? If we do not hear back by ${DESIGNATION_DEADLINE}, we will allocate it to the highest-value listing in the queue."
+MSG="${CONTACT_NAME}: which listing should we schedule for the cinematic tour in ${NEXT_MONTH}? If we do not hear back by ${DESIGNATION_DEADLINE}, we will allocate it to the highest-value listing in the queue."
 
 ENCODED=$(python3 -c "import urllib.parse,sys; print(urllib.parse.quote(sys.argv[1]))" "${MSG}")
 curl -s "https://api.callmebot.com/whatsapp.php?phone=${PHONE}&text=${ENCODED}&apikey=${APIKEY}"
@@ -314,7 +314,7 @@ cat "${WORKDIR}/referrals/referral-log.txt"
 
 ## X. MONTHLY PERFORMANCE REPORT (sent 1st of each month)
 
-### Step 1 — Generate Report
+### Step 1: Generate Report
 
 ```bash
 AGENCY_CODE="GGP"
@@ -325,7 +325,7 @@ LEDGER="${WORKDIR}/ledger/partner-ledger-$(date -u +%Y-%m).txt"
 
 # Calculate stats from ledger
 DELIVERED=$(grep -c "Delivered" "${LEDGER}" 2>/dev/null || echo 0)
-ROLLOVER="[N from prior month — check prior ledger]"
+ROLLOVER="[N from prior month: check prior ledger]"
 AVG_TURNAROUND="[X]"
 ON_TIME_RATE="[%]"
 REVISIONS="[N]"
@@ -337,7 +337,7 @@ NEXT_TOUR="[property name or TBD]"
 
 cat > "${WORKDIR}/reports/${AGENCY_CODE}-report-$(date -u +%Y-%m).md" << EOF
 ---
-title: "Studio Partner Report — ${AGENCY_NAME} — ${MONTH_LABEL}"
+title: "Studio Partner Report: ${AGENCY_NAME}: ${MONTH_LABEL}"
 geometry: "margin=2cm"
 fontsize: 11pt
 ---
@@ -355,7 +355,7 @@ fontsize: 11pt
 |--------|-------|
 | Delivered this month | ${DELIVERED} / 5 |
 | Rollover to next month | $((5 - DELIVERED)) |
-| Cinematic tour | [Property name] — delivered [date] |
+| Cinematic tour | [Property name]: delivered [date] |
 
 ---
 
@@ -365,7 +365,7 @@ fontsize: 11pt
 |--------|-------|--------|
 | Average delivery time | ${AVG_TURNAROUND}h | 48h |
 | On-time rate | ${ON_TIME_RATE}% | 100% |
-| Revision requests | ${REVISIONS} | — |
+| Revision requests | ${REVISIONS} |: |
 
 ---
 
@@ -388,7 +388,7 @@ fontsize: 11pt
 
 ---
 
-*LIOR Studio — ${MONTH_LABEL}*
+*LIOR Studio: ${MONTH_LABEL}*
 
 EOF
 
@@ -403,7 +403,7 @@ pandoc "${WORKDIR}/reports/${AGENCY_CODE}-report-$(date -u +%Y-%m).md" \
 echo "Monthly report generated."
 ```
 
-### Step 2 — Upload Report to WeTransfer
+### Step 2: Upload Report to WeTransfer
 
 ```bash
 WT_KEY=$(grep WETRANSFER_API_KEY /Users/cashville/.env | cut -d= -f2)
@@ -415,7 +415,7 @@ MONTH_LABEL="$(date -u +%B %Y)"
 
 TRANSFER=$(curl -s -X POST "https://dev.wetransfer.com/v2/transfers" \
   -H "Content-Type: application/json" -H "x-api-key: ${WT_KEY}" \
-  -d "{\"message\":\"${AGENCY_CODE} Studio Partner Report — ${MONTH_LABEL}\",\"files\":[{\"name\":\"${FILE_NAME}\",\"size\":${FILE_SIZE}}]}")
+  -d "{\"message\":\"${AGENCY_CODE} Studio Partner Report: ${MONTH_LABEL}\",\"files\":[{\"name\":\"${FILE_NAME}\",\"size\":${FILE_SIZE}}]}")
 
 TRANSFER_ID=$(echo $TRANSFER | python3 -c "import sys,json; print(json.load(sys.stdin)['id'])")
 UPLOAD_URL=$(echo $TRANSFER | python3 -c "import sys,json; print(json.load(sys.stdin)['files'][0]['multipart']['url'])")
@@ -430,14 +430,14 @@ REPORT_DOWNLOAD_URL=$(curl -s -X PUT "https://dev.wetransfer.com/v2/transfers/${
 echo "DOWNLOAD LINK: ${REPORT_DOWNLOAD_URL}"
 ```
 
-### Step 3 — Send WhatsApp to Agency Contact
+### Step 3: Send WhatsApp to Agency Contact
 
 ```bash
 PHONE=$(grep CALLMEBOT_PHONE /Users/cashville/.env | cut -d= -f2)
 APIKEY=$(grep CALLMEBOT_API_KEY /Users/cashville/.env | cut -d= -f2)
 CONTACT_NAME="[CONTACT NAME]"
 
-MSG="${CONTACT_NAME} — ${MONTH_LABEL} partner report ready.
+MSG="${CONTACT_NAME}: ${MONTH_LABEL} partner report ready.
 
 ${DELIVERED} listings delivered · ${AVG_TURNAROUND}h avg turnaround · AED ${REFERRAL_CREDIT} referral credit.
 
@@ -448,7 +448,7 @@ curl -s "https://api.callmebot.com/whatsapp.php?phone=${PHONE}&text=${ENCODED}&a
 echo "Monthly report WhatsApp sent."
 ```
 
-### Step 4 — Update Notion
+### Step 4: Update Notion
 
 ```bash
 NOTION_TOKEN=$(grep NOTION_TOKEN /Users/cashville/.env | cut -d= -f2)
@@ -463,7 +463,7 @@ curl -s -X PATCH "https://api.notion.com/v1/pages/${AGENCY_PAGE_ID}" \
 echo "Notion updated."
 ```
 
-### Step 5 — Log
+### Step 5: Log
 
 ```bash
 echo "[$(date '+%Y-%m-%d %H:%M')] MONTHLY REPORT DELIVERED: ${AGENCY_CODE} | Month: $(date -u +%Y-%m) | Delivered: ${DELIVERED}/5 | Referral: AED ${REFERRAL_CREDIT} | Link: ${REPORT_DOWNLOAD_URL}" \
@@ -506,7 +506,7 @@ if [ $ROLLOVER -gt 0 ]; then
   APIKEY=$(grep CALLMEBOT_API_KEY /Users/cashville/.env | cut -d= -f2)
   CONTACT_NAME="[CONTACT NAME]"
 
-  MSG="${CONTACT_NAME} — you have ${ROLLOVER} listing slot(s) carried over from last month. You now have ${CURRENT_MONTH_TOTAL} slots available this month. Send listings when ready."
+  MSG="${CONTACT_NAME}: you have ${ROLLOVER} listing slot(s) carried over from last month. You now have ${CURRENT_MONTH_TOTAL} slots available this month. Send listings when ready."
 
   ENCODED=$(python3 -c "import urllib.parse,sys; print(urllib.parse.quote(sys.argv[1]))" "${MSG}")
   curl -s "https://api.callmebot.com/whatsapp.php?phone=${PHONE}&text=${ENCODED}&apikey=${APIKEY}"
@@ -521,7 +521,7 @@ fi
 ### Monthly Report
 
 ```
-[CONTACT NAME] — [Month] partner report ready.
+[CONTACT NAME]: [Month] partner report ready.
 
 [N] listings delivered · [X]h avg turnaround · AED [X] referral credit.
 
@@ -531,13 +531,13 @@ Full report: [LINK]
 ### Unused Slots Reminder
 
 ```
-[CONTACT NAME] — you have [N] listing slot(s) carried over from last month. You now have [N] slots available this month. Send listings when ready.
+[CONTACT NAME]: you have [N] listing slot(s) carried over from last month. You now have [N] slots available this month. Send listings when ready.
 ```
 
 ### Renewal (30 days before)
 
 ```
-[CONTACT NAME] — your Studio Partner agreement renews on [date]. Everything continues as normal. Let us know if you would like to discuss your plan or adjust scope.
+[CONTACT NAME]: your Studio Partner agreement renews on [date]. Everything continues as normal. Let us know if you would like to discuss your plan or adjust scope.
 ```
 
 Rules for all templates: no "AI", no "luxury", no prices, no "drone".
@@ -554,7 +554,7 @@ Per listing delivery:
 - [ ] Partner ledger updated on delivery
 
 Monthly report:
-- [ ] Stats pulled from ledger — not estimated
+- [ ] Stats pulled from ledger: not estimated
 - [ ] Referral credits calculated correctly (10% of invoiced project value)
 - [ ] Rollover calculated correctly
 - [ ] Report sent on 1st of month (or within 3 days)
@@ -568,7 +568,7 @@ Monthly report:
 |---|---|---|
 | WeTransfer API | Upload fails | Manual upload at wetransfer.com |
 | WeTransfer | Report >2GB | Unlikely (PDF only). If so, compress: `ghostscript -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sDEVICE=pdfwrite -sOutputFile=out.pdf in.pdf` |
-| WeTransfer | Down | Google Drive — share "anyone with link can view" |
+| WeTransfer | Down | Google Drive: share "anyone with link can view" |
 | Pandoc PDF | xelatex font error | `cp [font.ttf] ~/Library/Fonts/ && fc-cache -fv`. Or `--pdf-engine=wkhtmltopdf` |
 | CallMeBot | Phone not registered | Send "I allow callmebot to send me messages" to +34 644 29 73 73 |
 | Notion API | Rate limit | Wait 60s and retry |
@@ -576,7 +576,7 @@ Monthly report:
 
 ---
 
-## XV. ESCALATION — HUMAN MUST HANDLE
+## XV. ESCALATION: HUMAN MUST HANDLE
 
 - Agency exceeds 5 listings in a month → discuss upgrade or ad-hoc billing
 - Turnaround target missed (>48h) → immediate alert + explanation to agency contact
@@ -598,7 +598,7 @@ CONTACT_NAME="[CONTACT NAME]"
 AGENCY_CODE="GGP"
 MONTHS_AT_CAPACITY="[N]"
 
-MSG="${CONTACT_NAME} — you have been at full capacity for ${MONTHS_AT_CAPACITY} months. We could expand your monthly allocation to 10 listings with a priority slot structure. Worth a quick call this week?"
+MSG="${CONTACT_NAME}: you have been at full capacity for ${MONTHS_AT_CAPACITY} months. We could expand your monthly allocation to 10 listings with a priority slot structure. Worth a quick call this week?"
 
 ENCODED=$(python3 -c "import urllib.parse,sys; print(urllib.parse.quote(sys.argv[1]))" "${MSG}")
 curl -s "https://api.callmebot.com/whatsapp.php?phone=${PHONE}&text=${ENCODED}&apikey=${APIKEY}"
@@ -634,7 +634,7 @@ echo "Archived."
 
 ```
 [YYYY-MM-DD HH:MM] LISTING RECEIVED: [AGENCY_CODE]-[YYYYMM]-[SEQ] | ref=[agency ref] | rooms=[N] | tour=[yes/no]
-[YYYY-MM-DD HH:MM] INPUTS VALIDATED: [listing ID] — all OK / [item] rejected → reshoot requested
+[YYYY-MM-DD HH:MM] INPUTS VALIDATED: [listing ID]: all OK / [item] rejected → reshoot requested
 [YYYY-MM-DD HH:MM] PRODUCTION STARTED: [listing ID]
 [YYYY-MM-DD HH:MM] LISTING DELIVERED: [listing ID] | turnaround=[Xh] | Link: [URL] | Ledger updated
 [YYYY-MM-DD HH:MM] ROLLOVER: [N] slots carried to [YYYY-MM]

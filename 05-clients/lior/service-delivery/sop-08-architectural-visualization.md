@@ -1,11 +1,11 @@
-# SOP 08 — Architectural Visualization
-**Automation level: C — Guided (agent handles rendering pipeline; human confirms design intent)**
+# SOP 08: Architectural Visualization
+**Automation level: C: Guided (agent handles rendering pipeline; human confirms design intent)**
 **Timeline: 5 days from confirmed render brief**
 **Deliverable: Exterior + interior renders · presentation-ready PDF · all renders as individual high-resolution JPGs**
 
 ## I. OVERVIEW
 
-3D-quality architectural visualization from plans and drawings — no physical space required. Agent confirms the render brief before starting, then runs the production pipeline: exterior renders via Replicate SDXL + ControlNet (geometry-accurate), interior renders via Firefly (off-plan) or Virtual Staging AI (if physical space exists), post-processing via ImageMagick, and final assembly into a presentation PDF via Pandoc. Human confirms the brief before production and approves renders before delivery.
+3D-quality architectural visualization from plans and drawings: no physical space required. Agent confirms the render brief before starting, then runs the production pipeline: exterior renders via Replicate SDXL + ControlNet (geometry-accurate), interior renders via Firefly (off-plan) or Virtual Staging AI (if physical space exists), post-processing via ImageMagick, and final assembly into a presentation PDF via Pandoc. Human confirms the brief before production and approves renders before delivery.
 
 ---
 
@@ -14,10 +14,10 @@
 | # | Input | Format | Source | Blocker? |
 |---|-------|--------|--------|---------|
 | 1 | Floor plan | PDF, CAD (DWG/DXF), or JPG | Client / architect | YES |
-| 2 | Elevation drawings (min 2) | PDF or CAD | Client / architect | YES — if exterior renders required |
+| 2 | Elevation drawings (min 2) | PDF or CAD | Client / architect | YES: if exterior renders required |
 | 3 | Property brief | Building type, context, target audience | Intake form | YES |
 | 4 | Render brief | Which views required (exterior angles, interior rooms) | Intake form | YES |
-| 5 | Material palette | Text or reference images | Client or LIOR default | No — LIOR applies default |
+| 5 | Material palette | Text or reference images | Client or LIOR default | No: LIOR applies default |
 | 6 | Style reference | Comparable project images | Client | No |
 | 7 | Project ID | `LIOR-AV[CODE][YY][SEQ]` | Agent | Internal |
 
@@ -38,15 +38,15 @@ brew install wkhtmltopdf           # PDF engine fallback
 grep -E "REPLICATE_API_KEY|IMGBB_API_KEY|VSTAGING_API_KEY|ADOBE_CLIENT_ID|ADOBE_CLIENT_SECRET|WETRANSFER_API_KEY|CALLMEBOT_PHONE|CALLMEBOT_API_KEY|NOTION_TOKEN" /Users/cashville/.env
 
 # Keys needed:
-# REPLICATE_API_KEY      — SDXL + ControlNet exterior renders
-# IMGBB_API_KEY          — image hosting (Replicate + Runway need public URLs)
-# VSTAGING_API_KEY       — Virtual Staging AI (interior renders if physical space exists)
-# ADOBE_CLIENT_ID        — Firefly (interior renders for off-plan)
-# ADOBE_CLIENT_SECRET    — Firefly
-# WETRANSFER_API_KEY     — delivery
-# CALLMEBOT_PHONE        — WhatsApp
-# CALLMEBOT_API_KEY      — WhatsApp
-# NOTION_TOKEN           — project tracking
+# REPLICATE_API_KEY     : SDXL + ControlNet exterior renders
+# IMGBB_API_KEY         : image hosting (Replicate + Runway need public URLs)
+# VSTAGING_API_KEY      : Virtual Staging AI (interior renders if physical space exists)
+# ADOBE_CLIENT_ID       : Firefly (interior renders for off-plan)
+# ADOBE_CLIENT_SECRET   : Firefly
+# WETRANSFER_API_KEY    : delivery
+# CALLMEBOT_PHONE       : WhatsApp
+# CALLMEBOT_API_KEY     : WhatsApp
+# NOTION_TOKEN          : project tracking
 ```
 
 ---
@@ -63,7 +63,7 @@ touch .tmp/${PROJECT_ID}-arch-viz/log.txt
 
 ## V. PRODUCTION STEPS
 
-### Step 1 — Confirm Render Brief
+### Step 1: Confirm Render Brief
 
 Send render brief to human for confirmation before starting any production.
 
@@ -72,7 +72,7 @@ PROJECT_ID="LIOR-AV2601"
 WORKDIR=".tmp/${PROJECT_ID}-arch-viz"
 
 cat > "${WORKDIR}/00-brief/render-brief.txt" << 'EOF'
-RENDER BRIEF — [PROJECT_ID]
+RENDER BRIEF: [PROJECT_ID]
 Building type: [apartment tower / villa / commercial / other]
 Context: [Dubai Marina / Palm / Business Bay / Downtown / residential community]
 Target audience: [investors / planning submission / sales / marketing]
@@ -84,9 +84,9 @@ EXTERIOR VIEWS CONFIRMED:
   [ ] Entrance detail
 
 INTERIOR VIEWS CONFIRMED:
-  [ ] Living room — wide from corner
-  [ ] Living room — toward window
-  [ ] Kitchen — wide
+  [ ] Living room: wide from corner
+  [ ] Living room: toward window
+  [ ] Kitchen: wide
   [ ] Master bedroom
   [ ] Bathroom / ensuite
   [ ] Staircase (if present)
@@ -108,11 +108,11 @@ echo "Render brief draft saved. Send to human for confirmation."
 
 Agent sends WhatsApp to human with brief summary, awaits sign-off. **Production does not start until brief is confirmed.**
 
-### Step 2 — Exterior Renders (Replicate SDXL + ControlNet)
+### Step 2: Exterior Renders (Replicate SDXL + ControlNet)
 
-Replicate is the primary tool for exterior renders — ControlNet preserves architectural geometry from the elevation drawing.
+Replicate is the primary tool for exterior renders: ControlNet preserves architectural geometry from the elevation drawing.
 
-#### 2A — Upload elevation drawing to ImgBB
+#### 2A: Upload elevation drawing to ImgBB
 
 ```bash
 IMGBB_KEY=$(grep IMGBB_API_KEY /Users/cashville/.env | cut -d= -f2)
@@ -128,7 +128,7 @@ ELEVATION_URL=$(curl -s -X POST "https://api.imgbb.com/1/upload" \
 echo "Elevation hosted: ${ELEVATION_URL}"
 ```
 
-#### 2B — Run Replicate prediction
+#### 2B: Run Replicate prediction
 
 ```bash
 REPLICATE_KEY=$(grep REPLICATE_API_KEY /Users/cashville/.env | cut -d= -f2)
@@ -161,10 +161,10 @@ PREDICTION=$(curl -s -X POST "https://api.replicate.com/v1/predictions" \
   }")
 
 PREDICTION_ID=$(echo $PREDICTION | python3 -c "import sys,json; print(json.load(sys.stdin)['id'])")
-echo "Prediction ID: ${PREDICTION_ID} — view: ${VIEW_NAME}"
+echo "Prediction ID: ${PREDICTION_ID}: view: ${VIEW_NAME}"
 ```
 
-#### 2C — Poll for result
+#### 2C: Poll for result
 
 ```bash
 REPLICATE_KEY=$(grep REPLICATE_API_KEY /Users/cashville/.env | cut -d= -f2)
@@ -183,7 +183,7 @@ while true; do
     echo "FAILED: $(echo $RESULT | python3 -c \"import sys,json; print(json.load(sys.stdin).get('error',''))\")"
     break
   fi
-  echo "Status: ${STATUS} — waiting 5s..."
+  echo "Status: ${STATUS}: waiting 5s..."
   sleep 5
 done
 
@@ -204,19 +204,19 @@ echo "Exterior render saved: ${VIEW_NAME}"
 - [ ] Lighting direction consistent across the render
 - [ ] Shadows are directionally accurate
 
-**Replicate fallback — if model hash is deprecated:**
+**Replicate fallback: if model hash is deprecated:**
 ```bash
 # Find a current model: go to https://replicate.com/explore → search "interior design SDXL controlnet"
 # Select model with most recent activity → copy the version hash
 # Replace the hash in the prediction call above
-echo "[$(date '+%Y-%m-%d %H:%M')] FALLBACK Replicate — model hash updated to [new hash]" >> "${WORKDIR}/log.txt"
+echo "[$(date '+%Y-%m-%d %H:%M')] FALLBACK Replicate: model hash updated to [new hash]" >> "${WORKDIR}/log.txt"
 ```
 
-### Step 3 — Interior Renders
+### Step 3: Interior Renders
 
 Use Virtual Staging AI if a physical space exists; use Firefly for pure off-plan / new build visualization.
 
-#### Option A — Physical space exists (use Virtual Staging AI)
+#### Option A: Physical space exists (use Virtual Staging AI)
 
 ```bash
 IMGBB_KEY=$(grep IMGBB_API_KEY /Users/cashville/.env | cut -d= -f2)
@@ -250,22 +250,22 @@ while true; do
     echo "Interior staged: ${ROOM}"
     break
   elif [ "$STATUS" = "failed" ]; then
-    echo "FAILED: ${ROOM} — use Option B (Firefly)"
+    echo "FAILED: ${ROOM}: use Option B (Firefly)"
     echo "[$(date '+%Y-%m-%d %H:%M')] FALLBACK vstaging → Firefly for ${ROOM}" >> "${WORKDIR}/log.txt"
     break
   fi
-  echo "${ROOM}: ${STATUS} — waiting 10s..."
+  echo "${ROOM}: ${STATUS}: waiting 10s..."
   sleep 10
 done
 ```
 
-#### Option B — Off-plan / no physical space (use Firefly)
+#### Option B: Off-plan / no physical space (use Firefly)
 
 ```bash
 ADOBE_CLIENT_ID=$(grep ADOBE_CLIENT_ID /Users/cashville/.env | cut -d= -f2)
 ADOBE_CLIENT_SECRET=$(grep ADOBE_CLIENT_SECRET /Users/cashville/.env | cut -d= -f2)
 
-# Get token (valid 24h — run once per session)
+# Get token (valid 24h: run once per session)
 FIREFLY_TOKEN=$(curl -s -X POST "https://ims-na1.adobelogin.com/ims/token/v3" \
   -H "Content-Type: application/x-www-form-urlencoded" \
   -d "grant_type=client_credentials&client_id=${ADOBE_CLIENT_ID}&client_secret=${ADOBE_CLIENT_SECRET}&scope=openid,AdobeID,firefly_api" \
@@ -339,7 +339,7 @@ curl -L "${CHOSEN_URL}" -o "${WORKDIR}/02-renders/interior/${PROJECT_ID}-int-${R
 - [ ] No floating objects or impossible shadows
 - [ ] Furniture scale correct relative to room
 
-### Step 4 — Post-Processing (ImageMagick)
+### Step 4: Post-Processing (ImageMagick)
 
 Apply color grade to hero renders only (not all variants).
 
@@ -365,7 +365,7 @@ for F in "${WORKDIR}/02-renders/interior/${PROJECT_ID}-int-"*"-v1.jpg"; do
     "${WORKDIR}/03-post-processed/$(basename ${F})"
 done
 
-# Sharpen (structural only — not artistic)
+# Sharpen (structural only: not artistic)
 for F in "${WORKDIR}/03-post-processed/"*".jpg"; do
   magick "${F}" \
     -unsharp 0x0.5+80+0 \
@@ -381,9 +381,9 @@ echo "Post-processing complete."
 ls -lh "${WORKDIR}/03-post-processed/"
 ```
 
-**Note: Sky replacement (exterior renders)** — if generated sky looks flat or unrealistic, replace manually in Photoshop: Edit → Sky Replacement → select from Premium Dramatic category. ImageMagick cannot do realistic sky replacement.
+**Note: Sky replacement (exterior renders)**: if generated sky looks flat or unrealistic, replace manually in Photoshop: Edit → Sky Replacement → select from Premium Dramatic category. ImageMagick cannot do realistic sky replacement.
 
-### Step 5 — Presentation PDF Assembly
+### Step 5: Presentation PDF Assembly
 
 ```bash
 PROJECT_ID="LIOR-AV2601"
@@ -393,7 +393,7 @@ N_INT="[N interior renders]"
 
 cat > "${WORKDIR}/04-presentation/presentation.md" << EOF
 ---
-title: "Architectural Visualization — ${PROJECT_ID}"
+title: "Architectural Visualization: ${PROJECT_ID}"
 date: "$(date -u +%B %Y)"
 geometry: "margin=1.5cm"
 fontsize: 11pt
@@ -409,13 +409,13 @@ fontsize: 11pt
 
 ## Project Overview
 
-[Building type, context, design intent — 3–4 sentences from brief.]
+[Building type, context, design intent: 3–4 sentences from brief.]
 
 ---
 
 $(for F in ${WORKDIR}/03-post-processed/${PROJECT_ID}-ext-*-v1.jpg; do
   VIEWNAME=$(basename "$F" | sed "s/${PROJECT_ID}-ext-//" | sed "s/-v1.jpg//")
-  echo "## Exterior — ${VIEWNAME}"
+  echo "## Exterior: ${VIEWNAME}"
   echo ""
   echo "![${VIEWNAME}](${F}){ width=100% }"
   echo ""
@@ -427,7 +427,7 @@ done)
 
 $(for F in ${WORKDIR}/03-post-processed/${PROJECT_ID}-int-*-v1.jpg; do
   ROOMNAME=$(basename "$F" | sed "s/${PROJECT_ID}-int-//" | sed "s/-v1.jpg//")
-  echo "## Interior — ${ROOMNAME}"
+  echo "## Interior: ${ROOMNAME}"
   echo ""
   echo "![${ROOMNAME}](${F}){ width=100% }"
   echo ""
@@ -453,7 +453,7 @@ pandoc "${WORKDIR}/04-presentation/presentation.md" \
 echo "Presentation PDF: ${WORKDIR}/04-presentation/${PROJECT_ID}-arch-viz-presentation-v1.pdf"
 ```
 
-### Step 6 — Assemble Exports
+### Step 6: Assemble Exports
 
 ```bash
 PROJECT_ID="LIOR-AV2601"
@@ -480,7 +480,7 @@ Human reviews before delivery:
 - [ ] Lighting is correct for stated time of day
 - [ ] No AI artifacts on any hero render
 - [ ] Post-processing is consistent across all renders (not over-saturated, not cold)
-- [ ] Presentation PDF is complete — one render per page, correct captions
+- [ ] Presentation PDF is complete: one render per page, correct captions
 - [ ] PDF is client-presentable (correct project name, date, no placeholder text)
 
 ---
@@ -508,7 +508,7 @@ ZIP_SIZE=$(wc -c < "${ZIP_FILE}")
 
 TRANSFER=$(curl -s -X POST "https://dev.wetransfer.com/v2/transfers" \
   -H "Content-Type: application/json" -H "x-api-key: ${WT_KEY}" \
-  -d "{\"message\":\"${PROJECT_ID} — Architectural Visualization LIOR\",\"files\":[{\"name\":\"${PROJECT_ID}-arch-viz-v1.zip\",\"size\":${ZIP_SIZE}}]}")
+  -d "{\"message\":\"${PROJECT_ID}: Architectural Visualization LIOR\",\"files\":[{\"name\":\"${PROJECT_ID}-arch-viz-v1.zip\",\"size\":${ZIP_SIZE}}]}")
 
 TRANSFER_ID=$(echo $TRANSFER | python3 -c "import sys,json; print(json.load(sys.stdin)['id'])")
 UPLOAD_URL=$(echo $TRANSFER | python3 -c "import sys,json; print(json.load(sys.stdin)['files'][0]['multipart']['url'])")
@@ -533,7 +533,7 @@ N_EXT="[N]"
 N_INT="[N]"
 N_TOTAL="[N]"
 
-MSG="${CLIENT_NAME} — your architectural visualizations are ready.
+MSG="${CLIENT_NAME}: your architectural visualizations are ready.
 
 ${N_TOTAL} renders delivered:
 - ${N_EXT} exterior views
@@ -542,7 +542,7 @@ ${N_TOTAL} renders delivered:
 
 Download (valid 7 days): ${DOWNLOAD_URL}
 
-These are ready to share with investors, planning submissions, or sales presentations. Let us know if you would like any views adjusted — time of day, material, or angle."
+These are ready to share with investors, planning submissions, or sales presentations. Let us know if you would like any views adjusted: time of day, material, or angle."
 
 ENCODED=$(python3 -c "import urllib.parse,sys; print(urllib.parse.quote(sys.argv[1]))" "${MSG}")
 curl -s "https://api.callmebot.com/whatsapp.php?phone=${PHONE}&text=${ENCODED}&apikey=${APIKEY}"
@@ -576,7 +576,7 @@ echo "[$(date '+%Y-%m-%d %H:%M')] DELIVERED: ${PROJECT_ID} | Service: arch-viz |
 ## VIII. WHATSAPP TEMPLATE
 
 ```
-[CLIENT NAME] — your architectural visualizations are ready.
+[CLIENT NAME]: your architectural visualizations are ready.
 
 [N] renders delivered:
 - [N] exterior views
@@ -585,7 +585,7 @@ echo "[$(date '+%Y-%m-%d %H:%M')] DELIVERED: ${PROJECT_ID} | Service: arch-viz |
 
 Download (valid 7 days): [LINK]
 
-These are ready to share with investors, planning submissions, or sales presentations. Let us know if you would like any views adjusted — time of day, material, or angle.
+These are ready to share with investors, planning submissions, or sales presentations. Let us know if you would like any views adjusted: time of day, material, or angle.
 ```
 
 Rules: no "AI", no "luxury", no prices, no "drone".
@@ -604,7 +604,7 @@ Rules: no "AI", no "luxury", no prices, no "drone".
 | Pandoc PDF | xelatex font error | `cp [font.ttf] ~/Library/Fonts/ && fc-cache -fv`. Or use `--pdf-engine=wkhtmltopdf`. |
 | WeTransfer API | Upload fails | Manual upload at wetransfer.com |
 | WeTransfer | File >2GB | Split: renders ZIP + presentation PDF ZIP separately |
-| WeTransfer | Down | Google Drive — share link, "anyone with link can view" |
+| WeTransfer | Down | Google Drive: share link, "anyone with link can view" |
 | ImgBB | Upload fails | Retry after 30s. 32MB max per image. |
 
 ---
@@ -616,7 +616,7 @@ Rules: no "AI", no "luxury", no prices, no "drone".
 - Material swap (re-generate with updated palette)
 - Angle tweak on existing confirmed views
 
-**Not included — new brief line item:**
+**Not included: new brief line item:**
 - Additional views beyond agreed render brief
 - New rooms not in original brief
 - Structural changes to the building design
@@ -627,12 +627,12 @@ Rules: no "AI", no "luxury", no prices, no "drone".
 
 ```
 [YYYY-MM-DD HH:MM] STARTED: [PROJECT_ID] | views=[N ext + N int] | type=[building type]
-[YYYY-MM-DD HH:MM] BRIEF CONFIRMED: by [human name] — [N] views locked
-[YYYY-MM-DD HH:MM] EXTERIOR: [view name] — prediction ID [X] submitted
-[YYYY-MM-DD HH:MM] EXTERIOR: [view name] — downloaded OK
-[YYYY-MM-DD HH:MM] INTERIOR: [room name] — staged / rendered OK
+[YYYY-MM-DD HH:MM] BRIEF CONFIRMED: by [human name]: [N] views locked
+[YYYY-MM-DD HH:MM] EXTERIOR: [view name]: prediction ID [X] submitted
+[YYYY-MM-DD HH:MM] EXTERIOR: [view name]: downloaded OK
+[YYYY-MM-DD HH:MM] INTERIOR: [room name]: staged / rendered OK
 [YYYY-MM-DD HH:MM] POST-PROCESS: applied to [N] renders
-[YYYY-MM-DD HH:MM] FALLBACK: [tool] → [alternative] — [view/room] — [reason]
+[YYYY-MM-DD HH:MM] FALLBACK: [tool] → [alternative]: [view/room]: [reason]
 [YYYY-MM-DD HH:MM] QA: APPROVED by [name]
 [YYYY-MM-DD HH:MM] DELIVERED: [PROJECT_ID] | ZIP: [filename] | Link: [URL] | WA: sent
 ```

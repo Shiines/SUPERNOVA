@@ -1,11 +1,11 @@
-# SOP 03 — Space Preview
-**Automation level: B — Auto + human gate**
+# SOP 03: Space Preview
+**Automation level: B: Auto + human gate**
 **Timeline: 5 days from brief confirmation**
 **Deliverable: Full space visualization · cinematic tour (renders-only) · 6–8 social assets · 2 design directions**
 
 ## I. OVERVIEW
 
-Off-plan and pre-renovation spaces that don't exist yet — floor plan in, fully designed and visualized space out. LIOR generates two distinct creative directions, each with complete room renders, a cinematic animated tour, and social-ready cuts. Client picks the direction they prefer; that choice feeds naturally into SOP-09 or SOP-05.
+Off-plan and pre-renovation spaces that don't exist yet: floor plan in, fully designed and visualized space out. LIOR generates two distinct creative directions, each with complete room renders, a cinematic animated tour, and social-ready cuts. Client picks the direction they prefer; that choice feeds naturally into SOP-09 or SOP-05.
 
 ---
 
@@ -16,8 +16,8 @@ Off-plan and pre-renovation spaces that don't exist yet — floor plan in, fully
 | 1 | Floor plan | PDF or JPG, all rooms legible | Client | YES |
 | 2 | Property brief | Type, size, location, target buyer | Intake form | YES |
 | 3 | Number of rooms to visualize | Integer | Intake form | YES |
-| 4 | Style preferences | Text, references, or Pinterest link | Intake form | No — LIOR applies default if absent |
-| 5 | Existing shell photos | JPG ≥ 1920×1080 | Client | No — render-only if absent |
+| 4 | Style preferences | Text, references, or Pinterest link | Intake form | No: LIOR applies default if absent |
+| 5 | Existing shell photos | JPG ≥ 1920×1080 | Client | No: render-only if absent |
 | 6 | Project ID | `LIOR-SP[CODE][YY][SEQ]` | Agent | Internal |
 
 **No floor plan → no production. A phone photo of a hand sketch is acceptable if all rooms and approximate dimensions are legible.**
@@ -34,15 +34,15 @@ brew install ffmpeg imagemagick pandoc
 grep -E "IMGBB_API_KEY|VSTAGING_API_KEY|RUNWAY_API_KEY|ADOBE_CLIENT_ID|ADOBE_CLIENT_SECRET|WETRANSFER_API_KEY|CALLMEBOT_PHONE|CALLMEBOT_API_KEY|NOTION_TOKEN" /Users/cashville/.env
 
 # Keys needed:
-# IMGBB_API_KEY        — image hosting before API calls
-# VSTAGING_API_KEY     — Virtual Staging AI (if shell photos exist)
-# RUNWAY_API_KEY       — Gen-3 animation
-# ADOBE_CLIENT_ID      — Firefly (primary render engine for off-plan)
-# ADOBE_CLIENT_SECRET  — Firefly
-# WETRANSFER_API_KEY   — delivery
-# CALLMEBOT_PHONE      — WhatsApp notify
-# CALLMEBOT_API_KEY    — WhatsApp notify
-# NOTION_TOKEN         — project tracking
+# IMGBB_API_KEY       : image hosting before API calls
+# VSTAGING_API_KEY    : Virtual Staging AI (if shell photos exist)
+# RUNWAY_API_KEY      : Gen-3 animation
+# ADOBE_CLIENT_ID     : Firefly (primary render engine for off-plan)
+# ADOBE_CLIENT_SECRET : Firefly
+# WETRANSFER_API_KEY  : delivery
+# CALLMEBOT_PHONE     : WhatsApp notify
+# CALLMEBOT_API_KEY   : WhatsApp notify
+# NOTION_TOKEN        : project tracking
 ```
 
 ---
@@ -59,7 +59,7 @@ touch .tmp/${PROJECT_ID}-space-preview/log.txt
 
 ## V. PRODUCTION STEPS
 
-### Step 1 — Floor Plan Analysis
+### Step 1: Floor Plan Analysis
 
 Read the floor plan image and extract the room inventory into the brief file.
 
@@ -68,7 +68,7 @@ PROJECT_ID="LIOR-SP2601"
 WORKDIR=".tmp/${PROJECT_ID}-space-preview"
 
 cat > "${WORKDIR}/00-brief/00-floor-plan-inventory.txt" << 'EOF'
-FLOOR PLAN INVENTORY — [PROJECT_ID]
+FLOOR PLAN INVENTORY: [PROJECT_ID]
 Total area: [m²]
 Rooms:
   - Living / dining: [dimensions if visible]
@@ -81,21 +81,21 @@ Rooms:
 Natural light direction: [based on window positions on plan]
 Ceiling height: [if stated, else TBD]
 Architectural features: [open plan, split levels, double height, etc.]
-Rooms to visualize: [list from intake — minimum: living, master, kitchen + 1 extra]
+Rooms to visualize: [list from intake: minimum: living, master, kitchen + 1 extra]
 EOF
 ```
 
 Fill in the values by reading the floor plan. Note any TBD items.
 
-### Step 2 — Define Two Design Directions
+### Step 2: Define Two Design Directions
 
 Choose the direction pair appropriate to the project type:
 
 | Project type | Direction A | Direction B |
 |---|---|---|
-| Off-plan investor | Modern International — neutral, broad appeal | Contemporary Warm — lifestyle, aspirational |
-| Primary residence | Contemporary Warm — wood, linen, warm stone | Modern Minimal — monochrome, precise |
-| Premium / developer | Curated Luxury — statement pieces, layered textures | Contemporary International — gallery-feel, curated |
+| Off-plan investor | Modern International: neutral, broad appeal | Contemporary Warm: lifestyle, aspirational |
+| Primary residence | Contemporary Warm: wood, linen, warm stone | Modern Minimal: monochrome, precise |
+| Premium / developer | Curated Luxury: statement pieces, layered textures | Contemporary International: gallery-feel, curated |
 
 For each direction, define and save:
 
@@ -104,10 +104,10 @@ cat > "${WORKDIR}/02-directions/direction-A/direction-A.txt" << 'EOF'
 Direction A:
   Name: [1–2 words e.g. "Warm Contemporary"]
   Style: [one-line description]
-  Palette: [3–5 colors — hex or material name e.g. warm white #F5F0E8, oak, warm stone]
+  Palette: [3–5 colors: hex or material name e.g. warm white #F5F0E8, oak, warm stone]
   Key materials: floor=[material], walls=[finish], kitchen=[surface], textiles=[describe]
-  Furniture character: [describe the furniture feel — low / modular / organic / etc.]
-  Mood: [one sentence — what does it feel like to be in this space?]
+  Furniture character: [describe the furniture feel: low / modular / organic / etc.]
+  Mood: [one sentence: what does it feel like to be in this space?]
 EOF
 
 cat > "${WORKDIR}/02-directions/direction-B/direction-B.txt" << 'EOF'
@@ -121,11 +121,11 @@ Direction B:
 EOF
 ```
 
-### Step 3 — Generate Room Visualizations (both directions)
+### Step 3: Generate Room Visualizations (both directions)
 
 Generate 1 hero visualization per room per direction. Minimum rooms: living, master bedroom, kitchen + 1 additional.
 
-#### 3A — Get Adobe Firefly Token (primary engine for off-plan — no real photo needed)
+#### 3A: Get Adobe Firefly Token (primary engine for off-plan: no real photo needed)
 
 ```bash
 ADOBE_CLIENT_ID=$(grep ADOBE_CLIENT_ID /Users/cashville/.env | cut -d= -f2)
@@ -141,7 +141,7 @@ echo "Firefly token obtained. Valid 24h."
 echo $FIREFLY_TOKEN > /tmp/firefly_token.txt
 ```
 
-#### 3B — Generate each room × each direction
+#### 3B: Generate each room × each direction
 
 Repeat for every room × direction combination. Adjust prompt per room and direction.
 
@@ -151,7 +151,7 @@ ADOBE_CLIENT_ID=$(grep ADOBE_CLIENT_ID /Users/cashville/.env | cut -d= -f2)
 PROJECT_ID="LIOR-SP2601"
 WORKDIR=".tmp/${PROJECT_ID}-space-preview"
 
-# Example: Living room, Direction A — Contemporary Warm
+# Example: Living room, Direction A: Contemporary Warm
 ROOM="living"
 DIRECTION="A"
 PROMPT="living room, contemporary warm interior design, warm white walls, oak herringbone floor, linen sofa, travertine coffee table, warm afternoon light from floor-to-ceiling windows, neutral tones with terracotta accent, wide angle from corner, Dubai apartment, editorial interior photography, photorealistic, 8k, shot on Hasselblad, natural light"
@@ -192,7 +192,7 @@ curl -L "${VAR_URL}" -o "${WORKDIR}/03-renders/direction-${DIRECTION}/${PROJECT_
 | Bathroom | "bathroom ensuite, [style], [palette], freestanding bath or walk-in shower, natural stone" |
 | Balcony | "balcony terrace, outdoor furniture, Dubai skyline or marina view, evening golden hour" |
 
-#### 3C — Fallback: Replicate SDXL (if Firefly is unavailable)
+#### 3C: Fallback: Replicate SDXL (if Firefly is unavailable)
 
 ```bash
 REPLICATE_KEY=$(grep REPLICATE_API_KEY /Users/cashville/.env | cut -d= -f2)
@@ -228,16 +228,16 @@ while true; do
     echo "FAILED"
     break
   fi
-  echo "Status: $STATUS — waiting 5s..."
+  echo "Status: $STATUS: waiting 5s..."
   sleep 5
 done
 ```
 
-### Step 4 — Animate Renders via Runway Gen-3 (cinematic tour)
+### Step 4: Animate Renders via Runway Gen-3 (cinematic tour)
 
-No real footage exists for off-plan. The cinematic tour is built entirely from animated renders. Produce two tours — one per direction.
+No real footage exists for off-plan. The cinematic tour is built entirely from animated renders. Produce two tours: one per direction.
 
-#### 4A — Upload render to ImgBB (Runway needs a public URL)
+#### 4A: Upload render to ImgBB (Runway needs a public URL)
 
 ```bash
 IMGBB_KEY=$(grep IMGBB_API_KEY /Users/cashville/.env | cut -d= -f2)
@@ -253,7 +253,7 @@ IMAGE_URL=$(curl -s -X POST "https://api.imgbb.com/1/upload" \
 echo "Hosted URL: ${IMAGE_URL}"
 ```
 
-#### 4B — Animate with Runway Gen-3
+#### 4B: Animate with Runway Gen-3
 
 ```bash
 RUNWAY_KEY=$(grep RUNWAY_API_KEY /Users/cashville/.env | cut -d= -f2)
@@ -287,15 +287,15 @@ while true; do
     echo "Downloaded: ${ROOM} Direction ${DIRECTION}"
     break
   elif [ "$STATUS" = "FAILED" ]; then
-    echo "FAILED — ${ROOM} Direction ${DIRECTION}"
+    echo "FAILED: ${ROOM} Direction ${DIRECTION}"
     break
   fi
-  echo "Status: $STATUS — waiting 15s..."
+  echo "Status: $STATUS: waiting 15s..."
   sleep 15
 done
 ```
 
-**Runway fallback — Ken Burns (if Runway fails after 3 attempts):**
+**Runway fallback: Ken Burns (if Runway fails after 3 attempts):**
 
 ```bash
 STILL="${WORKDIR}/03-renders/direction-A/${PROJECT_ID}-render-living-A-v1.jpg"
@@ -307,7 +307,7 @@ echo "Ken Burns fallback applied"
 echo "[$(date '+%Y-%m-%d %H:%M')] FALLBACK Runway → Ken Burns for living Direction A [${PROJECT_ID}]" >> "${WORKDIR}/log.txt"
 ```
 
-#### 4C — Assemble cinematic tour per direction
+#### 4C: Assemble cinematic tour per direction
 
 ```bash
 PROJECT_ID="LIOR-SP2601"
@@ -333,9 +333,9 @@ echo "Cinematic tour Direction ${DIRECTION} assembled"
 **Assembly structure (renders-only):**
 - Fade in → Room 1 animated → Room 2 animated → Room 3 animated → Room 4 animated → Fade out
 - Transitions: dissolve 0.6s between rooms
-- Total target: 40–55s (shorter than hybrid tour — no connective real footage)
+- Total target: 40–55s (shorter than hybrid tour: no connective real footage)
 
-### Step 5 — Social Assets
+### Step 5: Social Assets
 
 #### Still crops
 
@@ -367,7 +367,7 @@ for DIRECTION in A B; do
 done
 ```
 
-### Step 6 — Color Grade (ImageMagick)
+### Step 6: Color Grade (ImageMagick)
 
 ```bash
 for DIRECTION in A B; do
@@ -393,7 +393,7 @@ Before delivery, human verifies:
 
 **Renders:**
 - [ ] Both directions feel clearly distinct from each other
-- [ ] Renders are photorealistic — not visibly AI-generated
+- [ ] Renders are photorealistic: not visibly AI-generated
 - [ ] No artifacts or floating objects in hero images
 - [ ] Color palette from each direction brief is visible in the renders
 - [ ] Client would recognize the space from their floor plan (rooms match layout)
@@ -435,7 +435,7 @@ ZIP_SIZE=$(wc -c < "${ZIP_FILE}")
 
 TRANSFER=$(curl -s -X POST "https://dev.wetransfer.com/v2/transfers" \
   -H "Content-Type: application/json" -H "x-api-key: ${WT_KEY}" \
-  -d "{\"message\":\"${PROJECT_ID} — Space Preview LIOR\",\"files\":[{\"name\":\"${PROJECT_ID}-space-preview-v1.zip\",\"size\":${ZIP_SIZE}}]}")
+  -d "{\"message\":\"${PROJECT_ID}: Space Preview LIOR\",\"files\":[{\"name\":\"${PROJECT_ID}-space-preview-v1.zip\",\"size\":${ZIP_SIZE}}]}")
 
 TRANSFER_ID=$(echo $TRANSFER | python3 -c "import sys,json; print(json.load(sys.stdin)['id'])")
 UPLOAD_URL=$(echo $TRANSFER | python3 -c "import sys,json; print(json.load(sys.stdin)['files'][0]['multipart']['url'])")
@@ -461,18 +461,18 @@ DIR_A_DESC="[Direction A one-line description]"
 DIR_B_NAME="[Direction B name]"
 DIR_B_DESC="[Direction B one-line description]"
 
-MSG="${CLIENT_NAME} — your Space Preview is ready.
+MSG="${CLIENT_NAME}: your Space Preview is ready.
 
 Two complete design directions for your space:
 
-Direction A — ${DIR_A_NAME}: ${DIR_A_DESC}
-Direction B — ${DIR_B_NAME}: ${DIR_B_DESC}
+Direction A: ${DIR_A_NAME}: ${DIR_A_DESC}
+Direction B: ${DIR_B_NAME}: ${DIR_B_DESC}
 
 Each includes room visualizations, a cinematic tour, and social-ready content.
 
 Download (valid 7 days): ${DOWNLOAD_URL}
 
-Let us know which direction resonates — or if you would like to mix elements from both."
+Let us know which direction resonates: or if you would like to mix elements from both."
 
 ENCODED=$(python3 -c "import urllib.parse,sys; print(urllib.parse.quote(sys.argv[1]))" "${MSG}")
 curl -s "https://api.callmebot.com/whatsapp.php?phone=${PHONE}&text=${ENCODED}&apikey=${APIKEY}"
@@ -483,7 +483,7 @@ echo "WhatsApp sent."
 
 ```bash
 NOTION_TOKEN=$(grep NOTION_TOKEN /Users/cashville/.env | cut -d= -f2)
-PAGE_ID="[ID_NOTION — from project Notion page]"
+PAGE_ID="[ID_NOTION: from project Notion page]"
 
 curl -s -X PATCH "https://api.notion.com/v1/pages/${PAGE_ID}" \
   -H "Authorization: Bearer ${NOTION_TOKEN}" \
@@ -506,18 +506,18 @@ echo "[$(date '+%Y-%m-%d %H:%M')] DELIVERED: ${PROJECT_ID} | Service: space-prev
 ## VIII. WHATSAPP TEMPLATE
 
 ```
-[CLIENT NAME] — your Space Preview is ready.
+[CLIENT NAME]: your Space Preview is ready.
 
 Two complete design directions for your space:
 
-Direction A — [name]: [one-line description]
-Direction B — [name]: [one-line description]
+Direction A: [name]: [one-line description]
+Direction B: [name]: [one-line description]
 
 Each includes room visualizations, a cinematic tour, and social-ready content.
 
 Download (valid 7 days): [LINK]
 
-Let us know which direction resonates — or if you would like to mix elements from both.
+Let us know which direction resonates: or if you would like to mix elements from both.
 ```
 
 Rules: no "AI", no "luxury", no prices, no "drone".
@@ -545,10 +545,10 @@ Rules: no "AI", no "luxury", no prices, no "drone".
 
 ```
 [YYYY-MM-DD HH:MM] STARTED: [PROJECT_ID] | rooms=[N] | directions=A+B
-[YYYY-MM-DD HH:MM] RENDERS: Direction A complete — living, master, kitchen, [room4]
-[YYYY-MM-DD HH:MM] RENDERS: Direction B complete — living, master, kitchen, [room4]
-[YYYY-MM-DD HH:MM] ANIMATION: Direction A tour assembled — [duration]s
-[YYYY-MM-DD HH:MM] ANIMATION: Direction B tour assembled — [duration]s
+[YYYY-MM-DD HH:MM] RENDERS: Direction A complete: living, master, kitchen, [room4]
+[YYYY-MM-DD HH:MM] RENDERS: Direction B complete: living, master, kitchen, [room4]
+[YYYY-MM-DD HH:MM] ANIMATION: Direction A tour assembled: [duration]s
+[YYYY-MM-DD HH:MM] ANIMATION: Direction B tour assembled: [duration]s
 [YYYY-MM-DD HH:MM] FALLBACK: [tool] → [alternative] for [room] [PROJECT_ID]
 [YYYY-MM-DD HH:MM] QA: APPROVED by [name]
 [YYYY-MM-DD HH:MM] DELIVERED: [PROJECT_ID] | ZIP: [filename] | Link: [URL] | WA: sent
@@ -561,7 +561,7 @@ Rules: no "AI", no "luxury", no prices, no "drone".
 If client selects a preferred direction, agent sends 24h later:
 
 ```
-Glad Direction [A/B] resonates. We can take this into a full design concept —
+Glad Direction [A/B] resonates. We can take this into a full design concept:
 every material specified, every room finalized, contractor-ready documents.
 Would that be useful for your project?
 ```

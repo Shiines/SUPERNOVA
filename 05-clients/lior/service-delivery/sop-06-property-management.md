@@ -1,5 +1,5 @@
-# SOP 06 — Property Management
-**Automation level: D — Managed (agent handles reporting and logistics; human drives owner relationship)**
+# SOP 06: Property Management
+**Automation level: D: Managed (agent handles reporting and logistics; human drives owner relationship)**
 **Timeline: Ongoing monthly service**
 **Deliverable: Monthly performance report · pricing optimization recommendations · guest experience management · maintenance coordination**
 
@@ -9,7 +9,7 @@ Ongoing STR management service for Dubai property owners. The workflow runs on a
 
 ---
 
-## II. INPUTS (onboarding — required once at contract start)
+## II. INPUTS (onboarding: required once at contract start)
 
 | # | Input | Format | Source | Blocker? |
 |---|-------|--------|--------|---------|
@@ -18,7 +18,7 @@ Ongoing STR management service for Dubai property owners. The workflow runs on a
 | 3 | Current property photos | All rooms, current state | Client | YES |
 | 4 | Guest expectations + house rules | Text | Client | YES |
 | 5 | Owner preferences | Communication frequency, escalation threshold | Intake form | YES |
-| 6 | Maintenance contacts | Plumber, electrician, building management | Client | No — build as we go |
+| 6 | Maintenance contacts | Plumber, electrician, building management | Client | No: build as we go |
 | 7 | Pricing history | Last 3 months rates | Client | No |
 | 8 | Contract start date | Date | Agreement | YES |
 | 9 | Property ID | `LIOR-PM[CODE][YY]` | Agent | Internal |
@@ -65,14 +65,14 @@ Runs on the 1st of every month.
 
 ---
 
-### WEEK 1 — Performance Review + Pricing Optimization
+### WEEK 1: Performance Review + Pricing Optimization
 
-#### Step 1 — Pull Performance Data from Notion
+#### Step 1: Pull Performance Data from Notion
 
 ```bash
 PROPERTY_ID="LIOR-PM2601"
 NOTION_TOKEN=$(grep NOTION_TOKEN /Users/cashville/.env | cut -d= -f2)
-PAGE_ID="[ID_NOTION — property page in Leads DB]"
+PAGE_ID="[ID_NOTION: property page in Leads DB]"
 MONTH="$(date -u +%Y-%m)"
 
 # Pull current property data from Notion
@@ -88,12 +88,12 @@ props = data.get('properties', {})
 for key in ['Occupancy Rate', 'ADR', 'Gross Revenue', 'Guest Rating', 'Nights Booked']:
     val = props.get(key, {})
     print(f'{key}: {val}')
-" 2>/dev/null || echo "Notion data pulled — check manually if parsing fails"
+" 2>/dev/null || echo "Notion data pulled: check manually if parsing fails"
 ```
 
 **Note:** Platform data (Airbnb, Booking.com) must be pulled manually from the host dashboard. Agent generates the report template; human fills in the numbers from platform exports, then agent formats and delivers.
 
-#### Step 2 — Generate Monthly Performance Report
+#### Step 2: Generate Monthly Performance Report
 
 ```bash
 PROPERTY_ID="LIOR-PM2601"
@@ -106,8 +106,8 @@ NIGHTS_AVAILABLE="30"
 NIGHTS_BOOKED="[from Airbnb/Booking dashboard]"
 OCCUPANCY_RATE="[calculated: Nights_Booked / Nights_Available × 100]"
 OCCUPANCY_PRIOR="[prior month %]"
-GROSS_REVENUE="[from dashboard — AED]"
-ADR="[from dashboard — AED]"
+GROSS_REVENUE="[from dashboard: AED]"
+ADR="[from dashboard: AED]"
 REVPAR="[ADR × Occupancy_Rate / 100]"
 REVENUE_PRIOR="[prior month AED]"
 TOP_CHANNEL="[Airbnb / Booking / Direct]"
@@ -125,7 +125,7 @@ GAPS="[dates with no booking in next 30 days]"
 
 cat > "${WORKDIR}/${PROPERTY_ID}-report-$(date -u +%Y-%m).md" << EOF
 ---
-title: "Property Report — ${PROPERTY_ID} — ${MONTH}"
+title: "Property Report: ${PROPERTY_ID}: ${MONTH}"
 geometry: "margin=2cm"
 fontsize: 11pt
 ---
@@ -141,8 +141,8 @@ fontsize: 11pt
 
 | Metric | This month | Prior month | Change |
 |--------|-----------|-------------|--------|
-| Nights available | ${NIGHTS_AVAILABLE} | — | — |
-| Nights booked | ${NIGHTS_BOOKED} | — | — |
+| Nights available | ${NIGHTS_AVAILABLE} |: |: |
+| Nights booked | ${NIGHTS_BOOKED} |: |: |
 | Occupancy rate | ${OCCUPANCY_RATE}% | ${OCCUPANCY_PRIOR}% | [+/-] |
 
 ## Revenue
@@ -150,8 +150,8 @@ fontsize: 11pt
 | Metric | This month | Prior month |
 |--------|-----------|-------------|
 | Gross revenue | AED ${GROSS_REVENUE} | AED ${REVENUE_PRIOR} |
-| Average daily rate | AED ${ADR} | — |
-| RevPAR | AED ${REVPAR} | — |
+| Average daily rate | AED ${ADR} |: |
+| RevPAR | AED ${REVPAR} |: |
 
 Top booking channel: ${TOP_CHANNEL}
 
@@ -181,14 +181,14 @@ Gaps to fill: ${GAPS}
 
 ---
 
-*LIOR Property Management — prepared $(date -u +%Y-%m-%d)*
+*LIOR Property Management: prepared $(date -u +%Y-%m-%d)*
 
 EOF
 
 echo "Report draft saved."
 ```
 
-#### Step 3 — Generate Report PDF
+#### Step 3: Generate Report PDF
 
 ```bash
 pandoc "${WORKDIR}/${PROPERTY_ID}-report-$(date -u +%Y-%m).md" \
@@ -203,7 +203,7 @@ pandoc "${WORKDIR}/${PROPERTY_ID}-report-$(date -u +%Y-%m).md" \
 echo "Report PDF: ${WORKDIR}/${PROPERTY_ID}-report-$(date -u +%Y-%m).pdf"
 ```
 
-#### Step 4 — Pricing Optimization Review
+#### Step 4: Pricing Optimization Review
 
 Apply these rules to the upcoming 60-day calendar:
 
@@ -216,18 +216,18 @@ PRICING RULES:
 - Last-minute (≤3 days out, vacant) → -15% to fill the gap
 ```
 
-Agent generates a recommendation table — human approves before any change goes live:
+Agent generates a recommendation table: human approves before any change goes live:
 
 ```bash
 cat > "${WORKDIR}/pricing-recommendations-$(date -u +%Y-%m).txt" << EOF
-PRICING RECOMMENDATIONS — ${PROPERTY_ID} — $(date -u +%B %Y)
+PRICING RECOMMENDATIONS: ${PROPERTY_ID}: $(date -u +%B %Y)
 Generated: $(date -u +%Y-%m-%d)
 
 Current occupancy next 30d: [X]%
 Current ADR: AED [X]
 
 Recommendations (AWAITING HUMAN APPROVAL before implementing):
-[Date range 1]: [Action — e.g. "Reduce ADR from AED 450 to AED 405 (−10%) — occupancy at 62%"]
+[Date range 1]: [Action: e.g. "Reduce ADR from AED 450 to AED 405 (−10%): occupancy at 62%"]
 [Date range 2]: [Action]
 [Weekend uplift]: [Specific dates + proposed rate]
 [Gap dates]: [Dates with no booking + suggested last-minute rate]
@@ -238,7 +238,7 @@ EOF
 echo "Pricing recommendations ready for human review."
 ```
 
-#### Step 5 — Update Notion with Report Data
+#### Step 5: Update Notion with Report Data
 
 ```bash
 NOTION_TOKEN=$(grep NOTION_TOKEN /Users/cashville/.env | cut -d= -f2)
@@ -260,9 +260,9 @@ echo "Notion updated with monthly data."
 
 ---
 
-### WEEK 2 — Guest Experience Audit
+### WEEK 2: Guest Experience Audit
 
-#### Step 1 — Review New Reviews
+#### Step 1: Review New Reviews
 
 Read all new reviews from the prior month. Tag and log recurring themes.
 
@@ -271,15 +271,15 @@ PROPERTY_ID="LIOR-PM2601"
 WORKDIR_GUEST=".tmp/${PROPERTY_ID}/guest-log"
 
 cat >> "${WORKDIR_GUEST}/reviews-$(date -u +%Y-%m).txt" << EOF
-=== Reviews — $(date -u +%B %Y) ===
-[Review 1 — date, platform, score, excerpt]
-[Review 2 — date, platform, score, excerpt]
-[Review 3 — date, platform, score, excerpt]
+=== Reviews: $(date -u +%B %Y) ===
+[Review 1: date, platform, score, excerpt]
+[Review 2: date, platform, score, excerpt]
+[Review 3: date, platform, score, excerpt]
 
 Recurring positive themes: [list]
 Recurring negative themes: [list]
-Ratings below 4/5: [list — escalate to human]
-Maintenance items mentioned by guests: [list — add to maintenance queue]
+Ratings below 4/5: [list: escalate to human]
+Maintenance items mentioned by guests: [list: add to maintenance queue]
 EOF
 ```
 
@@ -294,7 +294,7 @@ We hope to welcome you back.
 
 ---
 
-### WEEK 3 — Seasonal Refresh Assessment
+### WEEK 3: Seasonal Refresh Assessment
 
 Check if seasonal refresh is warranted:
 
@@ -304,7 +304,7 @@ WORKDIR=".tmp/${PROPERTY_ID}"
 CURRENT_MONTH=$(date -u +%m)
 
 cat > "${WORKDIR}/seasonal-check-$(date -u +%Y-%m).txt" << EOF
-SEASONAL REFRESH CHECK — $(date -u +%B %Y)
+SEASONAL REFRESH CHECK: $(date -u +%B %Y)
 
 Trigger criteria (check each):
 [ ] Property in shoulder/peak transition month (Sep=month 09, Apr=month 04)
@@ -313,8 +313,8 @@ Trigger criteria (check each):
 [ ] Platform dashboard showing listing quality warning
 
 Dubai seasonal calendar:
-- September (month 09): prep for peak season — refresh photos, deep clean, small decor updates
-- April (month 04): post-peak — assess wear, update for summer market (longer stays, families)
+- September (month 09): prep for peak season: refresh photos, deep clean, small decor updates
+- April (month 04): post-peak: assess wear, update for summer market (longer stays, families)
 
 Assessment: [REFRESH NEEDED / NOT NEEDED]
 Recommendation if needed: [schedule Virtual Staging update / re-photograph / physical refresh]
@@ -324,9 +324,9 @@ EOF
 
 ---
 
-### WEEK 4 — Maintenance Coordination
+### WEEK 4: Maintenance Coordination
 
-#### Step 1 — Review and Prioritize Queue
+#### Step 1: Review and Prioritize Queue
 
 ```bash
 PROPERTY_ID="LIOR-PM2601"
@@ -341,7 +341,7 @@ cat "${WORKDIR}/maintenance-queue.txt"
 # P3 = future planning → batch quarterly
 ```
 
-#### Step 2 — Contact Vendor for P1 Items
+#### Step 2: Contact Vendor for P1 Items
 
 ```bash
 PHONE=$(grep CALLMEBOT_PHONE /Users/cashville/.env | cut -d= -f2)
@@ -359,25 +359,25 @@ curl -s "https://api.callmebot.com/whatsapp.php?phone=${VENDOR_PHONE}&text=${ENC
 echo "Vendor contacted."
 ```
 
-#### Step 3 — Log Every Maintenance Action
+#### Step 3: Log Every Maintenance Action
 
 ```bash
 PROPERTY_ID="LIOR-PM2601"
 WORKDIR=".tmp/${PROPERTY_ID}"
 
-# Log format — append one line per action:
-echo "[$(date '+%Y-%m-%d')] P[1/2/3] — [issue description]. Vendor: [name]. Scheduled: [date]. Cost: AED [X]. Resolved: [date or PENDING]" \
+# Log format: append one line per action:
+echo "[$(date '+%Y-%m-%d')] P[1/2/3]: [issue description]. Vendor: [name]. Scheduled: [date]. Cost: AED [X]. Resolved: [date or PENDING]" \
   >> "${WORKDIR}/maintenance-queue.txt"
 
 # Example:
-# [2026-06-03] P1 — AC unit in master not cooling. Vendor: CoolFix Dubai. Scheduled: 2026-06-04. Cost: AED 350. Resolved: 2026-06-04.
+# [2026-06-03] P1: AC unit in master not cooling. Vendor: CoolFix Dubai. Scheduled: 2026-06-04. Cost: AED 350. Resolved: 2026-06-04.
 ```
 
 ---
 
-### MONTH-END — Send Report to Owner (5th of month)
+### MONTH-END: Send Report to Owner (5th of month)
 
-#### Step 1 — Upload Report to WeTransfer
+#### Step 1: Upload Report to WeTransfer
 
 ```bash
 PROPERTY_ID="LIOR-PM2601"
@@ -389,7 +389,7 @@ FILE_NAME="${PROPERTY_ID}-report-$(date -u +%Y-%m).pdf"
 
 TRANSFER=$(curl -s -X POST "https://dev.wetransfer.com/v2/transfers" \
   -H "Content-Type: application/json" -H "x-api-key: ${WT_KEY}" \
-  -d "{\"message\":\"${PROPERTY_ID} — Monthly Report $(date -u +%B %Y)\",\"files\":[{\"name\":\"${FILE_NAME}\",\"size\":${FILE_SIZE}}]}")
+  -d "{\"message\":\"${PROPERTY_ID}: Monthly Report $(date -u +%B %Y)\",\"files\":[{\"name\":\"${FILE_NAME}\",\"size\":${FILE_SIZE}}]}")
 
 TRANSFER_ID=$(echo $TRANSFER | python3 -c "import sys,json; print(json.load(sys.stdin)['id'])")
 UPLOAD_URL=$(echo $TRANSFER | python3 -c "import sys,json; print(json.load(sys.stdin)['files'][0]['multipart']['url'])")
@@ -404,7 +404,7 @@ DOWNLOAD_URL=$(curl -s -X PUT "https://dev.wetransfer.com/v2/transfers/${TRANSFE
 echo "DOWNLOAD LINK: ${DOWNLOAD_URL}"
 ```
 
-#### Step 2 — Send WhatsApp to Owner
+#### Step 2: Send WhatsApp to Owner
 
 ```bash
 PHONE=$(grep CALLMEBOT_PHONE /Users/cashville/.env | cut -d= -f2)
@@ -416,10 +416,10 @@ OCCUPANCY="[X]"
 NIGHTS="[N]"
 REVENUE="[X]"
 RATING="[X]"
-HIGHLIGHT="[one-line highlight or concern — e.g. occupancy strong / one guest mention of AC — resolved]"
+HIGHLIGHT="[one-line highlight or concern: e.g. occupancy strong / one guest mention of AC: resolved]"
 PRICING_NOTE="[brief 2-line pricing recommendation for next month]"
 
-MSG="${OWNER_NAME} — ${PROPERTY_ADDR} — ${MONTH_LABEL} report is ready.
+MSG="${OWNER_NAME}: ${PROPERTY_ADDR}: ${MONTH_LABEL} report is ready.
 
 Occupancy: ${OCCUPANCY}% (${NIGHTS} nights booked)
 Revenue: AED ${REVENUE} gross
@@ -435,7 +435,7 @@ curl -s "https://api.callmebot.com/whatsapp.php?phone=${PHONE}&text=${ENCODED}&a
 echo "Report WhatsApp sent to owner."
 ```
 
-#### Step 3 — Update Notion
+#### Step 3: Update Notion
 
 ```bash
 NOTION_TOKEN=$(grep NOTION_TOKEN /Users/cashville/.env | cut -d= -f2)
@@ -450,7 +450,7 @@ curl -s -X PATCH "https://api.notion.com/v1/pages/${PAGE_ID}" \
 echo "Notion updated."
 ```
 
-#### Step 4 — Monthly Log Entry
+#### Step 4: Monthly Log Entry
 
 ```bash
 PROPERTY_ID="LIOR-PM2601"
@@ -460,7 +460,7 @@ echo "[$(date '+%Y-%m-%d')] MONTHLY REPORT DELIVERED: ${PROPERTY_ID} | Month: $(
 
 ---
 
-## VI. GUEST EXPERIENCE — CHECK-IN MANAGEMENT
+## VI. GUEST EXPERIENCE: CHECK-IN MANAGEMENT
 
 Send welcome message to incoming guest 2h before check-in:
 
@@ -474,7 +474,7 @@ ACCESS_INSTRUCTIONS="[e.g. key safe code: 1234 / doorman: ask for unit 1201]"
 WIFI_NETWORK="[network name]"
 WIFI_PASSWORD="[password]"
 
-MSG="Welcome ${GUEST_NAME} — your apartment is ready. Address: ${PROPERTY_ADDRESS}. ${ACCESS_INSTRUCTIONS}. WiFi: ${WIFI_NETWORK} / ${WIFI_PASSWORD}. Any questions, message here. Enjoy your stay."
+MSG="Welcome ${GUEST_NAME}: your apartment is ready. Address: ${PROPERTY_ADDRESS}. ${ACCESS_INSTRUCTIONS}. WiFi: ${WIFI_NETWORK} / ${WIFI_PASSWORD}. Any questions, message here. Enjoy your stay."
 
 ENCODED=$(python3 -c "import urllib.parse,sys; print(urllib.parse.quote(sys.argv[1]))" "${MSG}")
 curl -s "https://api.callmebot.com/whatsapp.php?phone=${GUEST_PHONE}&text=${ENCODED}&apikey=${APIKEY}"
@@ -509,7 +509,7 @@ Monthly report:
 ## VIII. WHATSAPP TEMPLATE (monthly report to owner)
 
 ```
-[OWNER NAME] — [PROPERTY ADDRESS] — [Month] report is ready.
+[OWNER NAME]: [PROPERTY ADDRESS]: [Month] report is ready.
 
 Occupancy: [X]% ([N] nights booked)
 Revenue: AED [X] gross
@@ -530,8 +530,8 @@ Rules: no "AI", no "luxury", no prices (except actual revenue figures), no "dron
 | Tool | Failure | Fix |
 |---|---|---|
 | WeTransfer API | Upload fails | Manual upload at wetransfer.com |
-| WeTransfer API | File too large | Report is typically small (PDF only) — unlikely. If so, compress images. |
-| WeTransfer | Down | Google Drive — share link with "anyone can view" |
+| WeTransfer API | File too large | Report is typically small (PDF only): unlikely. If so, compress images. |
+| WeTransfer | Down | Google Drive: share link with "anyone can view" |
 | Pandoc PDF | xelatex font error | `cp [font.ttf] ~/Library/Fonts/ && fc-cache -fv`. Retry. Or use `--pdf-engine=wkhtmltopdf` |
 | CallMeBot | Phone not registered | Send "I allow callmebot to send me messages" to +34 644 29 73 73 |
 | Notion API | Rate limit | Wait 60s and retry |
@@ -539,7 +539,7 @@ Rules: no "AI", no "luxury", no prices (except actual revenue figures), no "dron
 
 ---
 
-## X. ESCALATION — HUMAN MUST HANDLE
+## X. ESCALATION: HUMAN MUST HANDLE
 
 - Guest complaint rated <3/5 or requesting refund
 - Maintenance issue costs above AED 2,000 (without owner pre-approval)
@@ -561,12 +561,12 @@ YEAR="2026"
 # Compile all monthly report data
 cat > ".tmp/${PROPERTY_ID}/reports/${PROPERTY_ID}-annual-summary-${YEAR}.md" << EOF
 ---
-title: "Annual Property Review — ${PROPERTY_ID} — ${YEAR}"
+title: "Annual Property Review: ${PROPERTY_ID}: ${YEAR}"
 geometry: "margin=2cm"
 fontsize: 11pt
 ---
 
-# Annual Review — ${YEAR}
+# Annual Review: ${YEAR}
 
 ## Performance Summary
 
@@ -601,8 +601,8 @@ echo "Annual summary generated."
 
 ```
 [YYYY-MM-DD HH:MM] REPORT STARTED: [PROPERTY_ID] | Month: [YYYY-MM]
-[YYYY-MM-DD HH:MM] PRICING REVIEW: recommendations ready — awaiting human approval
-[YYYY-MM-DD HH:MM] GUEST AUDIT: [N] reviews reviewed | [N] below 4/5 — escalated
+[YYYY-MM-DD HH:MM] PRICING REVIEW: recommendations ready: awaiting human approval
+[YYYY-MM-DD HH:MM] GUEST AUDIT: [N] reviews reviewed | [N] below 4/5: escalated
 [YYYY-MM-DD HH:MM] MAINTENANCE: [N] items reviewed | [N] P1 contacted | [N] P2/P3 batched
 [YYYY-MM-DD HH:MM] REPORT DELIVERED: [PROPERTY_ID] | Month: [YYYY-MM] | Link: [URL] | WA: sent
 [YYYY-MM-DD HH:MM] ESCALATION: [reason] → human notified

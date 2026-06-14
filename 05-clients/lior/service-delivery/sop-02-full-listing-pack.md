@@ -1,4 +1,4 @@
-# SOP 02 — Full Listing Pack
+# SOP 02: Full Listing Pack
 **Automation: Auto + gate humain (B)**  ·  **Timeline: 72h**  ·  **Livrable: 8 pièces meublées · 1 tour cinématique · 3 films sociaux**
 
 ---
@@ -67,7 +67,7 @@ PROJECT_ID="LIOR-DM2601"  # ← adapter
 mkdir -p .tmp/${PROJECT_ID}-pack/{00-brief,01-client-inputs/{photos,video},02-staging,03-raw-cuts,04-animated-clips,05-assembly,06-audio,07-social,08-exports}
 touch .tmp/${PROJECT_ID}-pack/log.txt
 
-echo "[$(date '+%Y-%m-%d %H:%M')] START ${PROJECT_ID} — Full Listing Pack" >> .tmp/${PROJECT_ID}-pack/log.txt
+echo "[$(date '+%Y-%m-%d %H:%M')] START ${PROJECT_ID}: Full Listing Pack" >> .tmp/${PROJECT_ID}-pack/log.txt
 ```
 
 Placer les fichiers client :
@@ -81,14 +81,14 @@ Placer les fichiers client :
 
 ---
 
-## V. TRACK A — STAGING (8 pièces)
+## V. TRACK A: STAGING (8 pièces)
 
 Exécuter exactement **SOP-01** pour les 8 pièces.
 Dossier de sortie : `.tmp/${PROJECT_ID}-pack/02-staging/`
 
 Ajustements vs SOP-01 :
 - 8 pièces (pas 5)
-- Le style doit être **identique pour les 8 pièces** — le verrouiller après validation de la première
+- Le style doit être **identique pour les 8 pièces**: le verrouiller après validation de la première
 - Le color matching Lightroom/ImageMagick est **obligatoire** (pas optionnel) sur 8 pièces
 
 **Ordre de priorité si moins de 8 photos utilisables :**
@@ -104,7 +104,7 @@ ls -1 .tmp/${PROJECT_ID}-pack/02-staging/*.jpg | wc -l
 
 ---
 
-## VI. TRACK C — EXTRACTION FOOTAGE (démarre en parallèle de Track A)
+## VI. TRACK C: EXTRACTION FOOTAGE (démarre en parallèle de Track A)
 
 Pendant que le staging génère, extraire et ralentir les clips raw.
 
@@ -128,7 +128,7 @@ print('FPS:', v.get('r_frame_rate','?'))
 
 ### 6.2 Extraire les clips
 ```bash
-# Extraction avec timestamps — adapter selon inventaire
+# Extraction avec timestamps: adapter selon inventaire
 ffmpeg -i .tmp/${PROJECT_ID}-pack/01-client-inputs/video/walkthrough.mp4 \
   -ss 00:03:28 -t 00:00:34 -c:v copy -c:a copy \
   .tmp/${PROJECT_ID}-pack/03-raw-cuts/00-opening.mp4
@@ -156,7 +156,7 @@ done
 
 ---
 
-## VII. TRACK B — TOUR CINÉMATIQUE
+## VII. TRACK B: TOUR CINÉMATIQUE
 
 **Démarre uniquement après Track A et Track C complètes.**
 
@@ -165,7 +165,7 @@ Exécuter **`sop-higgfield.md` Phases 0 → 7** en intégralité.
 Paramètres spécifiques Full Listing Pack :
 - Staging stills input : `02-staging/*.jpg` (8 pièces)
 - Raw cuts input : `03-raw-cuts/*-slow.mp4`
-- Durée cible : 60–70s (plus long que le minimum — 8 pièces)
+- Durée cible : 60–70s (plus long que le minimum: 8 pièces)
 - Output : `.tmp/${PROJECT_ID}-pack/08-exports/${PROJECT_ID}-cinematic-v1.mp4`
 
 **Animer chaque staging still via Runway Gen-3 :**
@@ -248,7 +248,7 @@ while IFS='=' read -r ROOM TASK_ID; do
 
     ((ATTEMPTS++))
     [ $ATTEMPTS -ge 60 ] && echo "TIMEOUT ${ROOM}" && break
-    echo "  ${STATUS} (${ATTEMPTS}/60) — 10s..."
+    echo "  ${STATUS} (${ATTEMPTS}/60): 10s..."
     sleep 10
   done
 
@@ -275,9 +275,9 @@ Avant de produire les films sociaux, révision humaine :
 
 ---
 
-## IX. FILMS SOCIAUX (3 films — après gate)
+## IX. FILMS SOCIAUX (3 films: après gate)
 
-**Film 1 — Reel Instagram/TikTok (30s, 9:16)**
+**Film 1: Reel Instagram/TikTok (30s, 9:16)**
 ```bash
 ffmpeg -i .tmp/${PROJECT_ID}-pack/08-exports/${PROJECT_ID}-cinematic-v1.mp4 \
   -vf "crop=ih*9/16:ih:(iw-ih*9/16)/2:0, scale=1080:1920" \
@@ -288,7 +288,7 @@ ffmpeg -i .tmp/${PROJECT_ID}-pack/08-exports/${PROJECT_ID}-cinematic-v1.mp4 \
   .tmp/${PROJECT_ID}-pack/07-social/${PROJECT_ID}-reel-30s-v1.mp4
 ```
 
-**Film 2 — Teaser 15s (9:16)**
+**Film 2: Teaser 15s (9:16)**
 ```bash
 ffmpeg -i .tmp/${PROJECT_ID}-pack/08-exports/${PROJECT_ID}-cinematic-v1.mp4 \
   -ss 00:00:00 -t 00:00:15 \
@@ -299,7 +299,7 @@ ffmpeg -i .tmp/${PROJECT_ID}-pack/08-exports/${PROJECT_ID}-cinematic-v1.mp4 \
   .tmp/${PROJECT_ID}-pack/07-social/${PROJECT_ID}-teaser-15s-v1.mp4
 ```
 
-**Film 3 — Listing portals (30s, 16:9)**
+**Film 3: Listing portals (30s, 16:9)**
 ```bash
 ffmpeg -i .tmp/${PROJECT_ID}-pack/08-exports/${PROJECT_ID}-cinematic-v1.mp4 \
   -ss 00:00:00 -t 00:00:30 \
@@ -368,32 +368,32 @@ ZIP_FILE=".tmp/${PROJECT_ID}-pack/${PROJECT_ID}-listing-pack-v1.zip"
 ZIP_SIZE=$(wc -c < "${ZIP_FILE}")
 ZIP_NAME="${PROJECT_ID}-listing-pack-v1.zip"
 
-# 1 — JWT Bearer token (obligatoire)
+# 1: JWT Bearer token (obligatoire)
 WT_TOKEN=$(curl -s -X POST "https://dev.wetransfer.com/v2/authorize" \
   -H "Content-Type: application/json" \
   -H "x-api-key: ${WT_KEY}" \
   | python3 -c "import sys,json; print(json.load(sys.stdin)['token'])")
 
-# 2 — Créer le transfert
+# 2: Créer le transfert
 TRANSFER=$(curl -s -X POST "https://dev.wetransfer.com/v2/transfers" \
   -H "Content-Type: application/json" \
   -H "x-api-key: ${WT_KEY}" \
   -H "Authorization: Bearer ${WT_TOKEN}" \
-  -d "{\"message\":\"${PROJECT_ID} — Full Listing Pack LIOR\",\"files\":[{\"name\":\"${ZIP_NAME}\",\"size\":${ZIP_SIZE}}]}")
+  -d "{\"message\":\"${PROJECT_ID}: Full Listing Pack LIOR\",\"files\":[{\"name\":\"${ZIP_NAME}\",\"size\":${ZIP_SIZE}}]}")
 
 TRANSFER_ID=$(echo $TRANSFER | python3 -c "import sys,json; print(json.load(sys.stdin)['id'])")
 FILE_ID=$(echo $TRANSFER | python3 -c "import sys,json; print(json.load(sys.stdin)['files'][0]['id'])")
 UPLOAD_URL=$(echo $TRANSFER | python3 -c "import sys,json; print(json.load(sys.stdin)['files'][0]['multipart']['url'])")
 
-# 3 — Upload
+# 3: Upload
 curl -s -X PUT "${UPLOAD_URL}" -H "Content-Type: application/octet-stream" --data-binary @"${ZIP_FILE}"
 
-# 4 — Marquer le fichier comme uploadé (OBLIGATOIRE avant finalize)
+# 4: Marquer le fichier comme uploadé (OBLIGATOIRE avant finalize)
 curl -s -X PUT "https://dev.wetransfer.com/v2/transfers/${TRANSFER_ID}/files/${FILE_ID}/upload-complete" \
   -H "x-api-key: ${WT_KEY}" \
   -H "Authorization: Bearer ${WT_TOKEN}"
 
-# 5 — Finaliser
+# 5: Finaliser
 DOWNLOAD_URL=$(curl -s -X PUT "https://dev.wetransfer.com/v2/transfers/${TRANSFER_ID}/finalize" \
   -H "x-api-key: ${WT_KEY}" \
   -H "Authorization: Bearer ${WT_TOKEN}" \
@@ -408,7 +408,7 @@ PHONE=$(grep CALLMEBOT_PHONE /Users/cashville/.env | cut -d= -f2)
 APIKEY=$(grep CALLMEBOT_API_KEY /Users/cashville/.env | cut -d= -f2)
 CLIENT_NAME="[NOM]"
 
-MSG="${CLIENT_NAME} — votre Full Listing Pack est pret. 8 pieces meublees + tour cinematique + 3 films sociaux. Telechargement (7 jours) : ${DOWNLOAD_URL}"
+MSG="${CLIENT_NAME}: votre Full Listing Pack est pret. 8 pieces meublees + tour cinematique + 3 films sociaux. Telechargement (7 jours) : ${DOWNLOAD_URL}"
 ENCODED=$(python3 -c "import urllib.parse,sys; print(urllib.parse.quote(sys.argv[1]))" "${MSG}")
 curl -s "https://api.callmebot.com/whatsapp.php?phone=${PHONE}&text=${ENCODED}&apikey=${APIKEY}"
 echo "WhatsApp envoyé."
@@ -432,7 +432,7 @@ curl -s -X PATCH "https://api.notion.com/v1/pages/${PAGE_ID}" \
 
 | Heure | Action |
 |-------|--------|
-| H+0 | Inputs validés — Tracks A, B, C lancés |
+| H+0 | Inputs validés: Tracks A, B, C lancés |
 | H+0→H+4 | Track A : staging 8 pièces |
 | H+0→H+2 | Track C : extraction raw footage |
 | H+4 | Track A OK → Track B Phase 3 (animation Runway) |
@@ -448,7 +448,7 @@ curl -s -X PATCH "https://api.notion.com/v1/pages/${PAGE_ID}" \
 
 | Problème | Action |
 |---------|--------|
-| Virtual Staging AI down | REimagineHome API — même structure d'appel |
+| Virtual Staging AI down | REimagineHome API: même structure d'appel |
 | Runway FAILED sur une pièce | Ken Burns FFmpeg (voir commande dans section VII) |
 | Runway down > 2h | Toutes les animations en Ken Burns |
 | WeTransfer API échoue | Upload manuel https://wetransfer.com |

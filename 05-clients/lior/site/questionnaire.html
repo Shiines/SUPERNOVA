@@ -318,7 +318,7 @@ nav{
         <div class="check-icon"><svg viewBox="0 0 10 8" fill="none" stroke="#0E0E10" stroke-width="2"><path d="M1 4l2.5 2.5L9 1"/></svg></div>
         <span class="card-tag">New</span>
         <div class="card-title">Design Concept</div>
-        <p class="card-desc">Full creative direction — style, materials, palette — before a single contractor is briefed.</p>
+        <p class="card-desc">Full creative direction: style, materials, palette. Before a single contractor is briefed.</p>
       </div>
 
       <div class="card" data-step="1" data-value="prereno">
@@ -433,15 +433,14 @@ nav{
         <div class="check-icon"><svg viewBox="0 0 10 8" fill="none" stroke="#0E0E10" stroke-width="2"><path d="M1 4l2.5 2.5L9 1"/></svg></div>
         <span class="card-tag">Standard</span>
         <div class="card-title">72 hours</div>
-        <p class="card-desc">Our default turnaround. Brief to delivery in three days.</p>
+        <p class="card-desc">Our standard. Brief to delivery in 24-72 hours.</p>
       </div>
 
       <div class="card" data-step="5" data-value="48h">
         <div class="check-icon"><svg viewBox="0 0 10 8" fill="none" stroke="#0E0E10" stroke-width="2"><path d="M1 4l2.5 2.5L9 1"/></svg></div>
         <span class="card-tag">Express</span>
         <div class="card-title">48 hours</div>
-        <p class="card-desc">Accelerated production. Priority queue, slight surcharge applied.</p>
-        <span class="card-badge">+25% on estimate</span>
+        <p class="card-desc">Accelerated production. Priority queue.</p>
       </div>
 
       <div class="card" data-step="5" data-value="flexible">
@@ -458,20 +457,14 @@ nav{
     </button>
   </div>
 
-  <!-- ── STEP 6 : QUOTE SUMMARY ── -->
+  <!-- ── STEP 6 : BRIEF SUMMARY ── -->
   <div class="step" data-step="6">
     <div class="summary-wrap">
-      <div class="step-eyebrow">Your estimate</div>
+      <div class="step-eyebrow">Your brief</div>
       <h2 class="step-q" style="margin-bottom:20px">Your project<br><em>at a glance.</em></h2>
       <div class="summary-brief" id="summary-pills"></div>
       <div class="quote-card">
-        <span class="quote-label">Estimated investment</span>
-        <div>
-          <span class="quote-range" id="quote-low">$0</span>
-          <span class="quote-sep">to</span>
-          <span class="quote-range"><em id="quote-high">$0</em></span>
-        </div>
-        <p class="quote-note" id="quote-note"></p>
+        <span class="quote-label">What's included</span>
         <div class="quote-div"></div>
         <div class="quote-includes" id="quote-includes"></div>
         <a href="#" class="btn-wa" id="btn-wa">
@@ -483,31 +476,14 @@ nav{
           Edit my answers
         </button>
       </div>
-      <p class="disclaimer">This estimate is indicative and based on your inputs. LIOR will confirm the exact investment after reviewing your property. No commitment required.</p>
+      <p class="disclaimer">Brief received. We review every project personally and respond with a proposal within 24 hours. No commitment required.</p>
     </div>
   </div>
 
 </div><!-- /quiz -->
 
 <script>
-/* ══════════════════════════════════════════════════════════════════════════════
-   PRICES — UPDATE THESE BEFORE LAUNCH
-   All values in USD. Format: [min, max]
-   ══════════════════════════════════════════════════════════════════════════════ */
-const PRICES = {
-  staging:      { '1-2':[800,1200],   '3-5':[1500,2500],  '6-10':[3000,4500],  '10+':[5000,8000]   },
-  cinematic:    { '1-2':[1200,2000],  '3-5':[2500,3800],  '6-10':[4000,6500],  '10+':[7000,11000]  },
-  floorplan:    { '1-2':[300,500],    '3-5':[500,850],    '6-10':[850,1400],   '10+':[1400,2200]   },
-  full:         { '1-2':[2000,3200],  '3-5':[4000,6500],  '6-10':[7500,11000], '10+':[13000,20000] },
-  spaceplanning:{ '1-2':[600,900],    '3-5':[900,1400],   '6-10':[1400,2200],  '10+':[2200,3500]   },
-  archiviz:     { '1-2':[1000,1600],  '3-5':[1800,3000],  '6-10':[3200,5000],  '10+':[5500,9000]   },
-  concept:      { '1-2':[1200,1800],  '3-5':[2000,3200],  '6-10':[3500,5500],  '10+':[6000,9500]   },
-  prereno:      { '1-2':[900,1400],   '3-5':[1500,2400],  '6-10':[2600,4000],  '10+':[4500,7000]   },
-};
-const EXPRESS = 1.25; // 48h = +25%
-/* ══════════════════════════════════════════════════════════════════════════════ */
-
-/* WhatsApp number — add number after wa.me/ e.g. wa.me/971501234567 */
+/* WhatsApp number: add number after wa.me/ e.g. wa.me/971501234567 */
 const WA_BASE = 'https://wa.me/';
 
 const LABELS = {
@@ -525,7 +501,7 @@ const INCLUDES = {
   spaceplanning: ['Room disposition and circulation flow analysis', 'Scale floor plan with furniture placement', '2 layout options with annotated rationale', 'Ready to hand to any contractor or architect'],
   archiviz:      ['3D volume rendering from your existing floor plan', 'Exterior and interior high-resolution renders', 'Material and natural light simulation', 'Presentation-ready output for clients or investors'],
   concept:       ['Full moodboard and style direction document', 'Key room visualizations in your chosen style', 'Complete material, finish and furniture selection', 'Ready to brief any contractor or interior firm'],
-  prereno:       ['Complete project visualization before works begin', 'Annotated scope of works document', 'Material and finish schedule', 'Contractor-ready brief — nothing lost in translation'],
+  prereno:       ['Complete project visualization before works begin', 'Annotated scope of works document', 'Material and finish schedule', 'Contractor-ready brief. Nothing lost in translation'],
 };
 
 /* ── STATE ── */
@@ -552,7 +528,7 @@ function goToStep(n) {
 }
 
 function nextStep() {
-  if(current < 5) goToStep(current + 1);
+  if(current < 6) goToStep(current + 1);
 }
 
 function prevStep() {
@@ -566,7 +542,7 @@ function updateUI() {
   // Counter
   const counter = document.getElementById('step-counter');
   if(current <= TOTAL_STEPS) counter.textContent = current + ' / ' + TOTAL_STEPS;
-  else counter.textContent = 'Your estimate';
+  else counter.textContent = 'Your brief';
   // Build summary if on step 6
   if(current === 6) buildSummary();
   // Focus location input when on step 3
@@ -605,38 +581,14 @@ document.querySelectorAll('.card').forEach(card => {
   });
 });
 
-/* ── QUOTE CALCULATION ── */
-function calcQuote() {
-  const base = PRICES[state.service]?.[state.spaces];
-  if(!base) return [0,0];
-  const factor = state.timeline === '48h' ? EXPRESS : 1;
-  return [Math.round(base[0] * factor), Math.round(base[1] * factor)];
-}
-
-function fmt(n) {
-  return '$' + n.toLocaleString('en-US');
-}
-
 /* ── BUILD SUMMARY ── */
 function buildSummary() {
-  const [low, high] = calcQuote();
-
   // Pills
   const pills = document.getElementById('summary-pills');
   const pillKeys = ['service','property','spaces','timeline'];
   let pillsHtml = pillKeys.map(k => `<span class="brief-pill">${LABELS[k][state[k]] || ''}</span>`).join('');
   if(state.location) pillsHtml += `<span class="brief-pill">${state.location}</span>`;
   pills.innerHTML = pillsHtml;
-
-  // Quote numbers
-  document.getElementById('quote-low').textContent  = fmt(low);
-  document.getElementById('quote-high').textContent = fmt(high);
-
-  // Note
-  const note = document.getElementById('quote-note');
-  note.textContent = state.timeline === '48h'
-    ? 'Express 48h rate applied (+25%)'
-    : 'Standard 72h delivery';
 
   // Includes
   const inc = document.getElementById('quote-includes');
@@ -645,14 +597,14 @@ function buildSummary() {
     .join('');
 
   // WhatsApp link
-  const msg = buildWAMessage(low, high);
+  const msg = buildWAMessage();
   document.getElementById('btn-wa').href = WA_BASE + '?text=' + encodeURIComponent(msg);
 }
 
 /* ── WHATSAPP MESSAGE ── */
-function buildWAMessage(low, high) {
+function buildWAMessage() {
   const loc = state.location ? `\nLocation: ${state.location}` : '';
-  return `Hi LIOR, here is my project brief:\n\nService: ${LABELS.service[state.service]}\nProperty: ${LABELS.property[state.property]}${loc}\nSpaces: ${LABELS.spaces[state.spaces]}\nTimeline: ${LABELS.timeline[state.timeline]}\n\nEstimate shown: ${fmt(low)} – ${fmt(high)}\n\nReady to discuss.`;
+  return `Hi LIOR, here is my project brief:\n\nService: ${LABELS.service[state.service]}\nProperty: ${LABELS.property[state.property]}${loc}\nSpaces: ${LABELS.spaces[state.spaces]}\nTimeline: ${LABELS.timeline[state.timeline]}\n\nReady to discuss.`;
 }
 
 /* ── INIT ── */

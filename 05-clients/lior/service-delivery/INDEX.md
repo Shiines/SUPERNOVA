@@ -1,5 +1,5 @@
-# LIOR — Service Delivery Index
-> Version 1.1 — June 2026
+# LIOR: Service Delivery Index
+> Version 1.1: June 2026
 
 ## Fichiers de référence (lire EN PREMIER)
 
@@ -30,7 +30,7 @@ All production SOPs for LIOR services. Each file = one service = one autonomous 
 | 08 | Architectural Visualization | Space & Architecture | 5 days | `sop-08-architectural-visualization.md` |
 | 09 | Design Concept | Space & Architecture | 4 days | `sop-09-design-concept.md` |
 | 10 | Pre-Renovation Brief | Space & Architecture | 4 days | `sop-10-pre-renovation-brief.md` |
-| — | Studio Partner | Agency Retainer | Monthly | `sop-studio-partner.md` |
+|: | Studio Partner | Agency Retainer | Monthly | `sop-studio-partner.md` |
 
 **Cinematic Tour production** → see `../../00-system/SOP/sop-higgfield.md` (v2.1)
 
@@ -40,10 +40,10 @@ All production SOPs for LIOR services. Each file = one service = one autonomous 
 
 | Level | Meaning | Services |
 |-------|---------|---------|
-| **A — Full auto** | Agent executes end-to-end, zero human intervention | 01, 07 |
-| **B — Auto + human gate** | Agent does all production, human approves before delivery | 02, 03, 09, 10 |
-| **C — Guided** | Agent handles intake, production, coordination; human leads client sessions | 04, 05, 08 |
-| **D — Managed** | Agent handles reporting and logistics; human drives relationship | 06, Studio Partner |
+| **A: Full auto** | Agent executes end-to-end, zero human intervention | 01, 07 |
+| **B: Auto + human gate** | Agent does all production, human approves before delivery | 02, 03, 09, 10 |
+| **C: Guided** | Agent handles intake, production, coordination; human leads client sessions | 04, 05, 08 |
+| **D: Managed** | Agent handles reporting and logistics; human drives relationship | 06, Studio Partner |
 
 ---
 
@@ -57,14 +57,14 @@ Intake data fields: name, company, property address, service requested, rooms/sc
 
 ### Brief Validation Gate
 Before starting any production, agent checks:
-- [ ] All required inputs received (photos, video, floor plan — per SOP)
+- [ ] All required inputs received (photos, video, floor plan: per SOP)
 - [ ] Style brief confirmed (or defaults applied per property type)
 - [ ] Project ID assigned: `LIOR-[CITY-CODE][YEAR][SEQ]` e.g. `LIOR-DM2601`
 
 If any input is missing → send specific request to client WhatsApp via CallMeBot → log → wait → do not start production.
 
 ### Revision Policy
-- Revisions included in all services — no extra charge, no extended timeline
+- Revisions included in all services: no extra charge, no extended timeline
 - Revisions requested within 48h of delivery → handled within 24h
 - Revisions after 48h → scheduled as next available slot
 - Scope creep (new rooms, new service elements) → new brief
@@ -91,7 +91,7 @@ LIOR-DM2601-concept-book-v1.pdf
 - Language: English (default), French on request
 - No "AI", no "drone", no "FPV" in any client-facing copy
 - No prices in any public-facing message
-- No "luxury" — use: "premium", "high-end", "exceptional"
+- No "luxury": use: "premium", "high-end", "exceptional"
 
 ### Notion Logging
 Update `NOTION_LEADS_DB_ID` at each project milestone:
@@ -111,8 +111,8 @@ Update `NOTION_LEADS_DB_ID` at each project milestone:
 |------|-----|--------|
 | Apply Design API | Virtual staging (empty → furnished) | `POST https://api.applydesign.ai/v1/stage` |
 | Runway Gen-3 API | Image-to-video animation | `POST https://api.dev.runwayml.com/v1/image_to_video` |
-| FFmpeg | Video processing, color grade, export | CLI — Bash |
-| Adobe Firefly API | Image generation (primary — commercial-safe) | `POST https://firefly-api.adobe.io/v3/images/generate` |
+| FFmpeg | Video processing, color grade, export | CLI: Bash |
+| Adobe Firefly API | Image generation (primary: commercial-safe) | `POST https://firefly-api.adobe.io/v3/images/generate` |
 | Replicate SDXL + ControlNet | Architectural renders, moodboards (Firefly fallback) | `POST https://api.replicate.com/v1/predictions` |
 | RoomSketcher API | Space planning / floor plan generation | `POST https://api.roomsketcher.com/v2/projects` |
 | Photoshop (local) | Retouch, compositing | Desktop / Photoshop Actions |

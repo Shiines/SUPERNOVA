@@ -1,4 +1,4 @@
-# TOOLS.md — Comment utiliser chaque outil
+# TOOLS.md: Comment utiliser chaque outil
 > Référence technique partagée par tous les SOPs LIOR.
 > Chaque section = un outil = comment l'utiliser de A à Z.
 
@@ -6,7 +6,7 @@
 
 ## 1. HÉBERGEMENT D'IMAGES (requis avant tout appel API)
 
-La plupart des APIs de staging et de génération nécessitent une URL publique pour l'image source — pas un fichier local.
+La plupart des APIs de staging et de génération nécessitent une URL publique pour l'image source: pas un fichier local.
 
 ### ImgBB (gratuit, simple)
 
@@ -56,7 +56,7 @@ Sauvegarder l'URL retournée → utiliser dans les API calls suivants.
 
 ### Workflow API complet
 
-**Step 1 — Upload et stage:**
+**Step 1: Upload et stage:**
 ```bash
 VSTAGING_KEY=$(grep VSTAGING_API_KEY /Users/cashville/.env | cut -d= -f2)
 IMAGE_URL="https://i.ibb.co/xxxxx/living-room-empty.jpg"
@@ -86,7 +86,7 @@ curl -X POST "https://api.virtualstaging.ai/v1/stage" \
 }
 ```
 
-**Step 2 — Polling pour le résultat (toutes les 10s):**
+**Step 2: Polling pour le résultat (toutes les 10s):**
 ```bash
 JOB_ID="job_abc123xyz"
 
@@ -105,12 +105,12 @@ while true; do
     break
   fi
   
-  echo "Status: $STATUS — waiting 10s..."
+  echo "Status: $STATUS: waiting 10s..."
   sleep 10
 done
 ```
 
-**Step 3 — Téléchargement du résultat:**
+**Step 3: Téléchargement du résultat:**
 ```bash
 OUTPUT_URL="https://cdn.virtualstaging.ai/results/job_abc123xyz.jpg"
 
@@ -189,7 +189,7 @@ curl -X POST "https://api.dev.runwayml.com/v1/image_to_video" \
 
 ## 5. MIDJOURNEY (moodboards, visualisations architecturales)
 
-### Option A — Discord (méthode principale)
+### Option A: Discord (méthode principale)
 
 **Setup (une seule fois):**
 1. Créer un compte Discord si absent
@@ -218,7 +218,7 @@ import discord, requests, re
 # Télécharger en local
 ```
 
-### Option B — Midjourney API (accès limité, beta)
+### Option B: Midjourney API (accès limité, beta)
 
 Si accès API accordé:
 ```bash
@@ -320,7 +320,7 @@ curl -L "[OUTPUT_URL]" -o ".tmp/[PROJECT-ID]/02-generated/moodboard-v1.jpg"
 
 ---
 
-## 7. REPLICATE — STABLE DIFFUSION + CONTROLNET (visualisation architecturale avancée)
+## 7. REPLICATE: STABLE DIFFUSION + CONTROLNET (visualisation architecturale avancée)
 
 **Site:** https://replicate.com
 **Utiliser pour:** rendu architectural avec contrôle précis de la géométrie (SOP-08)
@@ -378,7 +378,7 @@ while true; do
     break
   fi
   
-  echo "Status: $STATUS — waiting 5s..."
+  echo "Status: $STATUS: waiting 5s..."
   sleep 5
 done
 ```
@@ -472,7 +472,7 @@ pandoc input.md -o output.pdf --pdf-engine=xelatex
 Créer un fichier de variables YAML en tête du .md:
 ```markdown
 ---
-title: "Design Concept — LIOR-DC2601"
+title: "Design Concept: LIOR-DC2601"
 date: "June 2026"
 geometry: "margin=2cm"
 fontsize: 11pt
@@ -506,7 +506,7 @@ pandoc cover.md moodboard-section.md rooms-section.md materials.md \
 
 ## 11. PHOTOSHOP (retouche et export)
 
-### Retouche rapide en ligne de commande (ImageMagick — alternative Photoshop)
+### Retouche rapide en ligne de commande (ImageMagick: alternative Photoshop)
 ```bash
 brew install imagemagick
 
@@ -549,10 +549,10 @@ Si Photoshop est installé localement, une action peut être créée:
    - Exposure: +0.1 à +0.2 (légèrement plus lumineux)
    - Highlights: -20 (récupérer les hautes lumières)
    - Shadows: +15 (lever les ombres)
-   - Vibrance: -5 (légèrement désaturé — pas d'Instagram)
+   - Vibrance: -5 (légèrement désaturé: pas d'Instagram)
 5. Dans Library, sélectionner toutes les autres images
 6. Settings → Paste Settings → cocher White Balance + Tone
-7. Vérifier chaque image — ajustements individuels si nécessaire (cuisine et salle de bain souvent plus froide — température à +100K)
+7. Vérifier chaque image: ajustements individuels si nécessaire (cuisine et salle de bain souvent plus froide: température à +100K)
 8. File → Export → format JPG, qualité 92, espace colorimétrique sRGB, supprimer métadonnées
 
 ---
@@ -568,12 +568,12 @@ Si Photoshop est installé localement, une action peut être créée:
 ```bash
 WT_KEY=$(grep WETRANSFER_API_KEY /Users/cashville/.env | cut -d= -f2)
 
-# Step 1 — Créer le transfert
+# Step 1: Créer le transfert
 TRANSFER=$(curl -s -X POST "https://dev.wetransfer.com/v2/transfers" \
   -H "Content-Type: application/json" \
   -H "x-api-key: ${WT_KEY}" \
   -d '{
-    "message": "[PROJECT-ID] — Livraison LIOR",
+    "message": "[PROJECT-ID]: Livraison LIOR",
     "files": [
       { "name": "[PROJECT-ID]-listing-pack-v1.zip", "size": [TAILLE_EN_OCTETS] }
     ]
@@ -585,12 +585,12 @@ UPLOAD_URL=$(echo $TRANSFER | python3 -c "import sys,json; print(json.load(sys.s
 echo "Transfer ID: $TRANSFER_ID"
 echo "Upload URL: $UPLOAD_URL"
 
-# Step 2 — Upload le fichier
+# Step 2: Upload le fichier
 curl -X PUT "${UPLOAD_URL}" \
   -H "Content-Type: application/octet-stream" \
   --data-binary @".tmp/[PROJECT-ID]/[PROJECT-ID]-listing-pack-v1.zip"
 
-# Step 3 — Finaliser le transfert
+# Step 3: Finaliser le transfert
 RESULT=$(curl -s -X PUT "https://dev.wetransfer.com/v2/transfers/${TRANSFER_ID}/finalize" \
   -H "x-api-key: ${WT_KEY}")
 
@@ -603,13 +603,13 @@ echo "Download URL: $DOWNLOAD_URL"
 1. Aller sur https://wetransfer.com
 2. Cliquer "Add your files"
 3. Glisser le ZIP du projet
-4. Entrer le message: "[PROJECT-ID] — Livraison LIOR"
+4. Entrer le message: "[PROJECT-ID]: Livraison LIOR"
 5. Cliquer "Transfer" → obtenir le lien de téléchargement
 6. Copier le lien → envoyer via CallMeBot
 
 ---
 
-## 14. CALLMEBOT — WHATSAPP NOTIFICATIONS
+## 14. CALLMEBOT: WHATSAPP NOTIFICATIONS
 
 ### Setup (une seule fois, par numéro)
 1. Enregistrer le numéro CallMeBot dans les contacts WhatsApp: **+34 644 29 73 73**
@@ -625,7 +625,7 @@ echo "Download URL: $DOWNLOAD_URL"
 PHONE=$(grep CALLMEBOT_PHONE /Users/cashville/.env | cut -d= -f2)
 APIKEY=$(grep CALLMEBOT_API_KEY /Users/cashville/.env | cut -d= -f2)
 
-MESSAGE="[CLIENT NAME] — votre commande est prête. Download : https://wetransfer.com/xxx"
+MESSAGE="[CLIENT NAME]: votre commande est prête. Download : https://wetransfer.com/xxx"
 
 # Encoder le message (espaces → +, caractères spéciaux → %XX)
 ENCODED_MESSAGE=$(python3 -c "import urllib.parse; print(urllib.parse.quote('${MESSAGE}'))")
@@ -649,7 +649,7 @@ curl -s "https://api.callmebot.com/whatsapp.php?phone=${PHONE}&text=${ENCODED}&a
 ### Limites
 - 1 message par 5 secondes minimum (rate limit)
 - Messages longs (>300 chars) : tronquer ou diviser en 2 messages
-- Format: texte uniquement (pas de fichiers, pas de liens cliquables sur tous les appareils — coller l'URL en clair)
+- Format: texte uniquement (pas de fichiers, pas de liens cliquables sur tous les appareils: coller l'URL en clair)
 
 ---
 

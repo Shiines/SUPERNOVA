@@ -1,5 +1,5 @@
-# SOP 10 — Pre-Renovation Brief
-**Automation level: B — Auto + human gate**
+# SOP 10: Pre-Renovation Brief
+**Automation level: B: Auto + human gate**
 **Timeline: 4 days from confirmed inputs**
 **Deliverable: Before/after visualizations · annotated scope of works · material + finish schedule · contractor-ready brief PDF**
 
@@ -36,14 +36,14 @@ brew install wkhtmltopdf           # PDF fallback
 grep -E "IMGBB_API_KEY|VSTAGING_API_KEY|ADOBE_CLIENT_ID|ADOBE_CLIENT_SECRET|WETRANSFER_API_KEY|CALLMEBOT_PHONE|CALLMEBOT_API_KEY|NOTION_TOKEN" /Users/cashville/.env
 
 # Keys needed:
-# IMGBB_API_KEY          — image hosting
-# VSTAGING_API_KEY       — Virtual Staging AI (primary "after" visualization)
-# ADOBE_CLIENT_ID        — Firefly (rooms with structural changes — no existing photo to stage)
-# ADOBE_CLIENT_SECRET    — Firefly
-# WETRANSFER_API_KEY     — delivery
-# CALLMEBOT_PHONE        — WhatsApp
-# CALLMEBOT_API_KEY      — WhatsApp
-# NOTION_TOKEN           — project tracking
+# IMGBB_API_KEY         : image hosting
+# VSTAGING_API_KEY      : Virtual Staging AI (primary "after" visualization)
+# ADOBE_CLIENT_ID       : Firefly (rooms with structural changes: no existing photo to stage)
+# ADOBE_CLIENT_SECRET   : Firefly
+# WETRANSFER_API_KEY    : delivery
+# CALLMEBOT_PHONE       : WhatsApp
+# CALLMEBOT_API_KEY     : WhatsApp
+# NOTION_TOKEN          : project tracking
 ```
 
 ---
@@ -60,20 +60,20 @@ touch .tmp/${PROJECT_ID}-reno-brief/log.txt
 
 ## V. PRODUCTION STEPS
 
-### Step 1 — Parse Renovation Goals (Day 1)
+### Step 1: Parse Renovation Goals (Day 1)
 
 ```bash
 PROJECT_ID="LIOR-RB2601"
 WORKDIR=".tmp/${PROJECT_ID}-reno-brief"
 
 cat > "${WORKDIR}/00-brief/00-renovation-brief.txt" << 'EOF'
-RENOVATION BRIEF — [PROJECT_ID]
+RENOVATION BRIEF: [PROJECT_ID]
 ─────────────────────────────────────────────────────────
 LIVING ROOM
   Current issues: [dark / dated finishes / poor layout / no storage]
   Goal: [open to kitchen? / new flooring? / repaint? / reconfigure?]
   Scope level: [cosmetic / partial / full]
-  Structural change: [yes/no — specify if yes]
+  Structural change: [yes/no: specify if yes]
 
 KITCHEN
   Current issues: [cramped / no island / outdated / poor storage]
@@ -98,7 +98,7 @@ TOTAL BUDGET: AED [X,XXX–X,XXX]
 STYLE DIRECTION: [from brief]
 TARGET COMPLETION: [date]
 
-BUDGET SPLIT (LIOR draft allocation — confirm with contractor):
+BUDGET SPLIT (LIOR draft allocation: confirm with contractor):
   Flooring:      ~[X]%
   Paint/finishes: ~[X]%
   Kitchen:       ~[X]%
@@ -110,17 +110,17 @@ Dubai market budget guidance:
   Partial room (above + some furniture/fit-out): AED 20,000–50,000
   Full kitchen (strip + new cabs + countertop + appliances): AED 40,000–120,000
   Bathroom wet room (full): AED 25,000–60,000
-  (All figures approximate — actual quotes may vary significantly by contractor)
+  (All figures approximate: actual quotes may vary significantly by contractor)
 ─────────────────────────────────────────────────────────
 EOF
 echo "Renovation brief parsed."
 ```
 
-### Step 2 — Before/After Visualizations (Days 1–2)
+### Step 2: Before/After Visualizations (Days 1–2)
 
 For each room being renovated: produce the "after" state. For rooms with structural changes (wall removed, kitchen reconfigured), use Firefly since the existing photo no longer represents the post-change space.
 
-#### 2A — Copy before photos
+#### 2A: Copy before photos
 
 ```bash
 PROJECT_ID="LIOR-RB2601"
@@ -134,7 +134,7 @@ cp "${WORKDIR}/01-client-inputs/master-current.jpg" "${WORKDIR}/02-visualization
 echo "Before photos organized."
 ```
 
-#### 2B — Virtual Staging AI for cosmetic/partial rooms (no structural change)
+#### 2B: Virtual Staging AI for cosmetic/partial rooms (no structural change)
 
 ```bash
 IMGBB_KEY=$(grep IMGBB_API_KEY /Users/cashville/.env | cut -d= -f2)
@@ -175,16 +175,16 @@ while true; do
     echo "After visualization: ${ROOM}"
     break
   elif [ "$STATUS" = "failed" ]; then
-    echo "FAILED: ${ROOM} — use Firefly (Step 2C)"
+    echo "FAILED: ${ROOM}: use Firefly (Step 2C)"
     echo "[$(date '+%Y-%m-%d %H:%M')] FALLBACK vstaging → Firefly for ${ROOM}" >> "${WORKDIR}/log.txt"
     break
   fi
-  echo "${ROOM}: ${STATUS} — waiting 10s..."
+  echo "${ROOM}: ${STATUS}: waiting 10s..."
   sleep 10
 done
 ```
 
-#### 2C — Firefly for rooms with structural changes (or as fallback)
+#### 2C: Firefly for rooms with structural changes (or as fallback)
 
 ```bash
 ADOBE_CLIENT_ID=$(grep ADOBE_CLIENT_ID /Users/cashville/.env | cut -d= -f2)
@@ -255,7 +255,7 @@ CHOSEN_URL="[selected URL]"
 curl -L "${CHOSEN_URL}" -o "${WORKDIR}/02-visualizations/after/${PROJECT_ID}-after-${ROOM}-v1.jpg"
 ```
 
-#### 2D — Create Before/After Side-by-Side (ImageMagick)
+#### 2D: Create Before/After Side-by-Side (ImageMagick)
 
 ```bash
 PROJECT_ID="LIOR-RB2601"
@@ -277,19 +277,19 @@ for ROOM in living kitchen master bathroom; do
 
     echo "Before/after created: ${ROOM}"
   else
-    echo "Missing before or after for ${ROOM} — skipping before/after composite"
+    echo "Missing before or after for ${ROOM}: skipping before/after composite"
   fi
 done
 ```
 
 **Visualization QA per room:**
-- [ ] "After" visualization is consistent with the stated renovation scope — do not show structural changes if scope is cosmetic only
+- [ ] "After" visualization is consistent with the stated renovation scope: do not show structural changes if scope is cosmetic only
 - [ ] Materials in visualization match the brief palette
 - [ ] Side-by-side images are at the same height and proportion
 - [ ] No artifacts in "after" images
 - [ ] "After" looks achievable, not exaggerated
 
-### Step 3 — Scope of Works (Day 2)
+### Step 3: Scope of Works (Day 2)
 
 A structured, room-by-room works list. This is what a contractor quotes from.
 
@@ -299,7 +299,7 @@ WORKDIR=".tmp/${PROJECT_ID}-reno-brief"
 
 cat > "${WORKDIR}/03-scope/${PROJECT_ID}-scope-of-works-v1.md" << 'EOF'
 ---
-title: "Scope of Works — [PROJECT_ID]"
+title: "Scope of Works: [PROJECT_ID]"
 geometry: "margin=2cm"
 fontsize: 11pt
 ---
@@ -316,14 +316,14 @@ fontsize: 11pt
 ## Living Room
 
 ### To demolish / remove:
-- Existing flooring (type: [parquet / tile / carpet]) — full room ~[X]m²
+- Existing flooring (type: [parquet / tile / carpet]): full room ~[X]m²
 - Existing ceiling light fixture
 - [Other removals]
 
 ### To supply and install:
-- Engineered oak flooring, herringbone, [spec] — approx [X]m²
-- Repaint all walls — color: [ref] — 2 coats minimum
-- Ceiling-mounted curtain track — [X]m run × [N] curtains
+- Engineered oak flooring, herringbone, [spec]: approx [X]m²
+- Repaint all walls: color: [ref]: 2 coats minimum
+- Ceiling-mounted curtain track: [X]m run × [N] curtains
 - [Other items]
 
 ### Not changing:
@@ -332,7 +332,7 @@ fontsize: 11pt
 - Electrical sockets (no relocation)
 
 ### Notes / flags for contractor:
-- Confirm floor substrate before ordering herringbone — may require levelling
+- Confirm floor substrate before ordering herringbone: may require levelling
 - Check north-facing wall for moisture before painting
 
 **Estimated budget allocation: AED [X,XXX – X,XXX]**
@@ -347,14 +347,14 @@ fontsize: 11pt
 - Existing countertop
 
 ### To supply and install:
-- New kitchen units — [style: handleless / shaker / slab] — [color]
-- Countertop: [material: engineered quartz / marble] — [color ref]
-- Backsplash: [material] — [dimensions]
-- Island: [dimensions] — [worktop material]
-- Appliances: [list: oven / hob / hood / fridge — brand tier]
+- New kitchen units: [style: handleless / shaker / slab]: [color]
+- Countertop: [material: engineered quartz / marble]: [color ref]
+- Backsplash: [material]: [dimensions]
+- Island: [dimensions]: [worktop material]
+- Appliances: [list: oven / hob / hood / fridge: brand tier]
 
 ### Structural note:
-⚠ If wall between kitchen and living is to be removed: REQUIRES STRUCTURAL ASSESSMENT before work begins. LIOR cannot confirm load-bearing status — consult structural engineer.
+⚠ If wall between kitchen and living is to be removed: REQUIRES STRUCTURAL ASSESSMENT before work begins. LIOR cannot confirm load-bearing status: consult structural engineer.
 
 **Estimated budget allocation: AED [X,XXX – X,XXX]**
 
@@ -383,7 +383,7 @@ fontsize: 11pt
 
 ### To supply and install:
 - [Tiles: material, size, format]
-- [Fixtures: basin, WC, shower / bath — brand tier]
+- [Fixtures: basin, WC, shower / bath: brand tier]
 - [Accessories: towel rails, mirrors, lighting]
 
 **Estimated budget allocation: AED [X,XXX – X,XXX]**
@@ -410,7 +410,7 @@ EOF
 echo "Scope of works saved."
 ```
 
-### Step 4 — Material + Finish Schedule (Day 3)
+### Step 4: Material + Finish Schedule (Day 3)
 
 Full specification of every material decision. Follows SOP-09 Step 5 format. Cover every room in renovation scope. Include Dubai market availability tier for each item.
 
@@ -420,12 +420,12 @@ WORKDIR=".tmp/${PROJECT_ID}-reno-brief"
 
 cat > "${WORKDIR}/04-materials/${PROJECT_ID}-material-schedule-v1.md" << 'EOF'
 ---
-title: "Material Schedule — [PROJECT_ID]"
+title: "Material Schedule: [PROJECT_ID]"
 geometry: "margin=1.5cm"
 fontsize: 10pt
 ---
 
-# Material Schedule — [PROJECT_ID]
+# Material Schedule: [PROJECT_ID]
 Property: [Address]
 Style direction: [name]
 Budget tier: [entry / mid / high-end]
@@ -433,7 +433,7 @@ Budget tier: [entry / mid / high-end]
 Dubai market availability tiers:
 - Available locally (same week): common tiles, standard paint, basic flooring
 - Available Dubai (1–2 week lead): mid-range European brands at Marina Mall / Design District
-- Import required (4–8 weeks): specific European/UK brands not stocked locally — flag these
+- Import required (4–8 weeks): specific European/UK brands not stocked locally: flag these
 
 ---
 
@@ -458,7 +458,7 @@ Dubai market availability tiers:
 | Item | Form | Material | Color | Budget ref |
 |------|------|---------|-------|-----------|
 | Sofa | 3-seat modular, low-back | Performance linen | Warm cream | [Entry: Zara Home / Mid: BoConcept / High: RH] |
-| Coffee table | Rectangle 120×60 | Honed travertine top | — | [Supplier] |
+| Coffee table | Rectangle 120×60 | Honed travertine top |: | [Supplier] |
 
 ---
 
@@ -479,7 +479,7 @@ EOF
 echo "Material schedule saved."
 ```
 
-### Step 5 — Contractor Brief PDF Assembly (Day 3–4)
+### Step 5: Contractor Brief PDF Assembly (Day 3–4)
 
 Single PDF combining all elements. This is what gets sent to contractors for quotes.
 
@@ -489,7 +489,7 @@ WORKDIR=".tmp/${PROJECT_ID}-reno-brief"
 
 cat > "${WORKDIR}/06-pdf-assembly/contractor-brief.md" << EOF
 ---
-title: "Pre-Renovation Brief — ${PROJECT_ID}"
+title: "Pre-Renovation Brief: ${PROJECT_ID}"
 date: "$(date -u +%B %Y)"
 geometry: "margin=2cm"
 fontsize: 11pt
@@ -507,21 +507,21 @@ fontsize: 11pt
 
 ## Project Overview
 
-[Goals summary — 3–5 bullets from renovation brief]
+[Goals summary: 3–5 bullets from renovation brief]
 
 ---
 
 ## Current State
 
-![Current — Living](${WORKDIR}/02-visualizations/before/${PROJECT_ID}-before-living.jpg){ width=100% }
+![Current: Living](${WORKDIR}/02-visualizations/before/${PROJECT_ID}-before-living.jpg){ width=100% }
 
-![Current — Kitchen](${WORKDIR}/02-visualizations/before/${PROJECT_ID}-before-kitchen.jpg){ width=100% }
+![Current: Kitchen](${WORKDIR}/02-visualizations/before/${PROJECT_ID}-before-kitchen.jpg){ width=100% }
 
 [Include current state photos for key rooms]
 
 ---
 
-## Before / After — Living Room
+## Before / After: Living Room
 
 ![Before/After Living](${WORKDIR}/02-visualizations/before-after/${PROJECT_ID}-before-after-living.jpg){ width=100% }
 
@@ -529,7 +529,7 @@ fontsize: 11pt
 
 ---
 
-## Before / After — Kitchen
+## Before / After: Kitchen
 
 ![Before/After Kitchen](${WORKDIR}/02-visualizations/before-after/${PROJECT_ID}-before-after-kitchen.jpg){ width=100% }
 
@@ -537,7 +537,7 @@ fontsize: 11pt
 
 ---
 
-## Before / After — Master Bedroom
+## Before / After: Master Bedroom
 
 ![Before/After Master](${WORKDIR}/02-visualizations/before-after/${PROJECT_ID}-before-after-master.jpg){ width=100% }
 
@@ -557,7 +557,7 @@ fontsize: 11pt
 
 ---
 
-*Questions? Contact LIOR — [contact details]*
+*Questions? Contact LIOR: [contact details]*
 
 EOF
 
@@ -581,14 +581,14 @@ ls -lh "${WORKDIR}/05-exports/"
 ## VI. QA CHECKLIST
 
 Human reviews before delivery:
-- [ ] Scope of works is realistic — nothing impossible or contradictory
-- [ ] "After" visualizations match the stated scope exactly — no structural changes shown if scope is cosmetic
+- [ ] Scope of works is realistic: nothing impossible or contradictory
+- [ ] "After" visualizations match the stated scope exactly: no structural changes shown if scope is cosmetic
 - [ ] Budget allocations are defensible for Dubai market
-- [ ] No structural items specified by LIOR — all structural items flagged for engineer sign-off
+- [ ] No structural items specified by LIOR: all structural items flagged for engineer sign-off
 - [ ] Material specs: all references real and available in Dubai market
 - [ ] No items flagged as "import required (4–8 weeks)" presented as quick-win items
 - [ ] Before/after side-by-side images are at matching height/proportion
-- [ ] PDF opens correctly — no broken image links, no placeholder text
+- [ ] PDF opens correctly: no broken image links, no placeholder text
 - [ ] Correct project name, address, date on cover
 
 ---
@@ -616,7 +616,7 @@ ZIP_SIZE=$(wc -c < "${ZIP_FILE}")
 
 TRANSFER=$(curl -s -X POST "https://dev.wetransfer.com/v2/transfers" \
   -H "Content-Type: application/json" -H "x-api-key: ${WT_KEY}" \
-  -d "{\"message\":\"${PROJECT_ID} — Pre-Renovation Brief LIOR\",\"files\":[{\"name\":\"${PROJECT_ID}-renovation-brief-v1.zip\",\"size\":${ZIP_SIZE}}]}")
+  -d "{\"message\":\"${PROJECT_ID}: Pre-Renovation Brief LIOR\",\"files\":[{\"name\":\"${PROJECT_ID}-renovation-brief-v1.zip\",\"size\":${ZIP_SIZE}}]}")
 
 TRANSFER_ID=$(echo $TRANSFER | python3 -c "import sys,json; print(json.load(sys.stdin)['id'])")
 UPLOAD_URL=$(echo $TRANSFER | python3 -c "import sys,json; print(json.load(sys.stdin)['files'][0]['multipart']['url'])")
@@ -639,7 +639,7 @@ APIKEY=$(grep CALLMEBOT_API_KEY /Users/cashville/.env | cut -d= -f2)
 CLIENT_NAME="[CLIENT NAME]"
 N_ROOMS="[N]"
 
-MSG="${CLIENT_NAME} — your Pre-Renovation Brief is ready.
+MSG="${CLIENT_NAME}: your Pre-Renovation Brief is ready.
 
 The document includes:
 - Before/after visualizations for all ${N_ROOMS} rooms
@@ -685,7 +685,7 @@ echo "[$(date '+%Y-%m-%d %H:%M')] DELIVERED: ${PROJECT_ID} | Service: renovation
 ## VIII. WHATSAPP TEMPLATE
 
 ```
-[CLIENT NAME] — your Pre-Renovation Brief is ready.
+[CLIENT NAME]: your Pre-Renovation Brief is ready.
 
 The document includes:
 - Before/after visualizations for all [N] rooms
@@ -716,7 +716,7 @@ Rules: no "AI", no "luxury", no prices (except actual budget allocations), no "d
 | Pandoc PDF | xelatex font error | `cp [font.ttf] ~/Library/Fonts/ && fc-cache -fv`. Or `--pdf-engine=wkhtmltopdf` |
 | WeTransfer API | Upload fails | Manual upload at wetransfer.com |
 | WeTransfer | File >2GB | Split: PDF + before/after images separately |
-| WeTransfer | Down | Google Drive — share "anyone with link can view" |
+| WeTransfer | Down | Google Drive: share "anyone with link can view" |
 | CallMeBot | Phone not registered | Send "I allow callmebot to send me messages" to +34 644 29 73 73 |
 | ImgBB | Upload fails | Retry after 30s. 32MB max. |
 
@@ -727,7 +727,7 @@ Rules: no "AI", no "luxury", no prices (except actual budget allocations), no "d
 If client asks LIOR to send brief directly to contractors (human approves list first):
 
 ```
-Subject: Renovation Brief — [Property Address] — Quote Request
+Subject: Renovation Brief: [Property Address]: Quote Request
 
 Hi [Contractor name],
 
@@ -750,13 +750,13 @@ LIOR Studio
 
 ```
 [YYYY-MM-DD HH:MM] STARTED: [PROJECT_ID] | rooms=[N] | budget=AED [X] | scope=[cosmetic/partial/full]
-[YYYY-MM-DD HH:MM] BEFORE PHOTOS: organized — [N] rooms
-[YYYY-MM-DD HH:MM] VISUALIZATION: [room] — after via [vstaging / Firefly / Replicate]
+[YYYY-MM-DD HH:MM] BEFORE PHOTOS: organized: [N] rooms
+[YYYY-MM-DD HH:MM] VISUALIZATION: [room]: after via [vstaging / Firefly / Replicate]
 [YYYY-MM-DD HH:MM] BEFORE/AFTER: side-by-side created for [room]
-[YYYY-MM-DD HH:MM] SCOPE: written — [N] rooms
-[YYYY-MM-DD HH:MM] MATERIALS: schedule written — [N] rooms
-[YYYY-MM-DD HH:MM] PDF: generated — [filename]
-[YYYY-MM-DD HH:MM] FALLBACK: [tool] → [alternative] — [room] — [reason]
+[YYYY-MM-DD HH:MM] SCOPE: written: [N] rooms
+[YYYY-MM-DD HH:MM] MATERIALS: schedule written: [N] rooms
+[YYYY-MM-DD HH:MM] PDF: generated: [filename]
+[YYYY-MM-DD HH:MM] FALLBACK: [tool] → [alternative]: [room]: [reason]
 [YYYY-MM-DD HH:MM] QA: APPROVED by [name]
 [YYYY-MM-DD HH:MM] DELIVERED: [PROJECT_ID] | ZIP: [filename] | Link: [URL] | WA: sent
 ```

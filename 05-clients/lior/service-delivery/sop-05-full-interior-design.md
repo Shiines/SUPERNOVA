@@ -1,11 +1,11 @@
-# SOP 05 — Full Interior Design
-**Automation level: C — Guided (agent handles production and coordination; human leads all client sessions)**
+# SOP 05: Full Interior Design
+**Automation level: C: Guided (agent handles production and coordination; human leads all client sessions)**
 **Timeline: 2–4 weeks depending on property size**
 **Deliverable: Complete multi-room design · interior architecture plans · full visualization · material + furniture specification · contractor-ready documentation · project coordination**
 
 ## I. OVERVIEW
 
-The highest-value service. Client gets a single point of contact from first concept to finished space. Five phases with human-gated checkpoints between each. Agent manages the entire production pipeline — questionnaire to final handover package. Human manages the client relationship, presents concept, and confirms direction before each phase advances.
+The highest-value service. Client gets a single point of contact from first concept to finished space. Five phases with human-gated checkpoints between each. Agent manages the entire production pipeline: questionnaire to final handover package. Human manages the client relationship, presents concept, and confirms direction before each phase advances.
 
 ---
 
@@ -36,14 +36,14 @@ brew install wkhtmltopdf          # PDF engine fallback
 grep -E "IMGBB_API_KEY|VSTAGING_API_KEY|ADOBE_CLIENT_ID|ADOBE_CLIENT_SECRET|WETRANSFER_API_KEY|CALLMEBOT_PHONE|CALLMEBOT_API_KEY|NOTION_TOKEN" /Users/cashville/.env
 
 # Keys needed:
-# IMGBB_API_KEY          — image hosting
-# VSTAGING_API_KEY       — Virtual Staging AI (room visualizations)
-# ADOBE_CLIENT_ID        — Firefly (concept visualizations + fallback)
-# ADOBE_CLIENT_SECRET    — Firefly
-# WETRANSFER_API_KEY     — delivery
-# CALLMEBOT_PHONE        — WhatsApp
-# CALLMEBOT_API_KEY      — WhatsApp
-# NOTION_TOKEN           — project tracking
+# IMGBB_API_KEY         : image hosting
+# VSTAGING_API_KEY      : Virtual Staging AI (room visualizations)
+# ADOBE_CLIENT_ID       : Firefly (concept visualizations + fallback)
+# ADOBE_CLIENT_SECRET   : Firefly
+# WETRANSFER_API_KEY    : delivery
+# CALLMEBOT_PHONE       : WhatsApp
+# CALLMEBOT_API_KEY     : WhatsApp
+# NOTION_TOKEN          : project tracking
 ```
 
 ---
@@ -72,9 +72,9 @@ Phase 5: Coordination + Handover  (Days 19–28) → final delivery
 
 ---
 
-## VI. PHASE 1 — DISCOVERY + BRIEF (Days 1–3)
+## VI. PHASE 1: DISCOVERY + BRIEF (Days 1–3)
 
-### Step 1 — Send Extended Questionnaire
+### Step 1: Send Extended Questionnaire
 
 ```bash
 PHONE=$(grep CALLMEBOT_PHONE /Users/cashville/.env | cut -d= -f2)
@@ -82,7 +82,7 @@ APIKEY=$(grep CALLMEBOT_API_KEY /Users/cashville/.env | cut -d= -f2)
 CLIENT_NAME="[CLIENT NAME]"
 QUESTIONNAIRE_URL="https://[lior-domain]/questionnaire.html"
 
-MSG="${CLIENT_NAME} — to begin your full design project, we need your input on a few things before our call. This takes about 15 minutes and shapes everything that follows.
+MSG="${CLIENT_NAME}: to begin your full design project, we need your input on a few things before our call. This takes about 15 minutes and shapes everything that follows.
 
 Complete here: ${QUESTIONNAIRE_URL}"
 
@@ -98,7 +98,7 @@ echo "Questionnaire sent."
     Rank: Living / Kitchen / Master / Other bedrooms / Bathrooms
 
 12. What structural changes are you open to?
-    Walls / partitions / Kitchen layout / Bathroom position / None — cosmetic only
+    Walls / partitions / Kitchen layout / Bathroom position / None: cosmetic only
 
 13. Do you have existing furniture you want to keep?
     Free text + photos if yes
@@ -113,19 +113,19 @@ echo "Questionnaire sent."
     Free text (one person / couple / family)
 ```
 
-### Step 2 — Parse Brief
+### Step 2: Parse Brief
 
 ```bash
 PROJECT_ID="LIOR-FD2601"
 WORKDIR=".tmp/${PROJECT_ID}-full-design"
 
 cat > "${WORKDIR}/00-brief/00-full-design-brief.txt" << 'EOF'
-FULL DESIGN BRIEF — [PROJECT_ID]
+FULL DESIGN BRIEF: [PROJECT_ID]
 Date: [date]
 Rooms: [list with priority ranking]
-Constraints: [fixed elements — load-bearing walls, existing plumbing, electrical panel, window positions]
+Constraints: [fixed elements: load-bearing walls, existing plumbing, electrical panel, window positions]
 Renovation scope: [what is possible vs fixed]
-Budget tier: [entry / mid / high] — [estimated AED range per room]
+Budget tier: [entry / mid / high]: [estimated AED range per room]
 Timeline: [target completion, milestones working backward]
 Decision-maker: [name(s)]
 Key preferences: [top 5 from questionnaire]
@@ -133,7 +133,7 @@ Key avoidances: [top 3]
 Existing furniture to keep: [list or none]
 Preferred suppliers: [list or none]
 Phasing: [if applicable]
-Style direction hypothesis: [agent's suggested direction — for human to confirm in Phase 2]
+Style direction hypothesis: [agent's suggested direction: for human to confirm in Phase 2]
 EOF
 ```
 
@@ -142,7 +142,7 @@ EOF
 WhatsApp checkpoint to client:
 
 ```bash
-MSG="${CLIENT_NAME} — your project brief is confirmed. Here is what we are working from:
+MSG="${CLIENT_NAME}: your project brief is confirmed. Here is what we are working from:
 
 Style direction: [hypothesis]
 Priority rooms: [top 3]
@@ -157,9 +157,9 @@ curl -s "https://api.callmebot.com/whatsapp.php?phone=${PHONE}&text=${ENCODED}&a
 
 ---
 
-## VII. PHASE 2 — CONCEPT + DIRECTION (Days 4–7)
+## VII. PHASE 2: CONCEPT + DIRECTION (Days 4–7)
 
-### Step 1 — Get Firefly Token
+### Step 1: Get Firefly Token
 
 ```bash
 ADOBE_CLIENT_ID=$(grep ADOBE_CLIENT_ID /Users/cashville/.env | cut -d= -f2)
@@ -174,9 +174,9 @@ echo $FIREFLY_TOKEN > /tmp/firefly_token.txt
 echo "Token obtained."
 ```
 
-### Step 2 — Generate Two Direction Moodboards
+### Step 2: Generate Two Direction Moodboards
 
-Use Firefly to generate one moodboard per direction (see SOP-04 Step 3 for full moodboard generation script — same process, run twice with different direction prompts).
+Use Firefly to generate one moodboard per direction (see SOP-04 Step 3 for full moodboard generation script: same process, run twice with different direction prompts).
 
 ```bash
 FIREFLY_TOKEN=$(cat /tmp/firefly_token.txt)
@@ -210,7 +210,7 @@ for DIRECTION in A B; do
 done
 ```
 
-### Step 3 — Concept Visualization (1 key room per direction)
+### Step 3: Concept Visualization (1 key room per direction)
 
 Use Virtual Staging AI if photos exist, Firefly if not (see SOP-04 Steps 5B/5C for full scripts).
 
@@ -220,7 +220,7 @@ Use Virtual Staging AI if photos exist, Firefly if not (see SOP-04 Steps 5B/5C f
 # .tmp/${PROJECT_ID}-full-design/02-concept/concept-viz/${PROJECT_ID}-direction-B-living-viz-v1.jpg
 ```
 
-### Step 4 — Space Plan for Priority Room (per direction)
+### Step 4: Space Plan for Priority Room (per direction)
 
 Use RoomSketcher web UI (see SOP-04 Step 4 for full RoomSketcher workflow).
 
@@ -230,21 +230,21 @@ Use RoomSketcher web UI (see SOP-04 Step 4 for full RoomSketcher workflow).
 # .tmp/${PROJECT_ID}-full-design/02-concept/space-plans/${PROJECT_ID}-direction-B-spaceplan-v1.jpg
 ```
 
-### Step 5 — Human Presents to Client
+### Step 5: Human Presents to Client
 
 Human presents concept via call or in-person meeting. Client selects one direction.
 
 If client wants elements from both → human resolves into a hybrid → documented in brief:
 
 ```bash
-echo "DIRECTION SELECTED: [A / B / Hybrid — description]" >> "${WORKDIR}/00-brief/00-full-design-brief.txt"
-echo "[$(date '+%Y-%m-%d %H:%M')] CHECKPOINT PHASE 2: direction selected — [direction]" >> "${WORKDIR}/log.txt"
+echo "DIRECTION SELECTED: [A / B / Hybrid: description]" >> "${WORKDIR}/00-brief/00-full-design-brief.txt"
+echo "[$(date '+%Y-%m-%d %H:%M')] CHECKPOINT PHASE 2: direction selected: [direction]" >> "${WORKDIR}/log.txt"
 ```
 
 **WhatsApp checkpoint after direction confirmed:**
 
 ```bash
-MSG="${CLIENT_NAME} — direction confirmed. We are now moving into full design development for all rooms.
+MSG="${CLIENT_NAME}: direction confirmed. We are now moving into full design development for all rooms.
 
 This phase covers: [list all rooms].
 
@@ -256,13 +256,13 @@ curl -s "https://api.callmebot.com/whatsapp.php?phone=${PHONE}&text=${ENCODED}&a
 
 ---
 
-## VIII. PHASE 3 — FULL DESIGN DEVELOPMENT (Days 8–14)
+## VIII. PHASE 3: FULL DESIGN DEVELOPMENT (Days 8–14)
 
 Execute full production across all rooms in the approved direction.
 
 ### For each room, produce three deliverables:
 
-#### 3A — Visualization
+#### 3A: Visualization
 
 Upload room photo to ImgBB, then run Virtual Staging AI:
 
@@ -303,7 +303,7 @@ for ROOM in "${ROOMS[@]}"; do
         echo "Staged: ${ROOM}"
         break
       elif [ "$STATUS" = "failed" ]; then
-        echo "FAILED: ${ROOM} — switching to Firefly"
+        echo "FAILED: ${ROOM}: switching to Firefly"
         # Firefly fallback
         RESPONSE=$(curl -s -X POST "https://firefly-api.adobe.io/v3/images/generate" \
           -H "Authorization: Bearer ${FIREFLY_TOKEN}" \
@@ -315,11 +315,11 @@ for ROOM in "${ROOMS[@]}"; do
         echo "[$(date '+%Y-%m-%d %H:%M')] FALLBACK vstaging → Firefly for ${ROOM}" >> "${WORKDIR}/log.txt"
         break
       fi
-      echo "${ROOM}: ${STATUS} — waiting 10s..."
+      echo "${ROOM}: ${STATUS}: waiting 10s..."
       sleep 10
     done
   else
-    echo "No photo for ${ROOM} — using Firefly render"
+    echo "No photo for ${ROOM}: using Firefly render"
     RESPONSE=$(curl -s -X POST "https://firefly-api.adobe.io/v3/images/generate" \
       -H "Authorization: Bearer ${FIREFLY_TOKEN}" \
       -H "X-Api-Key: ${ADOBE_CLIENT_ID}" \
@@ -339,28 +339,28 @@ echo "All room visualizations complete."
 - [ ] Room proportions realistic
 - [ ] Natural light enters from correct side per floor plan
 
-#### 3B — Space Plan (one per room)
+#### 3B: Space Plan (one per room)
 
-Use RoomSketcher for each room (see SOP-04 Step 4 for workflow). One layout per room — direction already selected.
+Use RoomSketcher for each room (see SOP-04 Step 4 for workflow). One layout per room: direction already selected.
 
 ```bash
 # Save each export to:
 # .tmp/${PROJECT_ID}-full-design/03-design/space-plans/${PROJECT_ID}-plan-[room]-v1.jpg
 ```
 
-#### 3C — Material Specification Draft
+#### 3C: Material Specification Draft
 
 Write room-by-room specification (follow SOP-04 Step 6 format). For high-budget tier: include specific brand + model references.
 
 ```bash
 cat > "${WORKDIR}/03-design/draft-material-schedule.md" << 'EOF'
-# Draft Material Schedule — [PROJECT_ID]
+# Draft Material Schedule: [PROJECT_ID]
 [Follow SOP-04 Step 6 format for each room]
 [For high budget tier: specify exact brand + product line per item]
 
 ## Interior Architecture Notes (structural changes):
 # For any room with structural changes, note:
-# - Proposed wall removal / partition addition (design intent only — not structural calc)
+# - Proposed wall removal / partition addition (design intent only: not structural calc)
 # - Proposed kitchen reconfiguration (island position, appliance layout)
 # - Bathroom layout changes (WC / shower / bath positions)
 # IMPORTANT: all structural items flagged for architect / structural engineer sign-off
@@ -372,7 +372,7 @@ EOF
 WhatsApp checkpoint:
 
 ```bash
-MSG="${CLIENT_NAME} — the full design development for all [N] rooms is complete. I will share it with you today for review.
+MSG="${CLIENT_NAME}: the full design development for all [N] rooms is complete. I will share it with you today for review.
 
 One revision round is included if you would like to adjust anything before we move to documentation."
 
@@ -382,11 +382,11 @@ curl -s "https://api.callmebot.com/whatsapp.php?phone=${PHONE}&text=${ENCODED}&a
 
 ---
 
-## IX. PHASE 4 — SPECIFICATION + DOCUMENTATION (Days 15–18)
+## IX. PHASE 4: SPECIFICATION + DOCUMENTATION (Days 15–18)
 
 Assemble three contractor-ready documents.
 
-### Document 1 — Design Book (PDF)
+### Document 1: Design Book (PDF)
 
 ```bash
 PROJECT_ID="LIOR-FD2601"
@@ -395,7 +395,7 @@ WORKDIR=".tmp/${PROJECT_ID}-full-design"
 # Build the Markdown source
 cat > "${WORKDIR}/04-documentation/design-book.md" << 'EOF'
 ---
-title: "Full Interior Design — [PROJECT_ID]"
+title: "Full Interior Design: [PROJECT_ID]"
 date: "[Date]"
 geometry: "margin=2cm"
 fontsize: 11pt
@@ -421,7 +421,7 @@ fontsize: 11pt
 
 ---
 
-[Per room block — repeat for each room:]
+[Per room block: repeat for each room:]
 
 ## Living Room
 
@@ -429,7 +429,7 @@ fontsize: 11pt
 
 ![Space Plan](.tmp/[PROJECT_ID]-full-design/03-design/space-plans/[PROJECT_ID]-plan-living-v1.jpg){ width=100% }
 
-[Material specification for living room — from draft-material-schedule.md]
+[Material specification for living room: from draft-material-schedule.md]
 
 ---
 
@@ -451,17 +451,17 @@ pandoc "${WORKDIR}/04-documentation/design-book.md" \
 echo "Design book PDF generated."
 ```
 
-### Document 2 — Material Schedule (structured PDF)
+### Document 2: Material Schedule (structured PDF)
 
 ```bash
 cat > "${WORKDIR}/04-documentation/material-schedule-table.md" << 'EOF'
 ---
-title: "Material Schedule — [PROJECT_ID]"
+title: "Material Schedule: [PROJECT_ID]"
 geometry: "margin=1.5cm"
 fontsize: 10pt
 ---
 
-# Material Schedule — [PROJECT_ID]
+# Material Schedule: [PROJECT_ID]
 
 | Room | Element | Specification | Supplier | Qty estimate | Notes |
 |------|---------|--------------|---------|-------------|-------|
@@ -481,17 +481,17 @@ pandoc "${WORKDIR}/04-documentation/material-schedule-table.md" \
 echo "Material schedule PDF generated."
 ```
 
-### Document 3 — Scope of Works
+### Document 3: Scope of Works
 
 ```bash
 cat > "${WORKDIR}/04-documentation/scope-of-works.md" << 'EOF'
 ---
-title: "Scope of Works — [PROJECT_ID]"
+title: "Scope of Works: [PROJECT_ID]"
 geometry: "margin=2cm"
 fontsize: 11pt
 ---
 
-# Scope of Works — [PROJECT_ID]
+# Scope of Works: [PROJECT_ID]
 Property: [Address]
 Budget envelope: AED [X]
 Target completion: [Date]
@@ -499,24 +499,24 @@ Target completion: [Date]
 ---
 
 ## Living Room
-- Strip existing flooring (type: [parquet / tile / carpet]) — full room
+- Strip existing flooring (type: [parquet / tile / carpet]): full room
 - Install engineered oak herringbone ([spec])
   Approx area: [X]m²
-- Repaint all walls — color: [ref] — 2 coats minimum
-- Ceiling-mounted curtain track — [X]m run
+- Repaint all walls: color: [ref]: 2 coats minimum
+- Ceiling-mounted curtain track: [X]m run
 - No structural changes required
 
 ---
 
 ## Kitchen
 - Strip existing cabinetry (full kitchen)
-- Install new [style] kitchen units — [color]
+- Install new [style] kitchen units: [color]
 - Install countertop: [material, color ref]
 - Install backsplash: [material, dimensions]
 - Appliances: [list brand tier]
 
 [STRUCTURAL NOTE: Removal of wall between kitchen and living requires structural assessment.
-LIOR cannot confirm load-bearing status — consult structural engineer before work begins.]
+LIOR cannot confirm load-bearing status: consult structural engineer before work begins.]
 
 ---
 
@@ -549,7 +549,7 @@ echo "Scope of works PDF generated."
 WhatsApp checkpoint:
 
 ```bash
-MSG="${CLIENT_NAME} — your full documentation package is ready for review. Three documents:
+MSG="${CLIENT_NAME}: your full documentation package is ready for review. Three documents:
 
 1. Design Book (all rooms, visualizations, and material specs)
 2. Material Schedule (purchasing reference)
@@ -563,9 +563,9 @@ curl -s "https://api.callmebot.com/whatsapp.php?phone=${PHONE}&text=${ENCODED}&a
 
 ---
 
-## X. PHASE 5 — COORDINATION + HANDOVER (Days 19–28)
+## X. PHASE 5: COORDINATION + HANDOVER (Days 19–28)
 
-### Step 1 — Assemble Handover Package
+### Step 1: Assemble Handover Package
 
 ```bash
 PROJECT_ID="LIOR-FD2601"
@@ -589,7 +589,7 @@ zip -r "${WORKDIR}/05-handover/${PROJECT_ID}-floor-plans.zip" \
 ls -lh "${WORKDIR}/05-handover/"
 ```
 
-### Step 2 — Send to Contractors (if email access configured)
+### Step 2: Send to Contractors (if email access configured)
 
 ```bash
 # For each contractor, personalize a message
@@ -598,7 +598,7 @@ CONTRACTOR_SCOPE="[their specific rooms / scope]"
 
 # Agent drafts, human approves before sending
 cat << EOF
-Subject: Design Package — [Property Address] — [PROJECT_ID]
+Subject: Design Package: [Property Address]: [PROJECT_ID]
 
 Hi ${CONTRACTOR_NAME},
 
@@ -620,7 +620,7 @@ LIOR Studio
 EOF
 ```
 
-### Step 3 — Check-in Reminders in Notion
+### Step 3: Check-in Reminders in Notion
 
 ```bash
 NOTION_TOKEN=$(grep NOTION_TOKEN /Users/cashville/.env | cut -d= -f2)
@@ -645,22 +645,22 @@ echo "Notion milestones set."
 
 ## XI. QA CHECKLIST
 
-**Phase 2 — Concept:**
+**Phase 2: Concept:**
 - [ ] Both moodboards feel clearly distinct
 - [ ] Concept visualization matches the moodboard it represents
 - [ ] Space plan is physically plausible (correct clearances)
 
-**Phase 3 — Full Design:**
+**Phase 3: Full Design:**
 - [ ] Every room has a visualization + space plan
 - [ ] Palette consistent across all rooms in the selected direction
 - [ ] Material schedule covers every room in scope
-- [ ] Structural changes clearly flagged — not specified by LIOR
+- [ ] Structural changes clearly flagged: not specified by LIOR
 
-**Phase 4 — Documents:**
+**Phase 4: Documents:**
 - [ ] Design book has no placeholder text, no broken image links
 - [ ] Material schedule: all references real and available in Dubai
 - [ ] Scope of works: realistic for stated budget
-- [ ] Structural items flagged — contractor to get engineer sign-off
+- [ ] Structural items flagged: contractor to get engineer sign-off
 - [ ] All three PDFs open correctly
 
 ---
@@ -688,7 +688,7 @@ ZIP_SIZE=$(wc -c < "${ZIP_FILE}")
 
 TRANSFER=$(curl -s -X POST "https://dev.wetransfer.com/v2/transfers" \
   -H "Content-Type: application/json" -H "x-api-key: ${WT_KEY}" \
-  -d "{\"message\":\"${PROJECT_ID} — Full Interior Design LIOR\",\"files\":[{\"name\":\"${PROJECT_ID}-full-design-v1.zip\",\"size\":${ZIP_SIZE}}]}")
+  -d "{\"message\":\"${PROJECT_ID}: Full Interior Design LIOR\",\"files\":[{\"name\":\"${PROJECT_ID}-full-design-v1.zip\",\"size\":${ZIP_SIZE}}]}")
 
 TRANSFER_ID=$(echo $TRANSFER | python3 -c "import sys,json; print(json.load(sys.stdin)['id'])")
 UPLOAD_URL=$(echo $TRANSFER | python3 -c "import sys,json; print(json.load(sys.stdin)['files'][0]['multipart']['url'])")
@@ -711,7 +711,7 @@ APIKEY=$(grep CALLMEBOT_API_KEY /Users/cashville/.env | cut -d= -f2)
 CLIENT_NAME="[CLIENT NAME]"
 N_ROOMS="[N]"
 
-MSG="${CLIENT_NAME} — your full design package is ready.
+MSG="${CLIENT_NAME}: your full design package is ready.
 
 Everything your team needs to bring the project to life:
 - Design visualization for all ${N_ROOMS} rooms
@@ -721,7 +721,7 @@ Everything your team needs to bring the project to life:
 
 Download: ${DOWNLOAD_URL}
 
-We are available throughout the build for any clarification or adjustments. This is your single reference document — share it directly with your contractor."
+We are available throughout the build for any clarification or adjustments. This is your single reference document: share it directly with your contractor."
 
 ENCODED=$(python3 -c "import urllib.parse,sys; print(urllib.parse.quote(sys.argv[1]))" "${MSG}")
 curl -s "https://api.callmebot.com/whatsapp.php?phone=${PHONE}&text=${ENCODED}&apikey=${APIKEY}"
@@ -755,7 +755,7 @@ echo "[$(date '+%Y-%m-%d %H:%M')] DELIVERED: ${PROJECT_ID} | Service: full-inter
 ## XIII. WHATSAPP TEMPLATE
 
 ```
-[CLIENT NAME] — your full design package is ready.
+[CLIENT NAME]: your full design package is ready.
 
 Everything your team needs to bring the project to life:
 - Design visualization for all [N] rooms
@@ -765,7 +765,7 @@ Everything your team needs to bring the project to life:
 
 Download: [LINK]
 
-We are available throughout the build for any clarification or adjustments. This is your single reference document — share it directly with your contractor.
+We are available throughout the build for any clarification or adjustments. This is your single reference document: share it directly with your contractor.
 ```
 
 Rules: no "AI", no "luxury", no prices, no "drone".
@@ -809,12 +809,12 @@ Rules: no "AI", no "luxury", no prices, no "drone".
 ```
 [YYYY-MM-DD HH:MM] STARTED: [PROJECT_ID] | rooms=[N] | budget=[tier] | scope=[cosmetic/partial/structural]
 [YYYY-MM-DD HH:MM] PHASE 1 CHECKPOINT: brief confirmed by human
-[YYYY-MM-DD HH:MM] PHASE 2 COMPLETE: concept presented — [N] moodboards + [N] viz
+[YYYY-MM-DD HH:MM] PHASE 2 COMPLETE: concept presented: [N] moodboards + [N] viz
 [YYYY-MM-DD HH:MM] PHASE 2 CHECKPOINT: Direction [A/B/Hybrid] selected by client
-[YYYY-MM-DD HH:MM] PHASE 3 PROGRESS: [room] — visualization + space plan complete
+[YYYY-MM-DD HH:MM] PHASE 3 PROGRESS: [room]: visualization + space plan complete
 [YYYY-MM-DD HH:MM] PHASE 3 CHECKPOINT: full design approved by client
-[YYYY-MM-DD HH:MM] PHASE 4 COMPLETE: design book + material schedule + scope of works — PDFs generated
+[YYYY-MM-DD HH:MM] PHASE 4 COMPLETE: design book + material schedule + scope of works: PDFs generated
 [YYYY-MM-DD HH:MM] PHASE 4 CHECKPOINT: documents approved by human
-[YYYY-MM-DD HH:MM] FALLBACK: [tool] → [alternative] — [room] — [reason]
+[YYYY-MM-DD HH:MM] FALLBACK: [tool] → [alternative]: [room]: [reason]
 [YYYY-MM-DD HH:MM] DELIVERED: [PROJECT_ID] | ZIP: [filename] | Link: [URL] | WA: sent
 ```
