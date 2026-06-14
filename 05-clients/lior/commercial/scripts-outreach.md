@@ -15,16 +15,15 @@
 ```
 Hi [Prénom],
 
-Noticed your listing at [adresse/quartier] — great property.
-Most agents in [quartier] are still presenting empty rooms.
-That gap is the opportunity.
+Noticed your listing at [adresse/quartier].
+Most agents here are still presenting empty rooms.
 
-We turn empty spaces into furnished, cinematic property tours.
-72 hours from your photos to a ready-to-publish video.
+We produce cinematic property tours for agents in [quartier].
+24-72h from your photos. Nothing on-site.
 
-Worth a quick call?
+Can I send you an example?
 
-[Prénom] · LIOR Visual Studio
+[Prénom] · LIOR
 ```
 
 **AVEC demo tour disponible :**
@@ -32,26 +31,28 @@ Worth a quick call?
 ```
 Hi [Prénom],
 
-Noticed your listing at [adresse/quartier].
+I made a 30-second version for a similar unit in [quartier comparable].
+Want me to drop the link here?
 
-I wanted to show you something — one of the properties
-we just delivered for a similar brief in [quartier comparable].
-
-[LIEN VIDEO DEMO]
-
-72h from photos. No equipment on-site. Zero disruption.
-
-Worth a quick look?
-
-[Prénom] · LIOR Visual Studio
+[Prénom] · LIOR
 ```
+
+**Pourquoi ce format (AVEC demo) :**
+- "I made" → passé accompli. Pas "je peux faire" — c'est fait.
+- "30-second version" → engagement cognitif nul. 30 secondes = pas de friction.
+- "for a similar unit" → signal de pertinence directe à leur situation.
+- "Want me to drop the link here?" → question fermée oui/non. Dire oui ne coûte rien.
+- Pas de lien dans le premier message → évite le filtre spam, crée la curiosité.
+- Quand ils disent oui → micro-engagement = taux de visionnage supérieur.
 
 **Règles DM :**
 - Une seule phrase d'accroche (property spécifique, pas générique)
 - Jamais plus de 5 lignes visibles sans défilement
 - Pas de liste de services
 - Pas de prix
-- Finir par une question ouverte (pas "Interested?")
+- **Finir par une question FERMÉE (oui/non) — jamais une question ouverte**
+- "Interested?" est interdit — force une décision trop tôt
+- "Worth a quick look?" est interdit — trop doux pour le marché Dubai
 
 ---
 
