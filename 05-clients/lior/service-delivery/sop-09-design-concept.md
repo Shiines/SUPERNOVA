@@ -1,7 +1,7 @@
-# SOP 09 — Design Concept
-**Automation level: B — Auto + human gate**
+# SOP 09: Design Concept
+**Automation level: B: Auto + human gate**
 **Timeline: 4 days from brief confirmation**
-**Deliverable: Moodboard · key room visualizations · complete material + finish specification · 10-page concept book PDF — contractor-ready**
+**Deliverable: Moodboard · key room visualizations · complete material + finish specification · 10-page concept book PDF: contractor-ready**
 
 ## I. OVERVIEW
 
@@ -35,14 +35,14 @@ brew install wkhtmltopdf           # PDF fallback
 grep -E "IMGBB_API_KEY|VSTAGING_API_KEY|ADOBE_CLIENT_ID|ADOBE_CLIENT_SECRET|WETRANSFER_API_KEY|CALLMEBOT_PHONE|CALLMEBOT_API_KEY|NOTION_TOKEN" /Users/cashville/.env
 
 # Keys needed:
-# IMGBB_API_KEY          — image hosting for API calls
-# VSTAGING_API_KEY       — Virtual Staging AI (room visualizations)
-# ADOBE_CLIENT_ID        — Firefly (moodboard + fallback renders)
-# ADOBE_CLIENT_SECRET    — Firefly
-# WETRANSFER_API_KEY     — delivery
-# CALLMEBOT_PHONE        — WhatsApp
-# CALLMEBOT_API_KEY      — WhatsApp
-# NOTION_TOKEN           — project tracking
+# IMGBB_API_KEY          : image hosting for API calls
+# VSTAGING_API_KEY       : Virtual Staging AI (room visualizations)
+# ADOBE_CLIENT_ID        : Firefly (moodboard + fallback renders)
+# ADOBE_CLIENT_SECRET    : Firefly
+# WETRANSFER_API_KEY     : delivery
+# CALLMEBOT_PHONE        : WhatsApp
+# CALLMEBOT_API_KEY      : WhatsApp
+# NOTION_TOKEN           : project tracking
 ```
 
 ---
@@ -59,14 +59,14 @@ touch .tmp/${PROJECT_ID}-design-concept/log.txt
 
 ## V. PRODUCTION STEPS
 
-### Step 1 — Parse Brief (Day 1)
+### Step 1: Parse Brief (Day 1)
 
 ```bash
 PROJECT_ID="LIOR-DC2601"
 WORKDIR=".tmp/${PROJECT_ID}-design-concept"
 
 cat > "${WORKDIR}/00-brief/00-concept-brief.txt" << 'EOF'
-DESIGN CONCEPT BRIEF — [PROJECT_ID]
+DESIGN CONCEPT BRIEF: [PROJECT_ID]
 ─────────────────────────────────────────────────────────
 Outcome goal: [sell / STR rental / long-term rental / personal use]
 Rooms in scope: [list]
@@ -74,9 +74,9 @@ Budget tier: [entry / mid / high-end]
 Style direction: [client-selected or LIOR-assigned]
 Key preferences: [top 5 from questionnaire]
 Avoidances: [top 3]
-References provided: [yes/no — filenames or URLs]
+References provided: [yes/no: filenames or URLs]
 Renovation openness: [cosmetic only / open to structural]
-Contractor to receive documents: [yes — name / no — client manages]
+Contractor to receive documents: [yes: name / no / client manages]
 ─────────────────────────────────────────────────────────
 
 Reference image analysis (if provided):
@@ -87,11 +87,11 @@ EOF
 echo "Brief parsed."
 ```
 
-### Step 2 — Moodboard (Day 1)
+### Step 2: Moodboard (Day 1)
 
-One comprehensive moodboard covering the full concept — one cohesive aesthetic statement for the whole property.
+One comprehensive moodboard covering the full concept: one cohesive aesthetic statement for the whole property.
 
-#### 2A — Get Firefly Token (primary tool)
+#### 2A : Get Firefly Token (primary tool)
 
 ```bash
 ADOBE_CLIENT_ID=$(grep ADOBE_CLIENT_ID /Users/cashville/.env | cut -d= -f2)
@@ -106,7 +106,7 @@ echo $FIREFLY_TOKEN > /tmp/firefly_token.txt
 echo "Token obtained. Valid 24h."
 ```
 
-#### 2B — Generate Moodboard with Firefly
+#### 2B : Generate Moodboard with Firefly
 
 ```bash
 FIREFLY_TOKEN=$(cat /tmp/firefly_token.txt)
@@ -173,16 +173,16 @@ curl -L "${CHOSEN_URL}" -o "${WORKDIR}/02-moodboard/${PROJECT_ID}-moodboard-v1.j
 ```
 
 **Moodboard QA:**
-- [ ] Colors cohesive — no clashing elements
+- [ ] Colors cohesive: no clashing elements
 - [ ] Palette reads warm overall (not cold, not grey-dominated)
-- [ ] Material mix feels intentional — not a random assortment
+- [ ] Material mix feels intentional: not a random assortment
 - [ ] Representative of a specific lifestyle, not generic
 - [ ] Color palette (5 swatches) visible
 - [ ] Primary flooring material visible
 - [ ] Key furniture character visible
 - [ ] Accent material (brass / stone / ceramic) visible
 
-### Step 3 — Color Grade Moodboard (ImageMagick)
+### Step 3: Color Grade Moodboard (ImageMagick)
 
 ```bash
 PROJECT_ID="LIOR-DC2601"
@@ -196,7 +196,7 @@ magick "${WORKDIR}/02-moodboard/${PROJECT_ID}-moodboard-v1.jpg" \
 echo "Color grade applied."
 ```
 
-### Step 4 — Key Room Visualizations (Days 2–3)
+### Step 4: Key Room Visualizations (Days 2–3)
 
 Visualize the 3 most impactful rooms:
 - Sales-focused: living + master + kitchen
@@ -204,7 +204,7 @@ Visualize the 3 most impactful rooms:
 
 The concept style from the moodboard must be applied precisely to each room: same color palette, same material direction, same furniture character.
 
-#### 4A — Upload room photo to ImgBB
+#### 4A : Upload room photo to ImgBB
 
 ```bash
 IMGBB_KEY=$(grep IMGBB_API_KEY /Users/cashville/.env | cut -d= -f2)
@@ -221,7 +221,7 @@ IMAGE_URL=$(curl -s -X POST "https://api.imgbb.com/1/upload" \
 echo "Hosted: ${IMAGE_URL}"
 ```
 
-#### 4B — Virtual Staging AI (primary — for rooms with photos)
+#### 4B : Virtual Staging AI (primary: for rooms with photos)
 
 ```bash
 VSTAGING_KEY=$(grep VSTAGING_API_KEY /Users/cashville/.env | cut -d= -f2)
@@ -254,11 +254,11 @@ while true; do
     echo "Visualization complete: ${ROOM}"
     break
   elif [ "$STATUS" = "failed" ]; then
-    echo "FAILED: ${ROOM} — switching to Firefly"
+    echo "FAILED: ${ROOM} , switching to Firefly"
     echo "[$(date '+%Y-%m-%d %H:%M')] FALLBACK vstaging → Firefly for ${ROOM}" >> "${WORKDIR}/log.txt"
     break
   fi
-  echo "${ROOM}: ${STATUS} — waiting 10s..."
+  echo "${ROOM}: ${STATUS} , waiting 10s..."
   sleep 10
 done
 ```
@@ -300,7 +300,7 @@ echo "Firefly render saved: ${ROOM}"
 - [ ] No AI artifacts or impossible shadows
 - [ ] Room proportions realistic
 
-### Step 5 — Material + Finish Specification (Day 3)
+### Step 5: Material + Finish Specification (Day 3)
 
 Write the complete specification. One section per room. Cover every room in scope. All references must be real and available in Dubai.
 
@@ -309,7 +309,7 @@ PROJECT_ID="LIOR-DC2601"
 WORKDIR=".tmp/${PROJECT_ID}-design-concept"
 
 cat > "${WORKDIR}/04-materials/${PROJECT_ID}-material-spec-v1.md" << 'EOF'
-# Material + Finish Specification — [PROJECT_ID]
+# Material + Finish Specification: [PROJECT_ID]
 Style direction: [name]
 Budget tier: [entry / mid / high-end]
 
@@ -320,7 +320,7 @@ Budget tier: [entry / mid / high-end]
 ### Floor
 - Material: Engineered oak, herringbone pattern, 70mm × 350mm boards
 - Finish: Matte lacquer, pre-finished
-- Color direction: Warm mid-honey — no grey undertone
+- Color direction: Warm mid-honey: no grey undertone
 - Reference: Kahrs "Lapponia Ash" or equivalent
 
 ### Walls
@@ -330,7 +330,7 @@ Budget tier: [entry / mid / high-end]
 
 ### Ceiling
 - Finish: Brilliant white matte
-- Height: Existing — no change
+- Height: Existing: no change
 
 ### Curtains
 - Style: Linen, pinch-pleat, floor-to-ceiling
@@ -348,7 +348,7 @@ Budget tier: [entry / mid / high-end]
 - Size: 120cm × 60cm (rectangular)
 
 ### Lighting
-- Pendant: None in living — use floor lamp + recessed
+- Pendant: None in living: use floor lamp + recessed
 - Floor lamp: Arc design, brushed brass arm, white linen shade
 - Recessed: Warm white 2700K, wide-beam downlights (not spot)
 
@@ -370,7 +370,7 @@ Budget tier: [entry / mid / high-end]
 
 ### Bed
 - Form: Upholstered, king size
-- Headboard: Tall, fabric — curved or rectangular
+- Headboard: Tall, fabric: curved or rectangular
 - Material: Bouclé or performance fabric
 - Color: Warm stone / muted sage / cream
 
@@ -380,17 +380,17 @@ Budget tier: [entry / mid / high-end]
 
 ### Lighting
 - Bedside: Wall-mounted reading arms, brushed brass
-- Overhead: Recessed 2700K — no central pendant
+- Overhead: Recessed 2700K: no central pendant
 
 ### Curtains
-- Style: Same as living — linen, pinch-pleat, blackout lining for bedroom
+- Style: Same as living: linen, pinch-pleat, blackout lining for bedroom
 
 ---
 
 ## Kitchen
 
 ### Cabinetry
-- Style: [Handleless slab / Shaker — per brief]
+- Style: [Handleless slab / Shaker: per brief]
 - Color: [Warm white / sage green / mid grey]
 - Hardware: [Brushed brass / matte black / integrated push-to-open]
 
@@ -415,7 +415,7 @@ EOF
 echo "Material spec draft saved."
 ```
 
-### Step 6 — Concept Book PDF Assembly (Day 3–4)
+### Step 6: Concept Book PDF Assembly (Day 3–4)
 
 10-page structure: cover + concept statement + moodboard + palette + rooms + materials.
 
@@ -425,7 +425,7 @@ WORKDIR=".tmp/${PROJECT_ID}-design-concept"
 
 cat > "${WORKDIR}/06-pdf-assembly/concept-book.md" << EOF
 ---
-title: "Design Concept — ${PROJECT_ID}"
+title: "Design Concept: ${PROJECT_ID}"
 date: "$(date -u +%B %Y)"
 geometry: "margin=2cm"
 fontsize: 11pt
@@ -443,9 +443,9 @@ fontsize: 11pt
 
 [2 paragraphs:
 
-Paragraph 1 — design intent: describe the overall vision for the space, what mood it creates, how it responds to the client's life and goals.
+Paragraph 1: design intent: describe the overall vision for the space, what mood it creates, how it responds to the client's life and goals.
 
-Paragraph 2 — spatial vision: describe how each room connects, the material logic, why these specific choices serve this specific home.]
+Paragraph 2: spatial vision: describe how each room connects, the material logic, why these specific choices serve this specific home.]
 
 ---
 
@@ -475,7 +475,7 @@ Paragraph 2 — spatial vision: describe how each room connects, the material lo
 
 ### Material Specification
 
-[Living room section from material spec — paste here]
+[Living room section from material spec: paste here]
 
 ---
 
@@ -485,7 +485,7 @@ Paragraph 2 — spatial vision: describe how each room connects, the material lo
 
 ### Material Specification
 
-[Master bedroom section from material spec — paste here]
+[Master bedroom section from material spec: paste here]
 
 ---
 
@@ -495,7 +495,7 @@ Paragraph 2 — spatial vision: describe how each room connects, the material lo
 
 ### Material Specification
 
-[Kitchen section from material spec — paste here]
+[Kitchen section from material spec: paste here]
 
 ---
 
@@ -505,9 +505,9 @@ Paragraph 2 — spatial vision: describe how each room connects, the material lo
 
 ## Ready to build this?
 
-Contact LIOR to move into full project management — every material sourced, every contractor briefed, every decision tracked.
+Contact LIOR to move into full project management: every material sourced, every contractor briefed, every decision tracked.
 
-*LIOR Studio — [contact details]*
+*LIOR Studio: [contact details]*
 
 EOF
 
@@ -531,11 +531,11 @@ ls -lh "${WORKDIR}/05-exports/"
 ## VI. QA CHECKLIST
 
 Human verifies before delivery:
-- [ ] Concept feels coherent — moodboard, visualizations, materials speak the same visual language
+- [ ] Concept feels coherent: moodboard, visualizations, materials speak the same visual language
 - [ ] Material specs are realistic for the stated budget tier
-- [ ] No invented product SKUs — all references are real and available in Dubai
+- [ ] No invented product SKUs: all references are real and available in Dubai
 - [ ] Dubai market availability: nothing requiring 4–8 week import flagged as "standard" item
-- [ ] PDF opens correctly — no broken image links, no placeholder text
+- [ ] PDF opens correctly: no broken image links, no placeholder text
 - [ ] PDF is client-presentable: correct branding, correct project name, date
 - [ ] Concept statement is specific to this project (not generic copy)
 - [ ] All rooms in scope are present in the document
@@ -565,7 +565,7 @@ ZIP_SIZE=$(wc -c < "${ZIP_FILE}")
 
 TRANSFER=$(curl -s -X POST "https://dev.wetransfer.com/v2/transfers" \
   -H "Content-Type: application/json" -H "x-api-key: ${WT_KEY}" \
-  -d "{\"message\":\"${PROJECT_ID} — Design Concept LIOR\",\"files\":[{\"name\":\"${PROJECT_ID}-design-concept-v1.zip\",\"size\":${ZIP_SIZE}}]}")
+  -d "{\"message\":\"${PROJECT_ID}: Design Concept LIOR\",\"files\":[{\"name\":\"${PROJECT_ID}-design-concept-v1.zip\",\"size\":${ZIP_SIZE}}]}")
 
 TRANSFER_ID=$(echo $TRANSFER | python3 -c "import sys,json; print(json.load(sys.stdin)['id'])")
 UPLOAD_URL=$(echo $TRANSFER | python3 -c "import sys,json; print(json.load(sys.stdin)['files'][0]['multipart']['url'])")
@@ -588,7 +588,7 @@ APIKEY=$(grep CALLMEBOT_API_KEY /Users/cashville/.env | cut -d= -f2)
 CLIENT_NAME="[CLIENT NAME]"
 N_ROOMS="[N]"
 
-MSG="${CLIENT_NAME} — your Design Concept is ready.
+MSG="${CLIENT_NAME}: your Design Concept is ready.
 
 The document covers everything a contractor needs to execute your vision:
 - Full moodboard and creative direction
@@ -633,7 +633,7 @@ echo "[$(date '+%Y-%m-%d %H:%M')] DELIVERED: ${PROJECT_ID} | Service: design-con
 ## VIII. WHATSAPP TEMPLATE
 
 ```
-[CLIENT NAME] — your Design Concept is ready.
+[CLIENT NAME]: your Design Concept is ready.
 
 The document covers everything a contractor needs to execute your vision:
 - Full moodboard and creative direction
@@ -656,13 +656,13 @@ Rules: no "AI", no "luxury", no prices, no "drone".
 | Tool | Failure | Fix |
 |---|---|---|
 | Adobe Firefly | Token expired | Re-run token script (Step 2A). Valid 24h. |
-| Firefly | API down | Replicate SDXL `POST https://api.replicate.com/v1/predictions` — model hash `06d6fae3b75ab68a28cd2900afa6033166910dd09fd9751047043592f8f7cc60` |
+| Firefly | API down | Replicate SDXL `POST https://api.replicate.com/v1/predictions`: model hash `06d6fae3b75ab68a28cd2900afa6033166910dd09fd9751047043592f8f7cc60` |
 | Virtual Staging AI | API down or quota exhausted | Wait 30 min. Try REimagineHome: `POST https://api.reimaginehome.ai/v1/generate`. Both down → Firefly. |
 | REimagineHome | Also down | Use Firefly render (Step 4, fallback section) |
 | Pandoc PDF | xelatex font error | `cp [font.ttf] ~/Library/Fonts/ && fc-cache -fv`. Or `--pdf-engine=wkhtmltopdf` |
 | WeTransfer API | Upload fails | Manual upload at wetransfer.com |
 | WeTransfer | File >2GB | Unlikely for concept book. If so: split PDF + images separately |
-| WeTransfer | Down | Google Drive — share "anyone with link can view" |
+| WeTransfer | Down | Google Drive: share "anyone with link can view" |
 | CallMeBot | Phone not registered | Send "I allow callmebot to send me messages" to +34 644 29 73 73 |
 | ImgBB | Upload fails | Retry after 30s. 32MB max. |
 
@@ -672,12 +672,12 @@ Rules: no "AI", no "luxury", no prices, no "drone".
 
 ```
 [YYYY-MM-DD HH:MM] STARTED: [PROJECT_ID] | rooms=[N] | budget=[tier] | outcome=[sell/rent/live]
-[YYYY-MM-DD HH:MM] BRIEF: parsed — style=[direction], avoidances=[top 3]
-[YYYY-MM-DD HH:MM] MOODBOARD: generated — selected variant [1/2/3]
-[YYYY-MM-DD HH:MM] VISUALIZATION: [room] — completed via [vstaging / Firefly / Replicate]
-[YYYY-MM-DD HH:MM] MATERIALS: specification written — [N] rooms
-[YYYY-MM-DD HH:MM] PDF: generated — [filename]
-[YYYY-MM-DD HH:MM] FALLBACK: [tool] → [alternative] — [room] — [reason]
+[YYYY-MM-DD HH:MM] BRIEF: parsed: style=[direction], avoidances=[top 3]
+[YYYY-MM-DD HH:MM] MOODBOARD: generated: selected variant [1/2/3]
+[YYYY-MM-DD HH:MM] VISUALIZATION: [room]: completed via [vstaging / Firefly / Replicate]
+[YYYY-MM-DD HH:MM] MATERIALS: specification written: [N] rooms
+[YYYY-MM-DD HH:MM] PDF: generated: [filename]
+[YYYY-MM-DD HH:MM] FALLBACK: [tool] → [alternative]: [room]: [reason]
 [YYYY-MM-DD HH:MM] QA: APPROVED by [name]
 [YYYY-MM-DD HH:MM] DELIVERED: [PROJECT_ID] | ZIP: [filename] | Link: [URL] | WA: sent
 ```
@@ -689,7 +689,7 @@ Rules: no "AI", no "luxury", no prices, no "drone".
 48h after delivery:
 
 ```
-[CLIENT NAME] — if you need someone to manage the project through to completion — coordinating contractors, approving samples, making sure the concept lands as designed — that is exactly what our full interior design service includes.
+[CLIENT NAME]: if you need someone to manage the project through to completion: coordinating contractors, approving samples, making sure the concept lands as designed: that is exactly what our full interior design service includes.
 It might be worth a quick conversation.
 ```
 

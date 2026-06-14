@@ -1,4 +1,4 @@
-# LIOR — Dubai Agency Targeting Methodology
+# LIOR: Dubai Agency Targeting Methodology
 
 > Objectif : 100 agences qualifiées pour les DMs du lundi
 > Priorité : Owners et brokers indépendants. Pas agents salariés.
@@ -30,7 +30,7 @@
 
 ## MÉTHODE DE SOURCING
 
-### Étape 1 — Property Finder / Bayut (filtre sans vidéo)
+### Étape 1: Property Finder / Bayut (filtre sans vidéo)
 
 1. Aller sur propertyfinder.ae ou bayut.com
 2. Filtre : Residential Sale + Premium neighborhoods
@@ -40,7 +40,7 @@
 
 **Signe prioritaire :** propriétés délistées depuis >30j = douleur de vente visible
 
-### Étape 2 — Instagram (enrichissement)
+### Étape 2: Instagram (enrichissement)
 
 1. Chercher hashtags : #dubaiproperties #dubaimarina #palmjumeirah #dubairealestate
 2. Filtrer les comptes avec :
@@ -51,7 +51,7 @@
 
 **Signal owner :** compte personnel qui représente aussi l'agence / bio dit "Founder" / "MD" / "Principal"
 
-### Étape 3 — LinkedIn (vérification ownership)
+### Étape 3: LinkedIn (vérification ownership)
 
 1. Chercher le nom de l'agence
 2. Vérifier : la personne est-elle "Founder", "CEO", "Managing Director", "Owner" ?
@@ -59,7 +59,7 @@
 
 ---
 
-## LISTE CIBLE — Structure
+## LISTE CIBLE: Structure
 
 ```
 | Nom | Agence | Quartier principal | Instagram | WhatsApp | Statut |
@@ -73,17 +73,17 @@
 
 ## PRIORISATION
 
-### Tier 1 — Contacter lundi (5 contacts)
+### Tier 1: Contacter lundi (5 contacts)
 - Amies/contacts directs du CEO dans l'immobilier Dubai
 - Probabilité de réponse : haute
 - Script : DM semi-warm (mentionner la connexion personnelle)
 
-### Tier 2 — DMs lundi-mardi (15–20 contacts)
+### Tier 2: DMs lundi-mardi (15-20 contacts)
 - Owners identifiés via Property Finder (sans vidéo, listing récent)
 - Instagrameurs actifs dans les quartiers premium
 - Script : DM froid standard (`scripts-outreach.md` Script 1)
 
-### Tier 3 — Pipeline semaine (80 contacts)
+### Tier 3: Pipeline semaine (80 contacts)
 - Liste complète construite par business-developer (deadline : mardi)
 - Envoi progressif sur 2 semaines
 - A/B test script avec vs sans vidéo démo

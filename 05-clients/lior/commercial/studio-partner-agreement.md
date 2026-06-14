@@ -1,5 +1,5 @@
 # STUDIO PARTNER AGREEMENT
-### LIOR — Visual Studio
+### LIOR: Visual Studio
 
 ---
 
@@ -193,4 +193,4 @@ Reference: __________________
 
 ---
 
-*LIOR Visual Studio — Confidential — v1.0 — June 2026*
+*LIOR Visual Studio · Confidential · v1.0 · June 2026*

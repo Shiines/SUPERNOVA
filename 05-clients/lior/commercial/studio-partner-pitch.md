@@ -1,5 +1,5 @@
 # LIOR Studio Partner Program
-### For Real Estate Agencies — Dubai & International Markets
+### For Real Estate Agencies · Dubai & International Markets
 
 ---
 
@@ -16,13 +16,13 @@ The best properties in Dubai deserve better than that.
 
 **Virtual staging + cinematic property tours.**
 
-We transform empty rooms into fully furnished, styled spaces —
+We transform empty rooms into fully furnished, styled spaces,
 then animate them into 60-second cinematic tours.
 
 Your listings move faster. Your owners choose you over competitors.
 
 > *"Staged listings sell 73% faster and at 5–10% higher prices."*
-> — National Association of Realtors
+> Source: National Association of Realtors
 
 ---
 
@@ -33,7 +33,7 @@ Your listings move faster. Your owners choose you over competitors.
 Join as a Studio Partner and receive our full service suite
 at no monthly cost until July 1, 2027.
 
-You pay only a one-time AED 2,500 commitment fee — credited
+You pay only a one-time AED 2,500 commitment fee, credited
 against your first invoice when the partnership activates.
 
 | | Starter | Growth | Scale |
@@ -48,9 +48,9 @@ against your first invoice when the partnership activates.
 
 ## What a Full Listing Pack Includes
 
-- Virtual staging — up to 8 rooms, fully furnished
-- 60-second cinematic tour — 16:9 master
-- 3 social media edits — Reels-ready, 9:16
+- Virtual staging: up to 8 rooms, fully furnished
+- 60-second cinematic tour, 16:9 master
+- 3 social media edits, Reels-ready, 9:16
 - Delivered in 72 hours or less
 
 **Retail value per pack: AED 8,500**
@@ -62,7 +62,7 @@ against your first invoice when the partnership activates.
 We are opening **10 Studio Partner slots in Dubai** for 2026.
 
 Once the 10 slots are filled, the program closes.
-New agencies join at standard rates — no free period.
+New agencies join at standard rates. No free period.
 
 ---
 
@@ -78,11 +78,11 @@ off-plan, and luxury villa segments.
 ## How It Works
 
 ```
-1. Select your tier — Starter, Growth, or Scale
+1. Select your tier: Starter, Growth, or Scale
 2. Sign the Studio Partner Agreement
 3. Pay AED 2,500 commitment fee
-4. Send us your first listing — we deliver in 72h
-5. July 1, 2027 — your monthly fee activates automatically
+4. Send us your first listing. Delivered in 24-72h.
+5. July 1, 2027: your monthly fee activates automatically
 ```
 
 ---
@@ -92,13 +92,13 @@ off-plan, and luxury villa segments.
 When a property listed with LIOR staging closes at the Dubai Land Department,
 a flat **AED 500 per transaction** is due to Studio.
 
-Cap: **AED 3,000/month** — no matter how many deals close.
+Cap: **AED 3,000/month**, regardless of deal volume.
 
 Verifiable via DLD public records. No disputes. No percentages. No surprises.
 
 > *A partner closing 10 LIOR-staged deals/month pays AED 3,000 max.
 > The same partner receives AED 85,000+ in monthly service value.
-> Net position: AED 82,000 in their favour — every month.*
+> Net position: AED 82,000 in their favour, every month.*
 
 ---
 
@@ -130,5 +130,5 @@ WhatsApp: __________________
 
 ---
 
-*LIOR Visual Studio — Dubai — lior.studio*
-*Confidential — June 2026*
+*LIOR Visual Studio · Dubai · lior.studio*
+*Confidential · June 2026*

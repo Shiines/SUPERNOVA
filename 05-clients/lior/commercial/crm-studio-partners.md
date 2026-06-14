@@ -1,4 +1,4 @@
-# CRM — Studio Partners LIOR
+# CRM: Studio Partners LIOR
 
 > Base Notion : créer une base de données "Studio Partners" avec les propriétés ci-dessous.
 > Objectif : tracker les 50 partenaires de la signature au premier paiement.
@@ -32,19 +32,19 @@
 
 ## Vues recommandées
 
-### Vue 1 — Pipeline (Kanban par Status)
+### Vue 1: Pipeline (Kanban par Status)
 Colonnes : Prospect → Contacted → Meeting Done → Agreement Sent → SIGNED → Active
 
-### Vue 2 — Active Partners (filtre : Status = SIGNED ou Active)
+### Vue 2: Active Partners (filtre : Status = SIGNED ou Active)
 Triée par : Signed Date (plus ancien en premier)
 Colonnes visibles : Agency, Tier, Projects Delivered, Last Report Sent
 
-### Vue 3 — Trigger Countdown
+### Vue 3: Trigger Countdown
 Filtre : Status = SIGNED
 Propriété calculée : Jours avant 01/07/2027
 Triée par : Jours restants (croissant)
 
-### Vue 4 — Revenue Projection
+### Vue 4: Revenue Projection
 Groupée par : Tier
 Somme : Monthly Value Delivered (en cours de free period)
 Total projeté MRR Juillet 2027 : calculé automatiquement
@@ -118,5 +118,5 @@ If you'd prefer to lock in annual pricing now (15% discount),
 reply here and I'll send the details before June 15.
 
 Looking forward to continuing the partnership.
-[Prénom] — LIOR
+[Prénom] · LIOR
 ```

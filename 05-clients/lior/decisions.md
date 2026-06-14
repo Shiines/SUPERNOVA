@@ -1,31 +1,31 @@
 
 ---
 
-## Pricing & Stratégie commerciale — Juin 2026
+## Pricing & Stratégie commerciale: Juin 2026
 
 ### Wedding Cake LIOR
 
-**Layer 1 — Entrée**
+**Layer 1: Entrée**
 - Virtual Staging 1 pièce : AED 750 / $205
 - Virtual Staging 3 pièces : AED 1 800 / $490
 - Virtual Staging 5 pièces : AED 2 800 / $765
 - Space Preview (3 renders) : AED 2 500 / $680
 
-**Layer 2 — Core**
+**Layer 2: Core**
 - Full Listing Pack (8 pièces + tour + 3 films sociaux) : AED 8 500 / $2 315
 - Interior Design Brief : AED 4 500 / $1 225
 - Pre-Renovation Brief : AED 6 500 / $1 770
 - Space Planning : AED 3 500 / $955
 
-**Layer 3 — High ticket**
+**Layer 3: High ticket**
 - Design Concept : AED 18 000 / $4 900
 - Architectural Visualization : AED 22 000 / $5 990
 - Full Interior Design : AED 28 000 / $7 625
 
 **Studio Partner (récurrent mensuel)**
-- Starter : AED 12 000/mois / $3 270 — 3 packs + priorité 48h
-- Growth : AED 22 000/mois / $5 990 — 6 packs + 2 Space Preview
-- Scale : AED 38 000/mois / $10 350 — unlimited staging + 4 tours + 1 Arch Viz/trim.
+- Starter : AED 12 000/mois / $3 270 | 3 packs + priorité 48h
+- Growth : AED 22 000/mois / $5 990 | 6 packs + 2 Space Preview
+- Scale : AED 38 000/mois / $10 350 | unlimited staging + 4 tours + 1 Arch Viz/trim.
 
 ### Coûts outils mensuels : ~$268/mois
 ### Marge brute par Full Listing Pack : 98.8%
@@ -42,14 +42,14 @@ Déclencheur Marbella : 10 projets livrés + 1 partenaire local
 - Applicable dès la signature (y compris pendant la free period)
 - Projection Année 1 : 50 agences × AED 3 000 × 12 mois = AED 1 800 000 (~$490K)
 
-### Plan $1M révisé — 15 mois
+### Plan $1M révisé: 15 mois
 | Stream | Année 1 | Mois 13–15 | Total |
 |--------|---------|-----------|-------|
-| Commitment fees (50 × $1K) | $50K | — | $50K |
+| Commitment fees (50 × $1K) | $50K | N/A | $50K |
 | Clients payants one-shot | $180K | $90K | $270K |
 | Performance fees (DLD) | $490K | $150K | $640K |
-| MRR partenaires Year 2 | — | $432K | $432K |
-| Annual prepay (10 agences) | — | $500K | $500K |
+| MRR partenaires Year 2 | N/A | $432K | $432K |
+| Annual prepay (10 agences) | N/A | $500K | $500K |
 | **TOTAL** | **$720K** | **$1.17M** | **$1.89M** |
 
 ### Alerte technique
@@ -58,20 +58,20 @@ Déclencheur Marbella : 10 projets livrés + 1 partenaire local
 
 ---
 
-## Risques systémiques — Marco (War Room 14/06/2026)
+## Risques systémiques: Marco (War Room 14/06/2026)
 
-### Risque 1 — Concentration géographique
+### Risque 1: Concentration géographique
 - **Exposition :** 50 agences Dubai, trigger July 1 2027 simultané → choc MRR synchronisé
 - **Mitigation :** Commencer expansion Marbella dès mois 6 (10 projets livrés + 1 partenaire local)
 - **Seuil d'alerte :** >80% du pipeline dans un seul marché → déclencher géo 2
 
-### Risque 2 — Dépendance Higgsfield
+### Risque 2: Dépendance Higgsfield
 - **Exposition :** Pipeline de livraison entier sur un seul outil tiers (higgsfield.ai)
 - **Mitigation :** Maintenir Runway gen4_turbo comme fallback opérationnel à tout moment
 - **Seuil d'alerte :** Panne ou changement prix Higgsfield → basculer sur Runway sans délai
 - **Action :** Tester pipeline Runway fallback avant partenaire #5
 
-### Risque 3 — Auto-déclaration performance fees
+### Risque 3: Auto-déclaration performance fees
 - **Exposition :** À 50 agences, vérifier manuellement chaque transaction DLD = non scalable
 - **Mitigation :** Solution automatisée requise avant partenaire #10
 - **Options :** API DLD directe / n8n webhook / partenariat vérificateur tiers

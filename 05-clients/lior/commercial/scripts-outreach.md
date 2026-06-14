@@ -1,4 +1,4 @@
-# LIOR — Scripts Outreach
+# LIOR: Scripts Outreach
 ## Cold DM · Talk Track · WhatsApp Response Flow
 
 > Zéro preuve sociale fictive. Zéro prix visible. Zéro "drone" / "FPV" / "AI".
@@ -6,7 +6,7 @@
 
 ---
 
-## SCRIPT 1 — Cold DM Instagram (Dubai agents)
+## SCRIPT 1: Cold DM Instagram (Dubai agents)
 
 **Cible :** Owners/brokers, propriétés premium sans vidéo. Pas les agents salariés.
 
@@ -38,7 +38,7 @@ Want me to drop the link here?
 ```
 
 **Pourquoi ce format (AVEC demo) :**
-- "I made" → passé accompli. Pas "je peux faire" — c'est fait.
+- "I made" → passé accompli. Pas "je peux faire" : c'est fait.
 - "30-second version" → engagement cognitif nul. 30 secondes = pas de friction.
 - "for a similar unit" → signal de pertinence directe à leur situation.
 - "Want me to drop the link here?" → question fermée oui/non. Dire oui ne coûte rien.
@@ -50,13 +50,13 @@ Want me to drop the link here?
 - Jamais plus de 5 lignes visibles sans défilement
 - Pas de liste de services
 - Pas de prix
-- **Finir par une question FERMÉE (oui/non) — jamais une question ouverte**
-- "Interested?" est interdit — force une décision trop tôt
-- "Worth a quick look?" est interdit — trop doux pour le marché Dubai
+- **Finir par une question FERMÉE (oui/non) , jamais une question ouverte**
+- "Interested?" est interdit , force une décision trop tôt
+- "Worth a quick look?" est interdit , trop doux pour le marché Dubai
 
 ---
 
-## SCRIPT 2 — Follow-up DM (J+3 si pas de réponse)
+## SCRIPT 2: Follow-up DM (J+3 si pas de réponse)
 
 ```
 Hi [Prénom], just following up.
@@ -73,7 +73,7 @@ Just let me know.
 
 ---
 
-## SCRIPT 3 — Talk Track Visite Samui (SUPERNOVA — pas LIOR)
+## SCRIPT 3: Talk Track Visite Samui (SUPERNOVA, pas LIOR)
 
 **Contexte :** Agences immobilières Koh Samui / Thaïlande. Pitch web agency (SUPERNOVA).
 Ne pas mentionner LIOR. Ne pas mentionner Dubai.
@@ -84,7 +84,7 @@ Hi, I run a web agency specializing in real estate.
 I was looking at properties in [quartier] and noticed
 most agencies here don't have a strong online presence.
 
-We build sites that actually bring in leads — fast load,
+We build sites that actually bring in leads: fast load,
 mobile-first, WhatsApp-ready. Most agencies see results
 within the first month.
 
@@ -95,7 +95,7 @@ Can I show you what we typically deliver?
 ```
 We do a full site for [prix SUPERNOVA à définir par CEO].
 Delivered in [délai SUPERNOVA].
-Everything handled — design, copy, domain, hosting.
+Everything handled: design, copy, domain, hosting.
 
 I can have a proposal ready for you by [date J+2].
 ```
@@ -108,11 +108,11 @@ I can have a proposal ready for you by [date J+2].
 
 ---
 
-## SCRIPT 4 — WhatsApp Response Flow (3 messages)
+## SCRIPT 4: WhatsApp Response Flow (3 messages)
 
 **Déclencheur :** Agent répond au DM Instagram ou contacte via site LIOR.
 
-### Message 1 — Réponse immédiate (sous 2h)
+### Message 1: Réponse immédiate (sous 2h)
 
 ```
 Hi [Prénom],
@@ -126,7 +126,7 @@ to present at their full potential?
 [Prénom] · LIOR
 ```
 
-### Message 2 — Si oui (qualification)
+### Message 2: Si oui (qualification)
 
 ```
 Got it.
@@ -140,10 +140,10 @@ That's it. We handle everything from there.
 Delivery in 72h from the brief.
 ```
 
-### Message 3 — Confirmation reception brief
+### Message 3: Confirmation reception brief
 
 ```
-Perfect — received everything.
+Perfect, received everything.
 
 We'll send you the first direction within [24/48]h.
 Any questions in the meantime, I'm here.
