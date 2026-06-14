@@ -30,16 +30,18 @@
 - **[CRITIQUE]** Site non déployé → lien mort pour DMs lundi
 - SEAS MRR inconnu → finances incomplètes (CEO doit donner chiffre)
 
-## Décisions CEO en attente
+## Décisions CEO en attente (LIOR)
 1. Numéro WhatsApp Business LIOR
-2. SEAS MRR = ?
-3. Confirmé : Dubai = front / Maraleina = Q2 hold ✓
+2. Confirmé : Dubai = front / Maraleina = Q2 hold ✓
 
-## Finances
-- MRR: [SEAS figure manquante — CEO doit confirmer]
-- Active clients: **SEAS** (live) · **LIOR** (site built, pre-launch)
-- Cash minimum 30j : 5 partenaires signés = $3 400 (commitment fees)
+## Finances LIOR
+- Active clients: **LIOR** (site built, pre-launch) — SEAS = projet séparé, sans lien avec LIOR
+- Cash minimum 30j : 5 partenaires signés = $3 400 (commitment fees $680 × 5)
 - Objectif semaine : partenaire #1 = $680
+
+## Note structure
+- **LIOR** — studio visuel Dubai, Studio Partner model, Higgfield pipeline
+- **SEAS** — projet séparé, indépendant, aucun lien avec LIOR
 
 ---
 
