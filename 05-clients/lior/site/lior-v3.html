@@ -57,6 +57,18 @@ body.ch #cur-ring{width:62px;height:62px;border-color:rgba(232,184,115,.22)}
 #sp{position:fixed;left:0;top:0;width:2px;height:0%;background:linear-gradient(to bottom,var(--gold),var(--gold-d));z-index:9996;transition:height .08s linear}
 
 /* ── ENTRANCE ── */
+.ent-amb1{
+  position:absolute;top:20%;right:-60px;width:520px;height:520px;
+  border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,rgba(232,184,115,.055) 0%,transparent 65%);
+  animation:ambf 9s ease-in-out infinite;
+}
+.ent-amb2{
+  position:absolute;bottom:15%;left:-80px;width:380px;height:380px;
+  border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,rgba(232,184,115,.035) 0%,transparent 65%);
+  animation:ambf 12s ease-in-out infinite reverse;
+}
 #ent{
   position:fixed;inset:0;background:var(--obsidian);z-index:9995;
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;
@@ -1370,6 +1382,8 @@ footer::before{
 
 <!-- ENTRANCE -->
 <div id="ent">
+  <div class="ent-amb1"></div>
+  <div class="ent-amb2"></div>
   <div class="ent-logo"><span>L</span><span>I</span><span class="o">O</span><span>R</span></div>
   <div class="ent-tag">INTERIOR &amp; SPACE DESIGN STUDIO</div>
 </div>

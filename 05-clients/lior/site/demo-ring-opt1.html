@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>LIOR · Option 1 · Mouse Parallax</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300&family=Inter:wght@300&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--ob:#0E0E10;--gold:#E8B873;--day:#F6F1EA;--stone:#BFB3A4}
+html,body{width:100%;height:100%;background:var(--ob);overflow:hidden;cursor:none}
+
+#scene{
+  position:fixed;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  perspective:900px;
+  perspective-origin:50% 50%;
+}
+
+#ring-wrap{
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%) rotateX(0deg) rotateY(0deg);
+  transform-style:preserve-3d;
+  will-change:transform;
+}
+
+#ring-svg{overflow:visible;display:block}
+#ring-svg circle{
+  fill:none;
+  stroke:var(--gold);
+  stroke-opacity:.55;
+  stroke-width:1.1;
+  stroke-linecap:round;
+  transform-origin:center;
+}
+
+/* Second ring (ghost) for depth */
+#ring-svg .ring2{
+  stroke-opacity:.12;
+  stroke-width:.6;
+}
+
+.logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2.6rem,5.5vw,4.2rem);
+  font-weight:300;letter-spacing:.3em;
+  color:var(--day);
+  position:fixed;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  z-index:10;user-select:none;pointer-events:none;
+  text-indent:.3em;
+}
+.logo .o{color:var(--gold)}
+
+.tag{
+  position:fixed;bottom:16%;left:50%;
+  transform:translateX(-50%);
+  font-family:'Inter',sans-serif;
+  font-size:.6rem;letter-spacing:.22em;
+  color:var(--stone);opacity:.6;
+  text-transform:uppercase;user-select:none;
+}
+
+.label{
+  position:fixed;top:32px;left:50%;
+  transform:translateX(-50%);
+  font-family:'Inter',sans-serif;
+  font-size:.58rem;letter-spacing:.18em;
+  color:var(--stone);opacity:.38;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+
+/* Custom cursor dot */
+#cursor{
+  position:fixed;z-index:999;
+  width:6px;height:6px;
+  border-radius:50%;
+  background:var(--gold);
+  opacity:.55;
+  pointer-events:none;
+  transform:translate(-50%,-50%);
+  transition:opacity .3s;
+}
+</style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<div class="label">Option 1 · Mouse Parallax · Déplace ta souris</div>
+
+<div id="scene">
+  <div id="ring-wrap">
+    <svg id="ring-svg" width="340" height="340" viewBox="-170 -170 340 340">
+      <!-- Main ring -->
+      <circle class="ring1" cx="0" cy="0" r="150" id="ring-c"/>
+      <!-- Ghost ring slightly larger -->
+      <circle class="ring2" cx="0" cy="0" r="158"/>
+    </svg>
+  </div>
+</div>
+
+<div class="logo">L&nbsp;I&nbsp;<span class="o">O</span>&nbsp;R</div>
+<div class="tag">Interior &amp; Space Design Studio</div>
+
+<script>
+/* ── Ring draw-in ── */
+const c   = document.getElementById('ring-c');
+const len = 2 * Math.PI * 150;
+c.style.strokeDasharray  = len + 'px';
+c.style.strokeDashoffset = len + 'px';
+c.style.transition = 'stroke-dashoffset 2.2s cubic-bezier(.16,1,.3,1) .1s';
+requestAnimationFrame(() => requestAnimationFrame(() => {
+  c.style.strokeDashoffset = (len * 0.06) + 'px';
+}));
+
+/* ── Mouse parallax ── */
+const svg2 = document.getElementById('ring-svg');
+const cur  = document.getElementById('cursor');
+let mx = 0, my = 0, rx = 0, ry = 0;
+const MAX = 28; // max tilt degrees
+const PERSP = 560; // perspective in px
+
+document.addEventListener('mousemove', e => {
+  cur.style.left = e.clientX + 'px';
+  cur.style.top  = e.clientY + 'px';
+  const nx = (e.clientX / window.innerWidth  - 0.5) * 2;
+  const ny = (e.clientY / window.innerHeight - 0.5) * 2;
+  mx =  nx * MAX;
+  my = -ny * MAX;
+});
+
+/* RAF loop — smooth lerp */
+(function loop(){
+  rx += (my - rx) * 0.07;
+  ry += (mx - ry) * 0.07;
+  // Apply perspective directly on SVG — reliable across all renderers
+  svg2.style.transform =
+    `perspective(${PERSP}px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+  requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>
